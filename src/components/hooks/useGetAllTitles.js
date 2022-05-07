@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useGetAllTitles = () => {
+export function useGetAllTitles() {
   const [titles, setTitles] = useState([]);
   const [error, setError] = useState("");
   const [fetching, setFetching] = useState(true);
@@ -28,4 +28,4 @@ export const useGetAllTitles = () => {
   }, []);
 
   return { fetching, titles, error };
-};
+}

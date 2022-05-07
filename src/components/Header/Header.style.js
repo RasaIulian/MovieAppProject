@@ -12,6 +12,7 @@ export const Header = styled.div`
 export const Logo = styled.img`
   display: block;
   height: 6rem;
+  border: 1px solid #2b2922;
   border-radius: 1rem;
   transition: opacity 0.3s ease-out;
   transition: border 0.4s;
@@ -45,21 +46,9 @@ export const Link = styled(DefaultLink)`
   font-weight: 600;
   padding: 8px 1.6rem;
   position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    height: 2px;
-    transform: translateX(-50%);
-    width: 0;
-    background-color: #fafafa;
-    transition: width 0.3s ease-out;
-  }
+  transition: color 0.3s;
+  transition: transform 0.3s;
   &:hover {
-    &::after {
-      width: 100%;
-    }
+    transform: scale(1.1);
   }
 `;

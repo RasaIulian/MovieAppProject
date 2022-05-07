@@ -57,8 +57,11 @@ export const TitleCard = styled(Link)`
   text-align: center;
   border-radius: 3rem;
   transition: background-color 0.3s;
+  transition: transform 0.2s;
+  position: relative;
   &:hover {
     background-color: #eaeaea;
+    transform: scale(1.1);
   }
 `;
 

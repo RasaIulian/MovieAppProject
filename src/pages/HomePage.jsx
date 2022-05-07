@@ -7,6 +7,7 @@ export function HomePage() {
   const { fetching, titles, error } = useGetAllTitles();
 
   console.log({ fetching, titles, error });
+
   return (
     <HomePageLayout>
       <Hero>Movie Database</Hero>

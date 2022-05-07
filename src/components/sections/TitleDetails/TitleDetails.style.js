@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const Background = styled.div`
   background-color: #1e212b;
@@ -47,7 +46,7 @@ export const Error = styled.div`
 `;
 
 export const TitleCard = styled.div`
-  width: calc(100% - 3rem);
+  width: calc(95% - 3rem);
   margin: 0 1.5rem 3rem;
   display: flex;
   flex-direction: column;
@@ -60,8 +59,8 @@ export const TitleCard = styled.div`
 `;
 
 export const Poster = styled.img`
-  width: 100rem;
-  height: 100rem;
+  width: 90rem;
+  height: 90rem;
   border-radius: 2rem;
   display: block;
   margin: 0 auto 1rem;

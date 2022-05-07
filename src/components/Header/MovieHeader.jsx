@@ -14,7 +14,7 @@ export function MovieHeader() {
           />
         </DefaultLink>
         <Nav>
-          <Link to="/">Home</Link>
+          <Link to="/">HomePage</Link>
         </Nav>
       </Container>
     </Header>
