@@ -9,10 +9,11 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 4rem;
+  font-size: 3rem;
   line-height: 1.05em;
   color: #2b2922;
   width: 100%;
   max-width: 120rem;
   text-align: center;
+  margin: 0 1rem;
 `;

@@ -8,7 +8,7 @@ const routes = [
     component: <HomePage />,
   },
   {
-    path: "/:fullTitle",
+    path: "/:id",
     component: <MoviePage />,
   },
 ];

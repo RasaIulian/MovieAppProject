@@ -1,25 +1,25 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export function useGetAllTitles() {
-  const [titles, setTitles] = useState([]);
+export function useGetTitleDetails(titleId) {
+  const [titleInfo, setTitleInfo] = useState([]);
   const [error, setError] = useState("");
   const [fetching, setFetching] = useState(true);
 
-  async function getTitles() {
+  async function getImdbTitleDetails(titleId) {
     try {
       const { data, status, statusText } = await axios.get(
-        "https://imdb-api.com/en/API/Top250Movies/k_hkn2u44m"
-        // "https://imdb-api.com/en/API/Top250Movies/k_glqb3j6e"
-        // "https://imdb-api.com/en/API/Top250Movies/k_cqzt9my1"
+        // "https://imdb-api.com/en/API/Title/k_cqzt9my1/" + titleId
+        // "https://imdb-api.com/en/API/Title/k_glqb3j6e/" + titleId
+        "https://imdb-api.com/en/API/Title/k_hkn2u44m/" + titleId
       );
-
       if (status === 200) {
         if (data.errorMessage === "") {
-          setTitles(data.items);
+          setTitleInfo(data.items);
         } else {
           setError(data.errorMessage);
         }
+        setTitleInfo(data);
       } else {
         setError(statusText);
       }
@@ -30,8 +30,8 @@ export function useGetAllTitles() {
     }
   }
   useEffect(() => {
-    getTitles();
+    getImdbTitleDetails(titleId);
   }, []);
 
-  return { fetching, titles, error };
+  return { fetching, titleInfo, error };
 }

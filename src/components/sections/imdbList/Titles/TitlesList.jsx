@@ -2,13 +2,14 @@ import React from "react";
 import {
   Background,
   Container,
-  TitlesWrapper,
+  MoviesWrapper,
   Title,
   Loader,
   Error,
-  TitleCard,
+  MovieCard,
   Poster,
   Info,
+  Min,
 } from "./TitlesList.style";
 
 export function TitlesList({ fetching, titles, error }) {
@@ -16,21 +17,23 @@ export function TitlesList({ fetching, titles, error }) {
     <Background>
       <Container>
         <Title>Top 250 Movies based on IMDB Rating</Title>
-        <TitlesWrapper>
+        <MoviesWrapper>
           {fetching && <Loader>Loading movies...</Loader>}
-          {error && <Error>{error}</Error>}
+          {error && <Error>Error: {error}</Error>}
           {!fetching &&
             !error &&
             titles.length > 0 &&
             titles.map((movie) => (
-              <TitleCard to={`/${movie.title}`} key={movie.title}>
+              <MovieCard to={`/${movie.id}`} key={movie.title}>
                 <Poster src={movie.image} />
                 <Info>Rank: {movie.rank}</Info>
-                <Info>{movie.fullTitle}</Info>
+                <Min size="10rem">
+                  <Info>{movie.fullTitle}</Info>
+                </Min>
                 <Info>IMDB rating: {movie.imDbRating}</Info>
-              </TitleCard>
+              </MovieCard>
             ))}
-        </TitlesWrapper>
+        </MoviesWrapper>
       </Container>
     </Background>
   );

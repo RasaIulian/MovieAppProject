@@ -17,10 +17,12 @@ export const Title = styled.h1`
   color: #fafafa;
 `;
 
-export const TitlesWrapper = styled.div`
+export const MoviesWrapper = styled.div`
   min-height: 80rem;
   display: flex;
   flex-wrap: wrap;
+  max-width: 120rem;
+  justify-content: center;
 `;
 
 export const Loader = styled.div`
@@ -42,11 +44,13 @@ export const Error = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(250, 250, 250, 0.15);
+  font-size: 1.6rem;
   color: red;
+  border-radius: 5px;
 `;
 
-export const TitleCard = styled.div`
-  width: calc(95% - 3rem);
+export const MovieCard = styled.div`
+  max-width: calc(95% - 3rem);
   margin: 0 1.5rem 3rem;
   display: flex;
   flex-direction: column;
@@ -59,8 +63,9 @@ export const TitleCard = styled.div`
 `;
 
 export const Poster = styled.img`
-  width: 90rem;
-  height: 90rem;
+  width: 100%;
+  max-width: 90rem;
+  max-height: 90rem;
   border-radius: 2rem;
   display: block;
   margin: 0 auto 1rem;
@@ -68,8 +73,10 @@ export const Poster = styled.img`
 
 export const Info = styled.h2`
   font-size: 1.8rem;
-  line-height: 2.8rem;
+  line-height: 2.4rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: #2b2922;
+  border-bottom: 1px solid #2b2922;
+  border-radius: 5px;
 `;
