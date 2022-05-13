@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Background = styled.div`
-  background-color: #1e212b;
+  background-image: linear-gradient(#1e212b, darkgrey);
   padding: 4rem 1.5rem;
 `;
 
@@ -51,17 +51,18 @@ export const Error = styled.div`
 `;
 
 export const MovieCard = styled(Link)`
-  max-width: calc(40vh - 3rem);
+  max-width: 25rem;
   width: 100%;
   margin: 0 1.5rem 3rem;
   display: flex;
   flex-direction: column;
   justify-content: top;
+  align-items: center;
   padding: 1.5rem 1.5rem;
   background-color: #fafafa;
   text-align: center;
   border-radius: 3rem;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s;
   transition: transform 0.2s;
   position: relative;
 
@@ -73,9 +74,8 @@ export const MovieCard = styled(Link)`
 
 export const Poster = styled.img`
   max-width: 24rem;
-  max-height: 24rem;
   width: 100%;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   display: block;
   margin: 0 auto 1rem;
 `;
@@ -90,4 +90,6 @@ export const Info = styled.h2`
 
 export const Min = styled.div`
   min-height: ${({ size }) => size};
+  align-items: center;
+  display: flex;
 `;

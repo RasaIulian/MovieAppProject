@@ -9,9 +9,9 @@ export function useGetAllTitles() {
   async function getTitles() {
     try {
       const { data, status, statusText } = await axios.get(
-        "https://imdb-api.com/en/API/Top250Movies/k_hkn2u44m"
+        // "https://imdb-api.com/en/API/Top250Movies/k_hkn2u44m"
         // "https://imdb-api.com/en/API/Top250Movies/k_glqb3j6e"
-        // "https://imdb-api.com/en/API/Top250Movies/k_cqzt9my1"
+        "https://imdb-api.com/en/API/Top250Movies/k_cqzt9my1"
       );
 
       if (status === 200) {

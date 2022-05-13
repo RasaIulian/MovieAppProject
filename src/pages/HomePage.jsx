@@ -10,7 +10,7 @@ export function HomePage() {
 
   return (
     <HomePageLayout>
-      <Hero>Movie Database</Hero>
+      <Hero>MOVIE DATABASE</Hero>
       <TitlesList fetching={fetching} titles={titles} error={error} />
     </HomePageLayout>
   );

@@ -25,6 +25,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
               {titleInfo.originalTitle !== "" && (
                 <Info>Original Title: {titleInfo.originalTitle}</Info>
               )}
+
               <Info>FullTitle: {titleInfo.fullTitle}</Info>
               <Info>Year: {titleInfo.year}</Info>
               <Info>ReleaseDate: {titleInfo.releaseDate}</Info>

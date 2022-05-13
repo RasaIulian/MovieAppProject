@@ -1,7 +1,6 @@
 import React from "react";
 import { Header, Logo, Link, Nav, Container } from "./Header.style";
 import { Link as DefaultLink } from "react-router-dom";
-// import { useSession } from "../../hooks/useSession";
 
 export function MovieHeader() {
   return (

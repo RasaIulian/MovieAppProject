@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Background = styled.div`
-  background-color: #1e212b;
+  background-image: linear-gradient(#1e212b, darkgrey);
   padding: 4rem 1.5rem;
 `;
 
@@ -65,18 +65,18 @@ export const MovieCard = styled.div`
 export const Poster = styled.img`
   width: 100%;
   max-width: 90rem;
-  max-height: 90rem;
   border-radius: 2rem;
   display: block;
   margin: 0 auto 1rem;
+  box-shadow: 0px 2px 3px 3px rgba(0, 0, 0, 0.2);
 `;
 
 export const Info = styled.h2`
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   line-height: 2.4rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: #2b2922;
-  border-bottom: 1px solid #2b2922;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 `;

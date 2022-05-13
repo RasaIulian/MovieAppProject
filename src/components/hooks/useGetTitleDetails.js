@@ -9,9 +9,9 @@ export function useGetTitleDetails(titleId) {
   async function getImdbTitleDetails(titleId) {
     try {
       const { data, status, statusText } = await axios.get(
-        // "https://imdb-api.com/en/API/Title/k_cqzt9my1/" + titleId
+        "https://imdb-api.com/en/API/Title/k_cqzt9my1/" + titleId
         // "https://imdb-api.com/en/API/Title/k_glqb3j6e/" + titleId
-        "https://imdb-api.com/en/API/Title/k_hkn2u44m/" + titleId
+        // "https://imdb-api.com/en/API/Title/k_hkn2u44m/" + titleId
       );
       if (status === 200) {
         if (data.errorMessage === "") {
