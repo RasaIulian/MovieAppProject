@@ -25,8 +25,7 @@ export function TitlesList({ fetching, titles, error }) {
             titles.length > 0 &&
             titles.map((movie) => (
               <MovieCard to={`/${movie.id}`} key={movie.title}>
-                <Min size="33rem">
-                  {" "}
+                <Min size="25rem">
                   <Poster src={movie.image} />
                 </Min>
 

@@ -73,7 +73,7 @@ export const MovieCard = styled(Link)`
 `;
 
 export const Poster = styled.img`
-  max-width: 24rem;
+  min-width: 20rem;
   width: 100%;
   border-radius: 1.5rem;
   display: block;
