@@ -68,14 +68,14 @@ export const MovieCard = styled(Link)`
 
   &:hover {
     background-color: #eaeaea;
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 `;
 
 export const Poster = styled.img`
-  min-width: 20rem;
+  min-width: 22rem;
   width: 100%;
-  border-radius: 1.5rem;
+  border-radius: 1.8rem;
   display: block;
   margin: 0 auto 1rem;
 `;

@@ -8,7 +8,7 @@ export function HomePage() {
 
   return (
     <HomePageLayout>
-      <Hero>MOVIE DATABASE</Hero>
+      <Hero>MOVIE DATABASE APP</Hero>
       <TitlesList fetching={fetching} titles={titles} error={error} />
     </HomePageLayout>
   );

@@ -50,7 +50,7 @@ export const Error = styled.div`
 `;
 
 export const MovieCard = styled.div`
-  max-width: calc(95% - 3rem);
+  max-width: calc(100% - 3rem);
   margin: 0 1.5rem 3rem;
   display: flex;
   flex-direction: column;
@@ -64,10 +64,10 @@ export const MovieCard = styled.div`
 
 export const Poster = styled.img`
   width: 100%;
-  max-width: 90rem;
+  max-width: 80rem;
   border-radius: 2rem;
   display: block;
-  margin: 0 auto 1rem;
+  margin: 2rem auto 2rem;
   box-shadow: 0px 2px 3px 3px rgba(0, 0, 0, 0.2);
 `;
 
@@ -79,4 +79,24 @@ export const Info = styled.h2`
   color: #2b2922;
   box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  width: 100%;
+`;
+
+export const TrailerContainer = styled.div`
+  width: 100%;
+  min-height: 40rem;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
+
+export const Trailer = styled.embed`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
 `;

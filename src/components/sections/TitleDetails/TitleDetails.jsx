@@ -8,6 +8,8 @@ import {
   MovieCard,
   Poster,
   Info,
+  Trailer,
+  TrailerContainer,
 } from "./TitleDetails.style";
 
 export function TitleDetails({ fetching, titleInfo, error }) {
@@ -20,38 +22,44 @@ export function TitleDetails({ fetching, titleInfo, error }) {
           {!fetching && !error && (
             <MovieCard>
               <Poster src={titleInfo.image} />
-              <Info>Id: {titleInfo.id}</Info>
+              <Info>Movie Id: {titleInfo.id}</Info>
               <Info>Title: {titleInfo.title}</Info>
               {titleInfo.originalTitle !== "" && (
                 <Info>Original Title: {titleInfo.originalTitle}</Info>
               )}
-
-              <Info>FullTitle: {titleInfo.fullTitle}</Info>
               <Info>Year: {titleInfo.year}</Info>
               <Info>ReleaseDate: {titleInfo.releaseDate}</Info>
-              <Info>RuntimeMins: {titleInfo.runtimeMins}</Info>
-              <Info>RuntimeStr: {titleInfo.runtimeStr}</Info>
+              <Info>Runtime: {titleInfo.runtimeStr}</Info>
               <Info>Plot: {titleInfo.plot}</Info>
-              <Info>ReleaseDate: {titleInfo.releaseDate}</Info>
+              <TrailerContainer>
+                <Trailer
+                  src={titleInfo.trailer.linkEmbed}
+                  allowfullscreen="true"
+                  mozallowfullscreen="true"
+                  webkitallowfullscreen="true"
+                  frameborder="no"
+                  scrolling="no"
+                />
+              </TrailerContainer>
               <Info>Awards: {titleInfo.awards}</Info>
               <Info>Directors: {titleInfo.directors}</Info>
               <Info>Writers: {titleInfo.writers}</Info>
               <Info>Stars: {titleInfo.stars}</Info>
               <Info>ACTORS:</Info>
               <Info>
-                Name: {titleInfo.actorList[0].name}, AsCharacter:{" "}
+                Name: {titleInfo.actorList[0].name}, Character:{" "}
                 {titleInfo.actorList[0].asCharacter}
               </Info>
               <Info>
-                Name: {titleInfo.actorList[1].name}, AsCharacter:{" "}
+                Name: {titleInfo.actorList[1].name}, Character:{" "}
                 {titleInfo.actorList[1].asCharacter}
               </Info>
               <Info>
-                Name:{titleInfo.actorList[2].name}, AsCharacter:{" "}
+                Name:{titleInfo.actorList[2].name}, Character:{" "}
                 {titleInfo.actorList[2].asCharacter}
               </Info>
               <Info>
-                Name: {titleInfo.actorList[3].name}, AsCharacter:{" "}
+                Name: {titleInfo.actorList[3].name}, Character:
                 {titleInfo.actorList[3].asCharacter}
               </Info>
               {titleInfo.fullCast !== null && (

@@ -38,7 +38,7 @@ export const Link = styled(DefaultLink)`
   display: block;
   font-size: 1.8rem;
   line-height: 2.4rem;
-  font-weight: 400;
+  font-weight: 600;
   padding: 8px 1.6rem;
   position: relative;
   border-bottom: 1px solid #fafafa;
