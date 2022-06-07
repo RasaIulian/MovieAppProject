@@ -12,7 +12,7 @@ import {
   Min,
 } from "./TitlesList.style";
 
-export function TitlesList({ fetching, titles, error }) {
+export function TitlesList({ fetching, titleInfo, error }) {
   return (
     <Background>
       <Container>
@@ -22,13 +22,12 @@ export function TitlesList({ fetching, titles, error }) {
           {error && <Error>Error: {error}</Error>}
           {!fetching &&
             !error &&
-            titles.length > 0 &&
-            titles.map((movie) => (
+            titleInfo.length > 0 &&
+            titleInfo.map((movie) => (
               <MovieCard to={`/${movie.id}`} key={movie.title}>
                 <Min size="25rem">
                   <Poster src={movie.image} />
                 </Min>
-
                 <Info>Rank: {movie.rank}</Info>
                 <Min size="10rem">
                   <Info>{movie.fullTitle}</Info>
