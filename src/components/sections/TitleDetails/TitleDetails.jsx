@@ -8,8 +8,6 @@ import {
   MovieCard,
   Poster,
   Info,
-  Trailer,
-  TrailerContainer,
 } from "./TitleDetails.style";
 
 export function TitleDetails({ fetching, titleInfo, error }) {
@@ -22,23 +20,23 @@ export function TitleDetails({ fetching, titleInfo, error }) {
           {!fetching && !error && (
             <MovieCard>
               <Poster src={titleInfo.image} />
+              <Info>Rank: {titleInfo.rank}</Info>
               <Info>Movie Id: {titleInfo.id}</Info>
               <Info>Title: {titleInfo.title}</Info>
-              {titleInfo.originalTitle !== "" && (
+              <Info>Description: {titleInfo.description}</Info>
+              <Info>Genre: {titleInfo.genre[0]}</Info>
+              {/* {titleInfo.originalTitle !== "" && (
                 <Info>Original Title: {titleInfo.originalTitle}</Info>
-              )}
+              )} */}
               <Info>Year: {titleInfo.year}</Info>
-              <Info>ReleaseDate: {titleInfo.releaseDate}</Info>
+              {/*<Info>ReleaseDate: {titleInfo.releaseDate}</Info>
               <Info>Runtime: {titleInfo.runtimeStr}</Info>
               <Info>Plot: {titleInfo.plot}</Info>
               <TrailerContainer>
                 <Trailer
                   src={titleInfo.trailer.linkEmbed}
-                  allowfullscreen="true"
-                  mozallowfullscreen="true"
-                  webkitallowfullscreen="true"
-                  frameborder="no"
-                  scrolling="no"
+                  allowfullscreen
+                  frameborder="0"
                 />
               </TrailerContainer>
               <Info>Awards: {titleInfo.awards}</Info>
@@ -93,7 +91,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
               )}
               {titleInfo.tvEpisodeInfo !== null && (
                 <Info>Tv Episode Info: {titleInfo.tvEpisodeInfo}</Info>
-              )}
+              )} */}
             </MovieCard>
           )}
         </MoviesWrapper>

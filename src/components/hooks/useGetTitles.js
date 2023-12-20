@@ -10,21 +10,18 @@ export function useGetTitles(titleId) {
     try {
       const { data, status, statusText } = await axios.get(
         titleId
-          ? //  "https://imdb-api.com/en/API/Title/k_cqzt9my1/" + titleId +"/Trailer"
-            "https://imdb-api.com/en/API/Title/k_glqb3j6e/" +
+          ? "https://imdb-top-100-movies.p.rapidapi.com/top" +
               titleId +
-              "/Trailer"
-          : // "https://imdb-api.com/en/API/Title/k_hkn2u44m/" + titleId + "/Trailer"
-            // "https://imdb-api.com/en/API/Top250Movies/k_hkn2u44m"
-            "https://imdb-api.com/en/API/Top250Movies/k_glqb3j6e"
-        // "https://imdb-api.com/en/API/Top250Movies/k_cqzt9my1"
+              "?rapidapi-key=e365598dd1mshd48785472650e52p10cadfjsna551c3255a86"
+          : "https://imdb-top-100-movies.p.rapidapi.com/?rapidapi-key=e365598dd1mshd48785472650e52p10cadfjsna551c3255a86"
       );
       if (status === 200) {
-        if (data.errorMessage === "" || "null") {
-          titleId ? setTitleInfo(data) : setTitleInfo(data.items);
-        } else {
-          setError(data.errorMessage);
-        }
+        /* if (data.message === "" || data.message === "null") {*/
+        titleId ? setTitleInfo(data) : setTitleInfo(data);
+        //  }
+        // else {
+        //   setError(data.message);
+        // }
       } else {
         setError(statusText);
       }

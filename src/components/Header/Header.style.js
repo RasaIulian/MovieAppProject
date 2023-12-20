@@ -7,12 +7,19 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   background-image: linear-gradient(#1e212b, #eaeaea);
+  min-height: 10rem;
 `;
 
 export const Logo = styled.img`
   display: block;
-  max-height: 6rem;
+  position: fixed;
+  top: 1.5rem;
+  left: 1rem;
+  z-index: 9999;
+  max-height: 5.5rem;
   border-radius: 1rem;
+  margin: 8px 1.6rem;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s;
   &:hover {
     transform: scale(1.1);
@@ -35,14 +42,15 @@ export const Nav = styled.nav`
 
 export const Link = styled(DefaultLink)`
   color: #fafafa;
+  background-color: #1e212b;
   display: block;
   font-size: 1.8rem;
-  line-height: 2.4rem;
+  line-height: 3rem;
   font-weight: 600;
   padding: 8px 1.6rem;
   position: relative;
-  border-bottom: 1px solid #fafafa;
   border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s;
   &:hover {
     transform: scale(1.1);

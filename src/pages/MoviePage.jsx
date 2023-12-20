@@ -11,7 +11,7 @@ export function MoviePage() {
 
   return (
     <MovieLayout>
-      <Hero>{titleInfo.fullTitle} - Movie details</Hero>
+      <Hero>{titleInfo.title} - Movie details</Hero>
       <TitleDetails fetching={fetching} titleInfo={titleInfo} error={error} />
     </MovieLayout>
   );

@@ -6,10 +6,20 @@ import { useGetTitles } from "../components/hooks/useGetTitles";
 export function HomePage() {
   const { fetching, titleInfo, error } = useGetTitles();
 
+  // const allTitles = [...titleInfo];
+  // // const filteredTitles = allTitles.filter(({ fullTitle }) =>
+  // //   searchValue === "" ? fullTitle.includes(searchValue) : fullTitle
+  // );
+
   return (
     <HomePageLayout>
       <Hero>MOVIE DATABASE APP</Hero>
-      <TitlesList fetching={fetching} titleInfo={titleInfo} error={error} />
+      <TitlesList
+        fetching={fetching}
+        // titleInfo={filteredTitles}
+        titleInfo={titleInfo}
+        error={error}
+      />
     </HomePageLayout>
   );
 }
