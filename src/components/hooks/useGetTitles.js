@@ -6,24 +6,30 @@ export function useGetTitles(titleId) {
   const [error, setError] = useState("");
   const [fetching, setFetching] = useState(true);
 
+  const options = {
+    method: "GET",
+    url: titleId
+      ? "https://movies-api14.p.rapidapi.com/movie/" + titleId
+      : // "https://movies-api14.p.rapidapi.com/show/" + titleId
+        "https://movies-api14.p.rapidapi.com/movies",
+    // "https://movies-api14.p.rapidapi.com/shows",
+    headers: {
+      "X-RapidAPI-Key": "dba5d11475msh67833a57c148263p1a7846jsna1ce2112129b",
+      "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
+    },
+  };
+
   async function getImdbTitleDetails(titleId) {
     try {
-      const { data, status, statusText } = await axios.get(
-        titleId
-          ? "https://imdb-top-100-movies.p.rapidapi.com/top" +
-              titleId +
-              "?rapidapi-key=e365598dd1mshd48785472650e52p10cadfjsna551c3255a86"
-          : "https://imdb-top-100-movies.p.rapidapi.com/?rapidapi-key=e365598dd1mshd48785472650e52p10cadfjsna551c3255a86"
-      );
+      const { data, status, statusText } = await axios.request(options);
+
       if (status === 200) {
-        /* if (data.message === "" || data.message === "null") {*/
-        titleId ? setTitleInfo(data) : setTitleInfo(data);
-        //  }
-        // else {
-        //   setError(data.message);
-        // }
+        titleId ? setTitleInfo(data.movie) : setTitleInfo(data.movies);
+        console.log(data.movies);
+        console.log(data);
       } else {
         setError(statusText);
+        console.log(data.movie);
       }
     } catch (err) {
       setError(err.message);

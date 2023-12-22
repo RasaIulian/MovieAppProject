@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const Container = styled.div`
   display: block;
   width: 100%;
-  min-width: 60rem;
+  min-width: 30rem;
   position: relative;
 
   ${({ noMargin }) =>
@@ -19,13 +19,13 @@ export const SearchIcon = styled(FontAwesomeIcon)`
   font-size: 1.6rem;
   line-height: 2.4rem;
   display: block;
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 2rem;
+  height: 2rem;
   position: absolute;
-  left: 86rem;
-  transform: translateY(-40%);
-  color: #1e212b;
-  z-index: 2;
+  right: 3.5rem;
+  transform: translateY(-45%);
+  color: rgba(100, 100, 100, 0.5);
+  z-index: 4;
 `;
 
 const baseStyle = css`
@@ -33,8 +33,7 @@ const baseStyle = css`
   line-height: 2.4rem;
   color: #1e212b;
   display: block;
-  width: 100%;
-  max-width: 30rem;
+  max-width: 25%;
   padding: 0.7rem 1rem;
   border-radius: 2rem;
   border: 1px solid #fafafa;
@@ -49,9 +48,12 @@ const baseStyle = css`
 export const InputElement = styled.input`
   ${baseStyle}
   &[type="search"] {
-    padding-left: 4rem;
+    padding-left: 2rem;
     position: absolute;
-    right: 5rem;
-    transform: translateY(-50%);
+    right: 1rem;
+    transform: translateY(-60%);
+    background-color: rgba(200, 200, 200, 0.9);
+    font-size: 1.7rem;
+    z-index: 3;
   }
 `;

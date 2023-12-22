@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Background = styled.div`
   background-image: linear-gradient(#1e212b, darkgrey);
-  padding: 4rem 1.5rem;
+  padding: 1rem 1.5rem;
 `;
 
 export const Container = styled.div`
@@ -82,20 +82,21 @@ export const Info = styled.h2`
   width: 100%;
 `;
 
-// export const TrailerContainer = styled.div`
-//   width: 100%;
-//   min-height: 40rem;
-//   border-radius: 5px;
-//   overflow: hidden;
-//   margin-bottom: 1rem;
-//   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-//   position: relative;
-// `;
+export const TrailerContainer = styled.div`
+  width: 100%;
+  min-height: 40rem;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
 
-// export const Trailer = styled.embed`
-//   position: absolute;
-//   left: 0;
-//   top: 0;
-//   height: 100%;
-//   width: 100%;
-// `;
+export const Trailer = styled.iframe`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+`;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Background = styled.div`
   background-image: linear-gradient(#1e212b, darkgrey);
-  padding: 4rem 1.5rem;
+  padding: 2rem 1.5rem;
 `;
 
 export const Container = styled.div`

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Background,
   Container,
@@ -8,9 +8,34 @@ import {
   MovieCard,
   Poster,
   Info,
+  TrailerContainer,
+  Trailer,
 } from "./TitleDetails.style";
 
+const extractVideoIdFromUrl = (url) => {
+  const match = new RegExp(
+    /https?:\/\/(www\.)?youtube\.com\/watch\?v=(.*)/i
+  ).exec(url);
+  return match ? match[2] : null; // Check if there is a match before extracting the video ID
+};
+
 export function TitleDetails({ fetching, titleInfo, error }) {
+  const [videoId, setVideoId] = useState(null);
+  const [trailerSrc, settrailerSrc] = useState("");
+
+  useEffect(() => {
+    const extractedVideoId = extractVideoIdFromUrl(titleInfo.youtube_trailer);
+    setVideoId(extractedVideoId);
+  }, [titleInfo.youtube_trailer]);
+
+  useEffect(() => {
+    if (videoId) {
+      settrailerSrc(`https://www.youtube.com/embed/${videoId}`);
+    } else {
+      settrailerSrc("");
+    }
+  }, [videoId]);
+
   return (
     <Background>
       <Container>
@@ -19,27 +44,28 @@ export function TitleDetails({ fetching, titleInfo, error }) {
           {error && <Error>Error: {error}</Error>}
           {!fetching && !error && (
             <MovieCard>
-              <Poster src={titleInfo.image} />
-              <Info>Rank: {titleInfo.rank}</Info>
-              <Info>Movie Id: {titleInfo.id}</Info>
-              <Info>Title: {titleInfo.title}</Info>
-              <Info>Description: {titleInfo.description}</Info>
-              <Info>Genre: {titleInfo.genre[0]}</Info>
+              <Poster src={titleInfo.poster_path} />
+              {/* <Info>Rank: {titleInfo.rank}</Info> */}
+              <Info>Movie Id: {titleInfo._id}</Info>
+              <Info>Title: {titleInfo.original_title}</Info>
+              <Info>Description: {titleInfo.overview}</Info>
+              <Info>Genre: {titleInfo.genres}</Info>
               {/* {titleInfo.originalTitle !== "" && (
                 <Info>Original Title: {titleInfo.originalTitle}</Info>
               )} */}
-              <Info>Year: {titleInfo.year}</Info>
+              <Info>Release Date: {titleInfo.release_date}</Info>
               {/*<Info>ReleaseDate: {titleInfo.releaseDate}</Info>
               <Info>Runtime: {titleInfo.runtimeStr}</Info>
-              <Info>Plot: {titleInfo.plot}</Info>
-              <TrailerContainer>
+            <Info>Plot: {titleInfo.plot}</Info>*/}
+              <TrailerContainer trailerSrc={trailerSrc}>
                 <Trailer
-                  src={titleInfo.trailer.linkEmbed}
-                  allowfullscreen
+                  src={trailerSrc}
                   frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
                 />
               </TrailerContainer>
-              <Info>Awards: {titleInfo.awards}</Info>
+              {/*<Info>Awards: {titleInfo.awards}</Info>
               <Info>Directors: {titleInfo.directors}</Info>
               <Info>Writers: {titleInfo.writers}</Info>
               <Info>Stars: {titleInfo.stars}</Info>

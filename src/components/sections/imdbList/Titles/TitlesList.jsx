@@ -16,7 +16,7 @@ export function TitlesList({ fetching, titleInfo, error }) {
   return (
     <Background>
       <Container>
-        <Title>Top 250 Movies based on IMDB Rating</Title>
+        {/* <Title>Top 250 Movies based on IMDB Rating</Title> */}
         <MoviesWrapper>
           {fetching && <Loader>Loading movies...</Loader>}
           {error && <Error>Error: {error}</Error>}
@@ -24,15 +24,15 @@ export function TitlesList({ fetching, titleInfo, error }) {
             !error &&
             titleInfo.length > 0 &&
             titleInfo.map((movie) => (
-              <MovieCard to={`/${movie.rank}`} key={movie.title}>
+              <MovieCard to={`/${movie._id}`} key={movie.title}>
                 <Min size="25rem">
-                  <Poster src={movie.image} />
+                  <Poster src={movie.poster_path} />
                 </Min>
-                <Info>Rank: {movie.rank}</Info>
                 <Min size="8rem">
                   <Info>{movie.title}</Info>
                 </Min>
-                <Info>IMDB rating: {movie.rating}</Info>
+                <Info>Release date: {movie.release_date}</Info>
+                <Info>Id: {movie._id}</Info>
               </MovieCard>
             ))}
         </MoviesWrapper>
