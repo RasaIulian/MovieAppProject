@@ -1,3 +1,11 @@
+Previews:
+![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/797cf6f9-fcf8-4b6f-8e0d-5f19ec342211)
+![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/66693751-4e55-45b7-91bf-5d7b1ef4d04f)
+![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/3a95e2f0-d5a3-4bbc-91ec-4bfed0f761be)
+![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/589bbcc6-fe24-4e15-a3ff-f70d211b3f0b)
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
