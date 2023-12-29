@@ -25,11 +25,11 @@ export function useGetTitles(titleId) {
 
       if (status === 200) {
         titleId ? setTitleInfo(data.movie) : setTitleInfo(data.movies);
-        console.log(data.movies);
-        console.log(data);
+        // console.log(data.movies);
+        // console.log(data);
       } else {
         setError(statusText);
-        console.log(data.movie);
+        // console.log(data.movie);
       }
     } catch (err) {
       setError(err.message);

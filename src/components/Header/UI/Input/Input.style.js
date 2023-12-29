@@ -49,6 +49,7 @@ export const InputElement = styled.input`
   ${baseStyle}
   &[type="search"] {
     padding-left: 2rem;
+    padding-right: 4rem;
     position: absolute;
     right: 1rem;
     transform: translateY(-60%);

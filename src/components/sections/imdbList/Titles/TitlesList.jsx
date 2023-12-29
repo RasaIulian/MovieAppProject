@@ -13,6 +13,10 @@ import {
 } from "./TitlesList.style";
 
 export function TitlesList({ fetching, titleInfo, error }) {
+  function removeSpaces(str) {
+    return str.replace(/\s/g, ""); // Using a regular expression to replace all spaces globally
+  }
+
   return (
     <Background>
       <Container>
@@ -24,7 +28,7 @@ export function TitlesList({ fetching, titleInfo, error }) {
             !error &&
             titleInfo.length > 0 &&
             titleInfo.map((movie) => (
-              <MovieCard to={`/${movie._id}`} key={movie.title}>
+              <MovieCard to={`/${movie._id}`} key={movie._id}>
                 <Min size="25rem">
                   <Poster src={movie.poster_path} />
                 </Min>

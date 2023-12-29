@@ -17,8 +17,8 @@ export function HomePage() {
   function handleSearch(searchTerm) {
     setSearchValue(searchTerm);
     const lowerCaseSearch = searchTerm.toString().toLowerCase();
-    console.log("lowerCaseSearch: ", lowerCaseSearch);
-    console.log("searchValue: ", searchValue);
+    // console.log("lowerCaseSearch: ", lowerCaseSearch);
+    // console.log("searchValue: ", searchValue);
 
     const filteredTitles = allTitles.filter((movie) =>
       lowerCaseSearch !== ""
@@ -26,7 +26,7 @@ export function HomePage() {
         : allTitles
     );
     setFilteredTitles(filteredTitles);
-    console.log("filteredTitles: ", filteredTitles);
+    // console.log("filteredTitles: ", filteredTitles);
   }
 
   return (
