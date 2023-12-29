@@ -5,11 +5,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 const routes = [
   {
     path: "/",
-    component: <HomePage />,
+    element: <HomePage />,
   },
   {
     path: "/:id",
-    component: <MoviePage />,
+    element: <MoviePage />,
   },
 ];
 
