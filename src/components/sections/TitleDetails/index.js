@@ -1,1 +1,0 @@
-export { TitleDetails } from "./TitleDetails";
