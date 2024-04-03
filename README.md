@@ -1,8 +1,10 @@
 Previews:
-![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/797cf6f9-fcf8-4b6f-8e0d-5f19ec342211)
-![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/66693751-4e55-45b7-91bf-5d7b1ef4d04f)
-![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/3a95e2f0-d5a3-4bbc-91ec-4bfed0f761be)
-![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/589bbcc6-fe24-4e15-a3ff-f70d211b3f0b)
+![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/2f7d9383-78c7-4928-ae5d-d4378c5ed63f)
+![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/2b244e29-5b4e-4025-ad31-82ebee1adcea)
+![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/2743b48b-dbe9-4e27-8646-856abe7c923d)
+![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/bcef933d-0d09-4077-8dff-42d5db9d54de)
+![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/b75db081-a615-4e9b-931b-7e10411cff4c)
+
 
 # Getting Started with Create React App
 
