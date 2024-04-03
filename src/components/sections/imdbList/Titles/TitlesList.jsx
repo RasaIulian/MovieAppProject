@@ -3,42 +3,68 @@ import {
   Background,
   Container,
   MoviesWrapper,
-  Title,
   Loader,
   Error,
   MovieCard,
   Poster,
   Info,
   Min,
+  FavoriteButton,
 } from "./TitlesList.style";
+import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 
-export function TitlesList({ fetching, titleInfo, error }) {
-  function removeSpaces(str) {
-    return str.replace(/\s/g, ""); // Using a regular expression to replace all spaces globally
-  }
-
+export function TitlesList({
+  fetching,
+  titleInfo,
+  error,
+  handleFavoriteClick,
+  favoriteMovies,
+  searchValue,
+}) {
   return (
     <Background>
       <Container>
-        {/* <Title>Top 250 Movies based on IMDB Rating</Title> */}
         <MoviesWrapper>
           {fetching && <Loader>Loading movies...</Loader>}
           {error && <Error>Error: {error}</Error>}
           {!fetching &&
             !error &&
             titleInfo.length > 0 &&
-            titleInfo.map((movie) => (
-              <MovieCard to={`/${movie._id}`} key={movie._id}>
-                <Min size="25rem">
-                  <Poster src={movie.poster_path} />
-                </Min>
-                <Min size="8rem">
-                  <Info>{movie.title}</Info>
-                </Min>
-                <Info>Release date: {movie.release_date}</Info>
-                <Info>Id: {movie._id}</Info>
-              </MovieCard>
-            ))}
+            titleInfo.map((movie) => {
+              const isMovieFavorite = favoriteMovies.some(
+                (favMovie) => favMovie._id === movie._id
+              );
+
+              return (
+                <MovieCard key={movie._id}>
+                  <Min size="40rem">
+                    <Link to={`/${movie._id}`}>
+                      {/* This Link component will navigate to the movie details page */}
+
+                      <Min size="25rem">
+                        <Poster src={movie.poster_path} />
+                      </Min>
+                      <Min size="8rem">
+                        <Info>{movie.title}</Info>
+                      </Min>
+                      <Info>Release date: {movie.release_date}</Info>
+                      <Info>Id: {movie._id}</Info>
+                    </Link>
+                  </Min>
+                  <FavoriteButton
+                    icon={isMovieFavorite ? fasStar : farStar}
+                    isMovieFavorite={isMovieFavorite ? "true" : "false"}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent propagation to the parent link
+                      handleFavoriteClick(movie);
+                    }}
+                    title="Add/Remove Favourite"
+                  />
+                </MovieCard>
+              );
+            })}
         </MoviesWrapper>
       </Container>
     </Background>

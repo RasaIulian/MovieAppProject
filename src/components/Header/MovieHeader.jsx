@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Logo, Link, Nav, Container } from "./Header.style";
+import { Header, Link, Nav, Container } from "./Header.style";
 
 export function MovieHeader() {
   return (

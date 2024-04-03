@@ -7,7 +7,7 @@ export function Footer() {
       <FooterText>
         Designed by:{" "}
         <Contact href="mailto:ilie.rasa@gmail.com">Rasa I.</Contact> / Updated
-        12.12.2023
+        Apr.2024
       </FooterText>
     </Container>
   );

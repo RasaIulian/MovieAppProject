@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Background = styled.div`
   background-image: linear-gradient(#1e212b, darkgrey);
@@ -24,6 +24,7 @@ export const MoviesWrapper = styled.div`
   flex-wrap: wrap;
   max-width: 120rem;
   justify-content: center;
+  cursor: pointer;
 `;
 
 export const Loader = styled.div`
@@ -50,7 +51,7 @@ export const Error = styled.div`
   border-radius: 5px;
 `;
 
-export const MovieCard = styled(Link)`
+export const MovieCard = styled.div`
   max-width: 25rem;
   width: 100%;
   margin: 0 1.5rem 3rem;
@@ -91,5 +92,25 @@ export const Info = styled.h2`
 export const Min = styled.div`
   min-height: ${({ size }) => size};
   align-items: center;
+  justify-content: center;
   display: flex;
+`;
+
+export const FavoriteButton = styled(FontAwesomeIcon).attrs(
+  ({ icon, isfavorite }) => ({
+    icon,
+    style: {
+      color: isfavorite ? "gold" : "rgba(100, 100, 100, 0.5)",
+      marginBottom: "2rem",
+    },
+  })
+)`
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  z-index: 4;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
