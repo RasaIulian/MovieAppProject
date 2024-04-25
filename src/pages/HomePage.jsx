@@ -8,7 +8,9 @@ export function HomePage() {
   const [allTitles, setAllTitles] = useState([]);
   const [filteredTitles, setFilteredTitles] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState(
+    JSON.parse(localStorage.getItem("favoriteMovies")) || []
+  ); // Load favorite movies from local storage
   const [showFavorites, setShowFavorites] = useState(false);
   const [favoritesButtonClicked, setFavoritesButtonClicked] = useState(false);
   const handleHomeClick = () => {
@@ -34,6 +36,8 @@ export function HomePage() {
   useEffect(() => {
     // Set showFavorites to true only if there are favorite movies
     setShowFavorites(favoriteMovies.length > 0);
+    // Save favorite movies to local storage whenever they are updated
+    localStorage.setItem("favoriteMovies", JSON.stringify(favoriteMovies));
   }, [favoriteMovies]);
 
   const handleFavoriteClick = (movie) => {
@@ -61,8 +65,12 @@ export function HomePage() {
   };
 
   const toggleShowFavorites = () => {
-    setShowFavorites(!showFavorites);
-    setFavoritesButtonClicked(!showFavorites); // Toggle the favoritesButtonClicked state
+    // Toggle the showFavorites state
+    setShowFavorites((prevShowFavorites) => !prevShowFavorites);
+    // Toggle the favoritesButtonClicked state
+    setFavoritesButtonClicked(
+      (prevFavoritesButtonClicked) => !prevFavoritesButtonClicked
+    );
   };
 
   return (
@@ -84,7 +92,7 @@ export function HomePage() {
       <TitlesList
         fetching={fetching}
         titleInfo={
-          favoritesButtonClicked // Conditionally render based on favoritesButtonClicked
+          favoritesButtonClicked
             ? favoriteMovies
             : searchValue
             ? filteredTitles

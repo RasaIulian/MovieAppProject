@@ -54,7 +54,7 @@ export function TitlesList({
                     </Link>
                   </Min>
                   <FavoriteButton
-                    icon={isMovieFavorite ? fasStar : farStar}
+                    icon={isMovieFavorite === true ? fasStar : farStar}
                     isMovieFavorite={isMovieFavorite ? "true" : "false"}
                     onClick={(e) => {
                       e.stopPropagation(); // Prevent propagation to the parent link

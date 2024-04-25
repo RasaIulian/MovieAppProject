@@ -9,7 +9,7 @@ import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons";
 import { Container, Nav } from "../../Header.style";
 
 export const Favorites = ({ favoriteMovies, toggleShowFavorites }) => {
-  const isfavorite = favoriteMovies.length > 0;
+  const isMovieFavorite = favoriteMovies.length > 0;
   const handleClick = () => {
     toggleShowFavorites();
   };
@@ -22,15 +22,15 @@ export const Favorites = ({ favoriteMovies, toggleShowFavorites }) => {
             favoriteMovies.length > 0 ? favoriteMovies.length : ""
           }
           title={
-            isfavorite
+            isMovieFavorite === true
               ? favoriteMovies.length + " Favorites"
               : "No favorite movies selected."
           }
         >
           <Info>Favorites</Info>
           <FavoriteButton
-            icon={isfavorite ? fasStar : farStar}
-            isfavorite={isfavorite}
+            icon={isMovieFavorite === true ? fasStar : farStar}
+            isMovieFavorite={isMovieFavorite ? "true" : "false"}
           />
         </FavoritesStyle>
       </Nav>

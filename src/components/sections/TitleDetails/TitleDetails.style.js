@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Background = styled.div`
   background-image: linear-gradient(#1e212b, darkgrey);
   padding: 1rem 1.5rem;
+  min-height: 60vh;
 `;
 
 export const Container = styled.div`

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const Background = styled.div`
   background-image: linear-gradient(#1e212b, darkgrey);
   padding: 2rem 1.5rem;
+  min-height: 62vh;
 `;
 
 export const Container = styled.div`
@@ -97,10 +98,10 @@ export const Min = styled.div`
 `;
 
 export const FavoriteButton = styled(FontAwesomeIcon).attrs(
-  ({ icon, isfavorite }) => ({
+  ({ icon, isMovieFavorite }) => ({
     icon,
     style: {
-      color: isfavorite ? "gold" : "rgba(100, 100, 100, 0.5)",
+      color: isMovieFavorite === "true" ? "gold" : "rgba(100, 100, 100, 0.5)",
       marginBottom: "2rem",
     },
   })
