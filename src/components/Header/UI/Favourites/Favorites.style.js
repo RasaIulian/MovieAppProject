@@ -3,9 +3,8 @@ import styled from "styled-components";
 export const FavoritesStyle = styled.div`
   display: flex;
   align-items: center;
-  width: 10rem;
   position: absolute;
-  left: 50%;
+  left: 45%;
   top: 6rem;
   transform: translateY(-45%);
   color: #2b2922;
@@ -17,7 +16,7 @@ export const FavoritesStyle = styled.div`
     font-weight: bold;
     position: absolute;
     top: 0.5rem;
-    left: 3.5rem;
+    left: 3.6rem;
     color: #2b2922;
     z-index: 6;
     font-size: 1.6rem;

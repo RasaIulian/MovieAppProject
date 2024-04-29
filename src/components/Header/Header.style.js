@@ -13,10 +13,10 @@ export const Header = styled.div`
 export const Logo = styled.img`
   display: block;
   position: fixed;
-  top: 1.5rem;
+  top: 2.5rem;
   left: 1rem;
   z-index: 9999;
-  max-height: 5.5rem;
+  max-height: 4.5rem;
   border-radius: 1rem;
   margin: 8px 1.6rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
