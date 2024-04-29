@@ -26,12 +26,13 @@ export function HomePageHeader({
           favoriteMovies={favoriteMovies}
           toggleShowFavorites={toggleShowFavorites}
         >
-          Favourites
+          Fav
         </Favorites>
 
         <Input
           type="search"
-          placeholder="Search"
+          placeholder=""
+          id="Search"
           value={searchValue}
           onChange={(e) => handleSearch(e.target.value)}
         />

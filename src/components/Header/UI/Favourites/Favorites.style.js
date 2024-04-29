@@ -17,7 +17,7 @@ export const FavoritesStyle = styled.div`
     font-weight: bold;
     position: absolute;
     top: 0.5rem;
-    left: 8rem;
+    left: 3.5rem;
     color: #2b2922;
     z-index: 6;
     font-size: 1.6rem;

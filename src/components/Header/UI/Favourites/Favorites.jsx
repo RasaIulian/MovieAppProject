@@ -27,7 +27,7 @@ export const Favorites = ({ favoriteMovies, toggleShowFavorites }) => {
               : "No favorite movies selected."
           }
         >
-          <Info>Favorites</Info>
+          <Info>Fav&nbsp;</Info>
           <FavoriteButton
             icon={isMovieFavorite === true ? fasStar : farStar}
             isMovieFavorite={isMovieFavorite ? "true" : "false"}

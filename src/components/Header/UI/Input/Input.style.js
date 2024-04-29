@@ -22,7 +22,7 @@ export const SearchIcon = styled(FontAwesomeIcon)`
   width: 2rem;
   height: 2rem;
   position: absolute;
-  right: 3.5rem;
+  right: 2.5rem;
   transform: translateY(-45%);
   color: rgba(100, 100, 100, 0.5);
   z-index: 4;
@@ -36,20 +36,18 @@ const baseStyle = css`
   max-width: 25%;
   padding: 0.7rem 1rem;
   border-radius: 2rem;
-  border: 1px solid #fafafa;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   margin: 5px 0;
-  transition: border 0.3s;
+  transition: box-shadow 0.3s;
 
   &:focus {
-    border: 1px solid #1e212b;
+    box-shadow: none;
   }
 `;
 
 export const InputElement = styled.input`
   ${baseStyle}
   &[type="search"] {
-    padding-left: 2rem;
-    padding-right: 4rem;
     position: absolute;
     right: 1rem;
     transform: translateY(-60%);

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link as DefaultLink } from "react-router-dom";
 
 export const Header = styled.div`
-  padding: 5px 1.5rem;
+  padding: 0.5rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
