@@ -10,6 +10,7 @@ export function HomePageHeader({
   favoriteMovies,
   toggleShowFavorites,
   handleHomeClick,
+  favoritesButtonClicked,
 }) {
   return (
     <Header>
@@ -28,14 +29,15 @@ export function HomePageHeader({
         >
           Fav
         </Favorites>
-
-        <Input
-          type="search"
-          placeholder=""
-          id="Search"
-          value={searchValue}
-          onChange={(e) => handleSearch(e.target.value)}
-        />
+        {!favoritesButtonClicked && (
+          <Input
+            type="search"
+            placeholder=""
+            id="Search"
+            value={searchValue}
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+        )}
       </Container>
     </Header>
   );

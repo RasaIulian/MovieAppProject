@@ -9,7 +9,7 @@ export const Background = styled.div`
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 120rem;
+  max-width: 130rem;
   margin: 0 auto;
 `;
 
@@ -23,7 +23,6 @@ export const MoviesWrapper = styled.div`
   min-height: 20rem;
   display: flex;
   flex-wrap: wrap;
-  max-width: 120rem;
   justify-content: center;
   cursor: pointer;
 `;
@@ -32,6 +31,7 @@ export const Loader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 5px;
   width: 100%;
   height: 100%;
   background-color: rgba(250, 250, 250, 0.15);

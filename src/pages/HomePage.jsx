@@ -13,9 +13,11 @@ export function HomePage() {
   ); // Load favorite movies from local storage
   const [showFavorites, setShowFavorites] = useState(false);
   const [favoritesButtonClicked, setFavoritesButtonClicked] = useState(false);
+  console.log("favoritesButtonClicked= ", favoritesButtonClicked);
   const handleHomeClick = () => {
     setShowFavorites(false); // Reset showFavorites state
     setFavoritesButtonClicked(false); // Reset favoritesButtonClicked state
+    console.log("favoritesButtonClicked= ", favoritesButtonClicked);
   };
   useEffect(() => {
     setAllTitles(titleInfo);
@@ -34,8 +36,6 @@ export function HomePage() {
   }, [searchValue, allTitles]);
 
   useEffect(() => {
-    // Set showFavorites to true only if there are favorite movies
-    setShowFavorites(favoriteMovies.length > 0);
     // Save favorite movies to local storage whenever they are updated
     localStorage.setItem("favoriteMovies", JSON.stringify(favoriteMovies));
   }, [favoriteMovies]);
@@ -65,12 +65,12 @@ export function HomePage() {
   };
 
   const toggleShowFavorites = () => {
-    // Toggle the showFavorites state
     setShowFavorites((prevShowFavorites) => !prevShowFavorites);
-    // Toggle the favoritesButtonClicked state
-    setFavoritesButtonClicked(
-      (prevFavoritesButtonClicked) => !prevFavoritesButtonClicked
-    );
+    favoriteMovies.length > 0
+      ? setFavoritesButtonClicked(
+          (prevFavoritesButtonClicked) => !prevFavoritesButtonClicked
+        )
+      : setFavoritesButtonClicked(false);
   };
 
   return (
@@ -84,7 +84,7 @@ export function HomePage() {
       toggleShowFavorites={toggleShowFavorites}
       handleHomeClick={handleHomeClick}
     >
-      {favoritesButtonClicked ? (
+      {favoritesButtonClicked && favoriteMovies.length > 0 ? (
         <Hero>FAVORITE MOVIES</Hero>
       ) : (
         <Hero>MOVIE DATABASE APP</Hero>
@@ -92,7 +92,7 @@ export function HomePage() {
       <TitlesList
         fetching={fetching}
         titleInfo={
-          favoritesButtonClicked
+          favoritesButtonClicked && favoriteMovies.length > 0
             ? favoriteMovies
             : searchValue
             ? filteredTitles
