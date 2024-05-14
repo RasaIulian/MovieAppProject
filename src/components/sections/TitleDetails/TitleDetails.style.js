@@ -31,11 +31,11 @@ export const Loader = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
   background-color: rgba(250, 250, 250, 0.15);
   color: #ff8427;
   font-size: 1.6rem;
   line-height: 2.4rem;
+  border-radius: 5px;
 `;
 
 export const Error = styled.div`
@@ -43,7 +43,6 @@ export const Error = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
   background-color: rgba(250, 250, 250, 0.15);
   font-size: 1.6rem;
   color: red;
@@ -74,13 +73,13 @@ export const Poster = styled.img`
 
 export const Info = styled.h2`
   font-size: 1.6rem;
-  line-height: 2.4rem;
+  line-height: 1.8rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: #2b2922;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  width: 100%;
+  padding: 5px;
 `;
 
 export const TrailerContainer = styled.div`

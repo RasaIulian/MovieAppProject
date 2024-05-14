@@ -21,7 +21,6 @@ export function TitlesList({
   error,
   handleFavoriteClick,
   favoriteMovies,
-  searchValue,
 }) {
   return (
     <Background>
@@ -33,7 +32,7 @@ export function TitlesList({
             !error &&
             titleInfo.length > 0 &&
             titleInfo.map((movie) => {
-              const isMovieFavorite = favoriteMovies.some(
+              const ismoviefavorite = favoriteMovies.some(
                 (favMovie) => favMovie._id === movie._id
               );
 
@@ -54,8 +53,8 @@ export function TitlesList({
                     </Link>
                   </Min>
                   <FavoriteButton
-                    icon={isMovieFavorite === true ? fasStar : farStar}
-                    isMovieFavorite={isMovieFavorite ? "true" : "false"}
+                    icon={ismoviefavorite === true ? fasStar : farStar}
+                    ismoviefavorite={ismoviefavorite ? "true" : "false"}
                     onClick={(e) => {
                       e.stopPropagation(); // Prevent propagation to the parent link
                       handleFavoriteClick(movie);

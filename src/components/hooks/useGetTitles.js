@@ -24,7 +24,7 @@ export function useGetTitles(titleId) {
       const { data, status, statusText } = await axios.request(options);
 
       if (status === 200) {
-        titleId ? setTitleInfo(data.movie) : setTitleInfo(data.movies);
+        setTitleInfo(titleId ? data.movie : data.movies);
         // console.log(data.movies);
         // console.log(data);
       } else {
@@ -38,7 +38,7 @@ export function useGetTitles(titleId) {
     }
   }
   useEffect(() => {
-    titleId ? getImdbTitleDetails(titleId) : getImdbTitleDetails();
+    getImdbTitleDetails(titleId ? titleId : "");
   }, []);
 
   return { fetching, titleInfo, error };

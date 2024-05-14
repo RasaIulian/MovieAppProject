@@ -33,7 +33,7 @@ export const Loader = styled.div`
   justify-content: center;
   border-radius: 5px;
   width: 100%;
-  height: 100%;
+
   background-color: rgba(250, 250, 250, 0.15);
   color: #ff8427;
   font-size: 1.6rem;
@@ -45,7 +45,6 @@ export const Error = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
   background-color: rgba(250, 250, 250, 0.15);
   color: red;
   font-size: 1.6rem;
@@ -84,10 +83,11 @@ export const Poster = styled.img`
 
 export const Info = styled.h2`
   font-size: 1.8rem;
-  line-height: 2.8rem;
+  line-height: 2.4rem;
   font-weight: bold;
   margin-bottom: 2rem;
   color: #2b2922;
+  padding: 5px;
 `;
 
 export const Min = styled.div`
@@ -98,11 +98,10 @@ export const Min = styled.div`
 `;
 
 export const FavoriteButton = styled(FontAwesomeIcon).attrs(
-  ({ icon, isMovieFavorite }) => ({
+  ({ icon, ismoviefavorite }) => ({
     icon,
     style: {
-      color: isMovieFavorite === "true" ? "gold" : "rgba(100, 100, 100, 0.5)",
-      marginBottom: "2rem",
+      color: ismoviefavorite === "true" ? "gold" : "rgba(100, 100, 100, 0.5)",
     },
   })
 )`

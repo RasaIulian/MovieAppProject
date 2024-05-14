@@ -22,8 +22,8 @@ export const SearchIcon = styled(FontAwesomeIcon)`
   width: 2rem;
   height: 2rem;
   position: absolute;
-  right: 2.5rem;
-  transform: translateY(-45%);
+  right: 2rem;
+  transform: translateY(-67%);
   color: rgba(100, 100, 100, 0.5);
   z-index: 4;
 `;
@@ -50,7 +50,7 @@ export const InputElement = styled.input`
   &[type="search"] {
     position: absolute;
     right: 1rem;
-    transform: translateY(-60%);
+    transform: translateY(-69%);
     background-color: rgba(200, 200, 200, 0.9);
     font-size: 1.7rem;
     z-index: 3;

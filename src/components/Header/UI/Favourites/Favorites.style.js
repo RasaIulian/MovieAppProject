@@ -2,21 +2,30 @@ import styled from "styled-components";
 
 export const FavoritesStyle = styled.div`
   display: flex;
-  align-items: center;
+  border-radius: 1rem;
   position: absolute;
-  left: 45%;
-  top: 6rem;
+  left: 41%;
+  top: 5rem;
   transform: translateY(-45%);
   color: #2b2922;
   z-index: 5;
+  height: 3.5rem;
+  padding: 0.5rem;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   cursor: pointer;
+  transition: box-shadow 0.3s;
+  &:active,
+  :focus {
+    box-shadow: none;
+  }
+
   &::after {
     content: attr(data-favorites);
     margin-left: 0.5rem;
     font-weight: bold;
     position: absolute;
-    top: 0.5rem;
-    left: 3.6rem;
+    top: 1rem;
+    left: 5rem;
     color: #2b2922;
     z-index: 6;
     font-size: 1.6rem;

@@ -13,11 +13,10 @@ export function HomePage() {
   ); // Load favorite movies from local storage
   const [showFavorites, setShowFavorites] = useState(false);
   const [favoritesButtonClicked, setFavoritesButtonClicked] = useState(false);
-  console.log("favoritesButtonClicked= ", favoritesButtonClicked);
+
   const handleHomeClick = () => {
     setShowFavorites(false); // Reset showFavorites state
     setFavoritesButtonClicked(false); // Reset favoritesButtonClicked state
-    console.log("favoritesButtonClicked= ", favoritesButtonClicked);
   };
   useEffect(() => {
     setAllTitles(titleInfo);

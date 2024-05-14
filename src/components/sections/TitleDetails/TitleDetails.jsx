@@ -48,15 +48,20 @@ export function TitleDetails({ fetching, titleInfo, error }) {
               {/* <Info>Rank: {titleInfo.rank}</Info> */}
               <Info>Movie Id: {titleInfo._id}</Info>
               <Info>Title: {titleInfo.original_title}</Info>
-              <Info>Description: {titleInfo.overview}</Info>
-              <Info>Genre: {titleInfo.genres}</Info>
-              {/* {titleInfo.originalTitle !== "" && (
-                <Info>Original Title: {titleInfo.originalTitle}</Info>
-              )} */}
               <Info>Release Date: {titleInfo.release_date}</Info>
-              {/*<Info>ReleaseDate: {titleInfo.releaseDate}</Info>
-              <Info>Runtime: {titleInfo.runtimeStr}</Info>
-            <Info>Plot: {titleInfo.plot}</Info>*/}
+              <Info>Rating: {titleInfo.vote_average.toFixed(1)}</Info>
+              <Info>
+                Genre:{" "}
+                {titleInfo.genres.map((genre, index) => (
+                  <span key={index}>
+                    {genre}
+                    {index !== titleInfo.genres.length - 1 && ", "}
+                  </span>
+                ))}
+              </Info>
+              <Info>Description: {titleInfo.overview}</Info>
+              {/* <Info>Runtime: {titleInfo.runtimeStr}</Info> */}
+              {/* <Info>Plot: {titleInfo.plot}</Info>*/}
               <TrailerContainer trailerSrc={trailerSrc}>
                 <Trailer
                   src={trailerSrc}
