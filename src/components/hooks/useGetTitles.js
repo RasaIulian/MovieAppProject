@@ -5,6 +5,7 @@ export function useGetTitles(titleId) {
   const [titleInfo, setTitleInfo] = useState([]);
   const [error, setError] = useState("");
   const [fetching, setFetching] = useState(true);
+  const apiKey = process.env.REACT_APP_API_KEY;
 
   const options = {
     method: "GET",
@@ -14,7 +15,7 @@ export function useGetTitles(titleId) {
         "https://movies-api14.p.rapidapi.com/movies",
     // "https://movies-api14.p.rapidapi.com/shows",
     headers: {
-      "X-RapidAPI-Key": "dba5d11475msh67833a57c148263p1a7846jsna1ce2112129b",
+      "X-RapidAPI-Key": apiKey,
       "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
     },
   };
