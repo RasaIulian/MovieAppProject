@@ -17,6 +17,9 @@ const GoToTopButton = () => {
       top: 0,
       behavior: "smooth",
     });
+    setTimeout(() => {
+      setIsHovered(false);
+    }, 100);
   };
 
   useEffect(() => {
