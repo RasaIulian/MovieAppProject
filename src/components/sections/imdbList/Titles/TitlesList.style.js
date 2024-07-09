@@ -24,7 +24,6 @@ export const MoviesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  cursor: pointer;
 `;
 
 export const Loader = styled.div`

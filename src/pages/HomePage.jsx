@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Hero, TitlesList } from "../components/sections/imdbList";
 import { HomePageLayout } from "../components/Layout";
 import { useGetTitles } from "../components/hooks/useGetTitles";
+import GoToTopButton from "../components/GoTopButton/GoTopButton";
 
 export function HomePage() {
   const { fetching, titleInfo, error } = useGetTitles();
@@ -102,6 +103,7 @@ export function HomePage() {
         handleFavoriteClick={handleFavoriteClick}
         searchValue={searchValue}
       />
+      <GoToTopButton />
     </HomePageLayout>
   );
 }
