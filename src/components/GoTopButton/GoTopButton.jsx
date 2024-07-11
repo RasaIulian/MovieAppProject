@@ -66,8 +66,8 @@ const styles = {
     right: "1rem",
     fontSize: "1.8rem",
     lineHeight: "3rem",
-    backgroundColor: "rgba(30, 33, 43, 0.5)", //#1e212b
-    color: "#fff",
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    color: "#1e212b",
     border: "1px solid #1e212b",
     borderRadius: "50%",
     cursor: "pointer",
@@ -75,12 +75,12 @@ const styles = {
     transform: "rotate(-90deg)",
   },
   hover: {
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    color: "#1e212b",
-  },
-  default: {
     backgroundColor: "rgba(30, 33, 43, 0.5)",
     color: "#fff",
+  },
+  default: {
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    color: "#1e212b",
   },
 };
 
