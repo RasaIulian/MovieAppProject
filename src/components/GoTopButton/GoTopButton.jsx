@@ -41,6 +41,7 @@ const GoToTopButton = () => {
     <div>
       {isVisible && (
         <button
+          title="Go to top"
           onClick={scrollToTop}
           style={{
             ...styles.button,
@@ -49,7 +50,7 @@ const GoToTopButton = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          Go to Top
+          {">"}
         </button>
       )}
     </div>
@@ -58,25 +59,27 @@ const GoToTopButton = () => {
 
 const styles = {
   button: {
+    height: "4rem",
+    width: "4rem",
     position: "fixed",
-    bottom: "20px",
-    right: "20px",
-    padding: "8px 1.6rem",
+    bottom: "1.5rem",
+    right: "1rem",
     fontSize: "1.8rem",
     lineHeight: "3rem",
-    backgroundColor: "#1e212b",
+    backgroundColor: "rgba(30, 33, 43, 0.5)", //#1e212b
     color: "#fff",
     border: "1px solid #1e212b",
-    borderRadius: "5px",
+    borderRadius: "50%",
     cursor: "pointer",
     transition: "all 0.3s ease",
+    transform: "rotate(-90deg)",
   },
   hover: {
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
     color: "#1e212b",
   },
   default: {
-    backgroundColor: "#1e212b",
+    backgroundColor: "rgba(30, 33, 43, 0.5)",
     color: "#fff",
   },
 };
