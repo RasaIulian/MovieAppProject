@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Hero, TitlesList } from "../components/sections/imdbList";
+import {
+  Background,
+  Container,
+  MoviesWrapper,
+  Loader,
+  Error,
+} from "../components/sections/imdbList/Titles/TitlesList.style";
 import { HomePageLayout } from "../components/Layout";
 import { useGetTitles } from "../components/hooks/useGetTitles";
 import GoToTopButton from "../components/GoTopButton/GoTopButton";
@@ -9,6 +16,7 @@ export function HomePage() {
   const [allTitles, setAllTitles] = useState([]);
   const [filteredTitles, setFilteredTitles] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
   const [favoriteMovies, setFavoriteMovies] = useState(
     JSON.parse(localStorage.getItem("favoriteMovies")) || []
   ); // Load favorite movies from local storage
@@ -23,16 +31,45 @@ export function HomePage() {
     setAllTitles(titleInfo);
   }, [titleInfo]);
 
+  function debounce(func, wait) {
+    let timeout;
+
+    const debounced = (...args) => {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+
+    debounced.clear = function () {
+      clearTimeout(timeout);
+    };
+
+    return debounced;
+  }
+
   useEffect(() => {
-    if (searchValue) {
-      const lowerCaseSearch = searchValue.toLowerCase();
-      const filteredTitles = allTitles.filter((movie) =>
-        movie.title.toLowerCase().includes(lowerCaseSearch)
-      );
-      setFilteredTitles(filteredTitles);
-    } else {
-      setFilteredTitles([]);
-    }
+    setIsSearching(true);
+    const debouncedSearch = debounce(() => {
+      if (searchValue) {
+        const lowerCaseSearch = searchValue.toLowerCase();
+        const filteredTitles = allTitles.filter((movie) =>
+          movie.title.toLowerCase().includes(lowerCaseSearch)
+        );
+        setFilteredTitles(filteredTitles);
+        setIsSearching(false);
+      } else {
+        setFilteredTitles([]);
+        setIsSearching(false);
+      }
+    }, 300);
+    debouncedSearch();
+
+    return () => {
+      debouncedSearch.clear();
+    };
   }, [searchValue, allTitles]);
 
   useEffect(() => {
@@ -79,8 +116,8 @@ export function HomePage() {
       handleSearch={setSearchValue}
       favoriteMovies={favoriteMovies}
       handleFavoriteClick={handleFavoriteClick}
-      showFavorites={showFavorites} // Pass the showFavorites state
-      setShowFavorites={setShowFavorites} // Pass the setShowFavorites function
+      showFavorites={showFavorites}
+      setShowFavorites={setShowFavorites}
       toggleShowFavorites={toggleShowFavorites}
       handleHomeClick={handleHomeClick}
     >
@@ -89,20 +126,38 @@ export function HomePage() {
       ) : (
         <Hero>MOVIE DATABASE APP</Hero>
       )}
-      <TitlesList
-        fetching={fetching}
-        titleInfo={
-          favoritesButtonClicked && favoriteMovies.length > 0
-            ? favoriteMovies
-            : searchValue
-            ? filteredTitles
-            : titleInfo
-        }
-        error={error}
-        favoriteMovies={favoriteMovies}
-        handleFavoriteClick={handleFavoriteClick}
-        searchValue={searchValue}
-      />
+      {searchValue && isSearching ? (
+        <Background>
+          <Container>
+            <MoviesWrapper>
+              <Loader>Searching...</Loader>
+            </MoviesWrapper>
+          </Container>
+        </Background>
+      ) : searchValue && !isSearching && filteredTitles.length === 0 ? (
+        <Background>
+          <Container>
+            <MoviesWrapper>
+              <Error>No movies found for "{searchValue}"</Error>
+            </MoviesWrapper>
+          </Container>
+        </Background>
+      ) : (
+        <TitlesList
+          fetching={fetching}
+          titleInfo={
+            favoritesButtonClicked && favoriteMovies.length > 0
+              ? favoriteMovies
+              : searchValue
+              ? filteredTitles
+              : titleInfo
+          }
+          error={error}
+          favoriteMovies={favoriteMovies}
+          handleFavoriteClick={handleFavoriteClick}
+          searchValue={searchValue}
+        />
+      )}
       <GoToTopButton />
     </HomePageLayout>
   );

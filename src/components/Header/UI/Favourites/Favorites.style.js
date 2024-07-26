@@ -4,12 +4,12 @@ export const FavoritesStyle = styled.div`
   display: flex;
   border-radius: 1rem;
   position: absolute;
-  left: 41%;
-  top: 5rem;
-  transform: translateY(-45%);
+  justify-content: center;
+  align-items: center;
   color: #2b2922;
+  background-color: rgba(200, 200, 200, 0.9);
   z-index: 5;
-  height: 3.5rem;
+  height: 3rem;
   padding: 0.5rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   cursor: pointer;

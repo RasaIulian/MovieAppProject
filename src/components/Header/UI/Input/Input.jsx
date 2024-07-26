@@ -24,6 +24,7 @@ export function Input({ type, value, onChange, placeholder }) {
         onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        name="search"
       />
     </Container>
   );

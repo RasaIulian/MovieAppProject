@@ -6,29 +6,26 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image: linear-gradient(#1e212b, #eaeaea);
-  min-height: 10rem;
+  background-image: linear-gradient(#1e212bbd, #eaeaea);
+  min-height: 5rem;
 `;
 
 export const Logo = styled.img`
   display: block;
-  position: fixed;
-  top: 2.5rem;
-
+  /* position: fixed;
+  top: 2.5rem; */
   z-index: 9999;
-  max-height: 4.5rem;
+  max-height: 4rem;
   border-radius: 1rem;
-  margin: 8px 1.6rem;
+  margin: 8px 1.6rem 8px 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s;
-  &:hover {
-    transform: scale(1.1);
-  }
 `;
 
 export const Container = styled.div`
   width: 100%;
   max-width: 120rem;
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const Background = styled.div`
   background-image: linear-gradient(#1e212b, darkgrey);
   padding: 2rem 1.5rem;
-  min-height: 62vh;
+  min-height: 76dvh;
 `;
 
 export const Container = styled.div`
@@ -32,7 +32,6 @@ export const Loader = styled.div`
   justify-content: center;
   border-radius: 5px;
   width: 100%;
-
   background-color: rgba(250, 250, 250, 0.15);
   color: #ff8427;
   font-size: 1.6rem;
@@ -75,7 +74,10 @@ export const MovieCard = styled.div`
 export const Poster = styled.img`
   min-width: 22rem;
   width: 100%;
-  border-radius: 1.8rem;
+  border-top-right-radius: 1.8rem;
+  border-top-left-radius: 1.8rem;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
   display: block;
   margin: 0 auto 1rem;
 `;
@@ -84,7 +86,6 @@ export const Info = styled.h2`
   font-size: 1.8rem;
   line-height: 2.4rem;
   font-weight: bold;
-  margin-bottom: 2rem;
   color: #2b2922;
   padding: 5px;
 `;
@@ -112,4 +113,14 @@ export const FavoriteButton = styled(FontAwesomeIcon).attrs(
   &:hover {
     transform: scale(1.05);
   }
+`;
+
+export const SearchError = styled.div`
+  text-align: center;
+  justify-content: center;
+  margin: 2rem 0;
+  font-size: 1.5rem;
+  background-image: linear-gradient(#1e212b, darkgrey);
+  padding: 2rem 1.5rem;
+  min-height: 62vh;
 `;

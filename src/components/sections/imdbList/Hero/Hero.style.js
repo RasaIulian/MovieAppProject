@@ -4,12 +4,12 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 15vh;
+  min-height: 8vh;
   background-image: linear-gradient(#fafafa, lightgrey);
 `;
 
 export const Title = styled.h1`
-  font-size: 3rem;
+  font-size: 2.5rem;
   line-height: 1.05em;
   color: #2b2922;
   width: 100%;
