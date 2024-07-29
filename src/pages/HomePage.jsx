@@ -108,6 +108,11 @@ export function HomePage() {
           (prevFavoritesButtonClicked) => !prevFavoritesButtonClicked
         )
       : setFavoritesButtonClicked(false);
+    if (!favoritesButtonClicked) {
+      // If we're switching to show favorites, clear the search
+      setSearchValue("");
+      setFilteredTitles([]);
+    }
   };
 
   return (
@@ -120,6 +125,7 @@ export function HomePage() {
       setShowFavorites={setShowFavorites}
       toggleShowFavorites={toggleShowFavorites}
       handleHomeClick={handleHomeClick}
+      favoritesButtonClicked={favoritesButtonClicked}
     >
       {favoritesButtonClicked && favoriteMovies.length > 0 ? (
         <Hero>FAVORITE MOVIES</Hero>

@@ -9,6 +9,7 @@ export function HomePageLayout({
   handleHomeClick,
   favoriteMovies,
   toggleShowFavorites,
+  favoritesButtonClicked,
 }) {
   return (
     <>
@@ -18,6 +19,7 @@ export function HomePageLayout({
         favoriteMovies={favoriteMovies}
         toggleShowFavorites={toggleShowFavorites}
         handleHomeClick={handleHomeClick}
+        favoritesButtonClicked={favoritesButtonClicked}
       />
       {children}
       <Footer />
