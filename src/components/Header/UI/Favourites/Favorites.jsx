@@ -10,17 +10,12 @@ import { Container, Nav } from "../../Header.style";
 
 export const Favorites = ({ favoriteMovies, toggleShowFavorites }) => {
   const ismoviefavorite = favoriteMovies.length > 0;
-  const handleClick = () => {
-    toggleShowFavorites();
-  };
   return (
     <Container>
       <Nav>
         <FavoritesStyle
-          onClick={handleClick}
-          data-favorites={
-            favoriteMovies.length > 0 ? favoriteMovies.length : ""
-          }
+          onClick={toggleShowFavorites}
+          data-favorites={ismoviefavorite ? favoriteMovies.length : ""}
           title={
             ismoviefavorite === true
               ? favoriteMovies.length + " Favorites"

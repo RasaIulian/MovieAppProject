@@ -6,6 +6,7 @@ import {
   Loader,
   Error,
   MovieCard,
+  PosterWrapper,
   Poster,
   Info,
   Min,
@@ -42,9 +43,9 @@ export function TitlesList({
                     <Link to={`/${movie._id}`}>
                       {/* This Link component will navigate to the movie details page */}
 
-                      <Min size="25rem">
+                      <PosterWrapper>
                         <Poster src={movie.poster_path} />
-                      </Min>
+                      </PosterWrapper>
                       <Min size="8rem">
                         <Info>{movie.title}</Info>
                       </Min>

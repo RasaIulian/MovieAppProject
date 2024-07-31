@@ -83,13 +83,15 @@ export function HomePage() {
     );
 
     if (isAlreadyFavorite) {
-      setFavoriteMovies(
-        favoriteMovies.filter((favMovie) => favMovie._id !== movie._id)
+      const updatedFavorites = favoriteMovies.filter(
+        (favMovie) => favMovie._id !== movie._id
       );
+      setFavoriteMovies(updatedFavorites);
 
       // Check if there are any favorite movies left after removing the current movie
-      if (favoriteMovies.length === 0) {
+      if (updatedFavorites.length === 0) {
         setShowFavorites(false); // No favorite movies left, hide favorites
+        setFavoritesButtonClicked(false); // Reset favorites button click state
       }
     } else {
       setFavoriteMovies([...favoriteMovies, movie]);
@@ -130,7 +132,7 @@ export function HomePage() {
       {favoritesButtonClicked && favoriteMovies.length > 0 ? (
         <Hero>FAVORITE MOVIES</Hero>
       ) : (
-        <Hero>MOVIE DATABASE APP</Hero>
+        <Hero>WELCOME TO THE MOVIE DATABASE APP</Hero>
       )}
       {searchValue && isSearching ? (
         <Background>

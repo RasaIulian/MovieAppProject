@@ -12,8 +12,6 @@ export const Header = styled.div`
 
 export const Logo = styled.img`
   display: block;
-  /* position: fixed;
-  top: 2.5rem; */
   z-index: 9999;
   max-height: 4rem;
   border-radius: 1rem;
@@ -24,7 +22,7 @@ export const Logo = styled.img`
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 120rem;
+  max-width: 150rem;
   position: relative;
   display: flex;
   justify-content: space-between;

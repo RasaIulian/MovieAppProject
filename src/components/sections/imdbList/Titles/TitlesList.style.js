@@ -9,7 +9,7 @@ export const Background = styled.div`
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 130rem;
+  max-width: 155rem;
   margin: 0 auto;
 `;
 
@@ -61,25 +61,38 @@ export const MovieCard = styled.div`
   background-color: #fafafa;
   text-align: center;
   border-radius: 3rem;
-  transition: background-color 0.2s;
-  transition: transform 0.2s;
+  transition: background-color 0.2s ease-in-out;
+
   position: relative;
 
   &:hover {
     background-color: #eaeaea;
-    transform: scale(1.05);
   }
 `;
 
+export const PosterWrapper = styled.div`
+  width: 25rem;
+  overflow: hidden;
+  border-top-left-radius: 1.8rem;
+  border-top-right-radius: 1.8rem;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+`;
+
 export const Poster = styled.img`
-  min-width: 22rem;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-top-right-radius: 1.8rem;
   border-top-left-radius: 1.8rem;
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   display: block;
-  margin: 0 auto 1rem;
+  transition: transform 0.2s ease-in-out;
+
+  ${MovieCard}:hover & {
+    transform: scale(1.1);
+  }
 `;
 
 export const Info = styled.h2`
