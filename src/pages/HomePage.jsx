@@ -146,7 +146,9 @@ export function HomePage() {
         <Background>
           <Container>
             <MoviesWrapper>
-              <Error>No movies found for "{searchValue}"</Error>
+              <Error>
+                No movies found for "{searchValue}", please try again
+              </Error>
             </MoviesWrapper>
           </Container>
         </Background>
