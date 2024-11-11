@@ -10,13 +10,15 @@ export function useGetTitles(titleId) {
   const options = {
     method: "GET",
     url: titleId
-      ? "https://movies-api14.p.rapidapi.com/movie/" + titleId
-      : // "https://movies-api14.p.rapidapi.com/show/" + titleId
-        "https://movies-api14.p.rapidapi.com/movies",
-    // "https://movies-api14.p.rapidapi.com/shows",
+      ? "https://imdb-top-100-movies.p.rapidapi.com/top" +
+        /*"https://movies-api14.p.rapidapi.com/movie/"*/ titleId
+      : "https://imdb-top-100-movies.p.rapidapi.com/",
+    /*"https://movies-api14.p.rapidapi.com/movies",*/
+
     headers: {
       "X-RapidAPI-Key": apiKey,
-      "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
+      "X-RapidAPI-Host": "imdb-top-100-movies.p.rapidapi.com",
+      /*"movies-api14.p.rapidapi.com",*/
     },
   };
 
@@ -25,7 +27,7 @@ export function useGetTitles(titleId) {
       const { data, status, statusText } = await axios.request(options);
 
       if (status === 200) {
-        setTitleInfo(titleId ? data.movie : data.movies);
+        setTitleInfo(data);
         // console.log(data.movies);
         // console.log(data);
       } else {

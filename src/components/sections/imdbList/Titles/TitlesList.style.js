@@ -83,15 +83,12 @@ export const Poster = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-top-right-radius: 1.8rem;
-  border-top-left-radius: 1.8rem;
-  border-bottom-right-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
+  border-radius: 1.8rem 1.8rem 0.5rem 0.5rem;
   display: block;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.1s ease-in-out;
 
   ${MovieCard}:hover & {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 `;
 

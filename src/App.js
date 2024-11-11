@@ -8,7 +8,7 @@ const routes = [
     component: <HomePage />,
   },
   {
-    path: "/:id",
+    path: "/:rank",
     component: <MoviePage />,
   },
 ];

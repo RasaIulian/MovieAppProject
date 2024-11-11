@@ -79,12 +79,12 @@ export function HomePage() {
 
   const handleFavoriteClick = (movie) => {
     const isAlreadyFavorite = favoriteMovies.some(
-      (favMovie) => favMovie._id === movie._id
+      (favMovie) => favMovie.imdbid === movie.imdbid
     );
 
     if (isAlreadyFavorite) {
       const updatedFavorites = favoriteMovies.filter(
-        (favMovie) => favMovie._id !== movie._id
+        (favMovie) => favMovie.imdbid !== movie.imdbid
       );
       setFavoriteMovies(updatedFavorites);
 
