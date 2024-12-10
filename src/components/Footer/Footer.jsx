@@ -5,9 +5,9 @@ export function Footer() {
   return (
     <Container>
       <FooterText>
-        Designed by:{" "}
+        Designed and developed by:{" "}
         <Contact href="mailto:ilie.rasa@gmail.com">
-          Rasa I. Front-end developer
+          Rasa I. Front-end Developer
         </Contact>{" "}
       </FooterText>
     </Container>

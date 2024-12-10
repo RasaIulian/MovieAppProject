@@ -64,7 +64,7 @@ export const MovieCard = styled.div`
 
 export const Poster = styled.img`
   width: 100%;
-  max-width: 45rem;
+  max-width: 38rem;
   border-radius: 2rem;
   display: block;
   margin: 2rem auto 2rem;
