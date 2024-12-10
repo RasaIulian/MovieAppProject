@@ -67,7 +67,7 @@ export const Poster = styled.img`
   max-width: 38rem;
   border-radius: 2rem;
   display: block;
-  margin: 2rem auto 2rem;
+  margin: 0 auto;
   box-shadow: 0px 2px 3px 3px rgba(0, 0, 0, 0.2);
 `;
 
