@@ -15,6 +15,8 @@ export const FooterText = styled.h3`
   font-weight: 400;
   padding: 1rem 1.5rem;
   text-align: right;
+  &:screen {
+  }
 `;
 
 export const Contact = styled.a`
