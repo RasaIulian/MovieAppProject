@@ -52,12 +52,14 @@ export function TitlesList({
                       </Min>
                       <Info>Release year: {movie.year}</Info>
                       <Info>Rating: {movie.rating}</Info>
-                      <Info>
-                        Genres:{" "}
-                        {movie.genre
-                          .map((g, index) => <span key={index}>{g}</span>)
-                          .reduce((prev, curr) => [prev, ", ", curr])}
-                      </Info>
+                      <Min size="8rem">
+                        <Info>
+                          Genre:{" "}
+                          {movie.genre
+                            .map((g, index) => <span key={index}>{g}</span>)
+                            .reduce((prev, curr) => [prev, ", ", curr])}
+                        </Info>
+                      </Min>
                     </Link>
                   </Min>
                   <FavoriteButton
