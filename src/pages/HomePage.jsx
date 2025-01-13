@@ -22,11 +22,15 @@ export function HomePage() {
   ); // Load favorite movies from local storage
   const [showFavorites, setShowFavorites] = useState(false);
   const [favoritesButtonClicked, setFavoritesButtonClicked] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState(""); // New state for selected genre
+
+  const genres = ["Action", "Comedy", "Drama", "Horror", "Romance"]; // Example genres
 
   const handleHomeClick = () => {
     setShowFavorites(false); // Reset showFavorites state
     setFavoritesButtonClicked(false); // Reset favoritesButtonClicked state
   };
+
   useEffect(() => {
     setAllTitles(titleInfo);
   }, [titleInfo]);
@@ -117,6 +121,11 @@ export function HomePage() {
     }
   };
 
+  const filterMoviesByGenre = (movies, genre) => {
+    if (!genre) return movies;
+    return movies.filter((movie) => movie.genre.includes(genre));
+  };
+
   return (
     <HomePageLayout
       searchValue={searchValue}
@@ -128,6 +137,9 @@ export function HomePage() {
       toggleShowFavorites={toggleShowFavorites}
       handleHomeClick={handleHomeClick}
       favoritesButtonClicked={favoritesButtonClicked}
+      selectedGenre={selectedGenre} // Pass selectedGenre prop
+      setSelectedGenre={setSelectedGenre} // Pass setSelectedGenre prop
+      genres={genres} // Pass genres prop
     >
       {favoritesButtonClicked && favoriteMovies.length > 0 ? (
         <Hero>FAVORITE MOVIES</Hero>
@@ -157,10 +169,10 @@ export function HomePage() {
           fetching={fetching}
           titleInfo={
             favoritesButtonClicked && favoriteMovies.length > 0
-              ? favoriteMovies
+              ? filterMoviesByGenre(favoriteMovies, selectedGenre)
               : searchValue
-              ? filteredTitles
-              : titleInfo
+              ? filterMoviesByGenre(filteredTitles, selectedGenre)
+              : filterMoviesByGenre(titleInfo, selectedGenre)
           }
           error={error}
           favoriteMovies={favoriteMovies}

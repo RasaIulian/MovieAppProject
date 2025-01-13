@@ -1,5 +1,12 @@
 import React from "react";
-import { Header, Logo, Container } from "./Header.style";
+import {
+  Header,
+  Logo,
+  Container,
+  GenreContainer,
+  GenreSelect,
+  Option,
+} from "./Header.style";
 import { Link as DefaultLink } from "react-router-dom";
 import { Input } from "./";
 import { Favorites } from "./UI/Favourites/Favorites";
@@ -11,6 +18,9 @@ export function HomePageHeader({
   toggleShowFavorites,
   handleHomeClick,
   favoritesButtonClicked,
+  selectedGenre, // Add selectedGenre prop
+  setSelectedGenre, // Add setSelectedGenre prop
+  genres, // Add genres prop
 }) {
   return (
     <Header>
@@ -29,6 +39,23 @@ export function HomePageHeader({
         >
           Fav
         </Favorites>
+
+        <GenreContainer>
+          <GenreSelect
+            id="genre-select"
+            value={selectedGenre}
+            onChange={(e) => setSelectedGenre(e.target.value)}
+          >
+            <Option value="">All Genres</Option>
+            {genres &&
+              genres.map((genre) => (
+                <Option key={genre} value={genre}>
+                  {genre}
+                </Option>
+              ))}
+          </GenreSelect>
+        </GenreContainer>
+
         {!favoritesButtonClicked && (
           <Input
             type="search"

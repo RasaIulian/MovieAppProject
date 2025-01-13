@@ -10,6 +10,9 @@ export function HomePageLayout({
   favoriteMovies,
   toggleShowFavorites,
   favoritesButtonClicked,
+  selectedGenre, // Add selectedGenre prop
+  setSelectedGenre, // Add setSelectedGenre prop
+  genres, // Add genres prop
 }) {
   return (
     <>
@@ -20,6 +23,9 @@ export function HomePageLayout({
         toggleShowFavorites={toggleShowFavorites}
         handleHomeClick={handleHomeClick}
         favoritesButtonClicked={favoritesButtonClicked}
+        selectedGenre={selectedGenre} // Pass selectedGenre prop
+        setSelectedGenre={setSelectedGenre} // Pass setSelected
+        genres={genres} // Pass genres prop
       />
       {children}
       <Footer />
