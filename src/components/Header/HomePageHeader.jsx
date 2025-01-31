@@ -18,16 +18,16 @@ export function HomePageHeader({
   toggleShowFavorites,
   handleHomeClick,
   favoritesButtonClicked,
-  selectedGenre, // Add selectedGenre prop
-  setSelectedGenre, // Add setSelectedGenre prop
-  genres, // Add genres prop
+  selectedGenre,
+  setSelectedGenre,
+  genres,
 }) {
   return (
     <Header>
       <Container>
         <DefaultLink to="/" onClick={handleHomeClick}>
           <Logo
-            src="https://images.pexels.com/photos/274937/pexels-photo-274937.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            src="https://images.pexels.com/photos/274937/pexels-photo-274937.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=100&w=100"
             alt="Reload Logo"
             title="Home"
           />
@@ -46,7 +46,9 @@ export function HomePageHeader({
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
           >
-            <Option value="">All Genres</Option>
+            <Option value="" title="Genres filter">
+              All Genres
+            </Option>
             {genres &&
               genres.map((genre) => (
                 <Option key={genre} value={genre}>

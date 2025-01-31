@@ -24,7 +24,18 @@ export function HomePage() {
   const [favoritesButtonClicked, setFavoritesButtonClicked] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState(""); // New state for selected genre
 
-  const genres = ["Action", "Comedy", "Drama", "Horror", "Romance"]; // Example genres
+  const genres = [
+    "Action",
+    "Adventure",
+    "Animation",
+    "Comedy",
+    "Drama",
+    "Fantasy",
+    "Horror",
+    "Mystery",
+    "Romance",
+    "Sci-Fi",
+  ];
 
   const handleHomeClick = () => {
     setShowFavorites(false); // Reset showFavorites state

@@ -47,8 +47,10 @@ export const Link = styled(DefaultLink)`
   border-radius: 5px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s;
-  &:hover {
-    transform: scale(1.1);
+  &:focus,
+  &:active {
+    box-shadow: none;
+    border: none;
   }
 `;
 
@@ -75,7 +77,7 @@ export const GenreSelect = styled.select`
   &:focus,
   &:active {
     box-shadow: none;
-    border: none;
+    outline: none;
   }
 
   @media (max-width: 420px) {
