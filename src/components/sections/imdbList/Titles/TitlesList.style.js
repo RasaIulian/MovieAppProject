@@ -39,12 +39,13 @@ export const Loader = styled.div`
 `;
 
 export const Error = styled.div`
+  padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   background-color: rgba(250, 250, 250, 0.15);
-  color: red;
+  color: rgb(255, 132, 39);
   font-size: 1.6rem;
   border-radius: 5px;
 `;

@@ -35,7 +35,19 @@ export function useGetTitles(titleId) {
         // console.log(data.movie);
       }
     } catch (err) {
-      setError(err.message);
+      if (err.response) {
+        // The server responded with a status code outside 2xx
+        setError(
+          `Status ${err.response.status}; ${err.response.data.message}` ||
+            `Error ${err.response.status}: ${err.response.statusText}`
+        );
+      } else if (err.request) {
+        // The request was made but no response was received
+        setError("No response from server. Please try again.");
+      } else {
+        // Something else caused the error
+        setError(err.message);
+      }
     } finally {
       setFetching(false);
     }
