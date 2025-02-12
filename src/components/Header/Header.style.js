@@ -69,6 +69,7 @@ export const GenreSelect = styled.select`
   cursor: pointer;
   height: 4rem;
   color: #2b2922;
+  font-size: 1.8rem;
   font-weight: bold;
   background-color: rgba(200, 200, 200, 0.9);
   border-radius: 1rem;
