@@ -7,6 +7,7 @@ import {
   Error,
   MovieCard,
   Poster,
+  InfoCard,
   Info,
   TrailerContainer,
   Trailer,
@@ -47,49 +48,53 @@ export function TitleDetails({ fetching, titleInfo, error }) {
           {!fetching && !error && (
             <MovieCard>
               <Poster src={titleInfo.big_image} />
-              <Info>Rank: {titleInfo.rank}</Info>
+              <InfoCard>
+                  <Info>Rank: {titleInfo.rank}</Info>
 
-              <Info>Title: {titleInfo.title}</Info>
-              <Info>Release Year: {titleInfo.year}</Info>
-              <Info>Rating: {titleInfo.rating}</Info>
-              <Info>
-                Genre:{" "}
-                {titleInfo.genre.map((gen, index) => (
-                  <span key={index}>
-                    {gen}
-                    {index !== titleInfo.genre.length - 1 && ", "}
-                  </span>
-                ))}
-              </Info>
-              <Info>Directors: {titleInfo.director}</Info>
-              <Info>
-                Writers:{" "}
-                {titleInfo.writers.map((writer, index) => (
-                  <span key={index}>
-                    {writer}
-                    {index !== titleInfo.writers.length - 1 && ", "}
-                  </span>
-                ))}
-              </Info>
-              <Info>Description: {titleInfo.description}</Info>
-              {/* <Info>Runtime: {titleInfo.runtimeStr}</Info> */}
-              {/* <Info>Plot: {titleInfo.plot}</Info>*/}
-              <TrailerContainer /*trailerSrc={titleInfo.trailer_embed_link}*/>
-                <Trailer
-                  src={titleInfo.trailer_embed_link}
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-                  allowfullscreen
-                  title="YouTube trailer"
-                />
-              </TrailerContainer>
-              <Link
-                to={titleInfo.imdb_link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Info>View on IMDb</Info>
-              </Link>
+                  <Info>Title: {titleInfo.title}</Info>
+                  <Info>Release Year: {titleInfo.year}</Info>
+                  <Info>Rating: {titleInfo.rating}</Info>
+                  <Info>
+                    Genre:{" "}
+                    {titleInfo.genre.map((gen, index) => (
+                      <span key={index}>
+                        {gen}
+                        {index !== titleInfo.genre.length - 1 && ", "}
+                      </span>
+                    ))}
+                  </Info>
+                  <Info>Directors: {titleInfo.director}</Info>
+                  <Info>
+                    Writers:{" "}
+                    {titleInfo.writers.map((writer, index) => (
+                      <span key={index}>
+                        {writer}
+                        {index !== titleInfo.writers.length - 1 && ", "}
+                      </span>
+                    ))}
+                  </Info>
+                  <Info>Description: {titleInfo.description}</Info>
+                  {/* <Info>Runtime: {titleInfo.runtimeStr}</Info> */}
+                  {/* <Info>Plot: {titleInfo.plot}</Info>*/}
+                  
+                  <TrailerContainer /*trailerSrc={titleInfo.trailer_embed_link}*/>
+                    <Trailer
+                      src={titleInfo.trailer_embed_link}
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                      allowfullscreen
+                      title="YouTube trailer"
+                    />
+                  </TrailerContainer>
+                  <Link
+                    to={titleInfo.imdb_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Info>View on IMDb</Info>
+                  </Link>
+                 
+              </InfoCard>
             </MovieCard>
           )}
         </MoviesWrapper>

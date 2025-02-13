@@ -51,25 +51,43 @@ export const Error = styled.div`
 `;
 
 export const MovieCard = styled.div`
-  max-width: calc(100% - 3rem);
-  margin: 0 1.5rem 3rem;
+  max-width: calc(100% - 2rem);
+  margin: 1rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: top;
   padding: 1.5rem 1.5rem;
   background-color: #fafafa;
   text-align: center;
+  align-items: flex-start;
   border-radius: 3rem;
   transition: background-color 0.3s;
-`;
 
+ @media (max-width: 768px) {
+  flex-direction: column;
+  align-items: center;}
+`;
 export const Poster = styled.img`
+  width: 50%;
+  max-width: 38rem;
+  border-radius: 2rem;
+  display: block;
+  margin-right: 1rem;
+  box-shadow: 0px 2px 3px 3px rgba(0, 0, 0, 0.2);
+  @media (max-width: 768px) {
   width: 100%;
+  margin-right: 0;
+  }
+`;
+  
+export const InfoCard = styled.div`
+  width: 50%;
   max-width: 38rem;
   border-radius: 2rem;
   display: block;
   margin: 0 auto;
-  box-shadow: 0px 2px 3px 3px rgba(0, 0, 0, 0.2);
+  @media (max-width: 768px) {
+  width: 100%;}
 `;
 
 export const Info = styled.h2`
