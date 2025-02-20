@@ -6,12 +6,12 @@ import { useParams } from "react-router-dom";
 import { useGetTitles } from "../components/hooks/useGetTitles";
 
 export function MoviePage() {
-  const { rank } = useParams();
-  const { fetching, titleInfo, error } = useGetTitles(rank);
+  const { id } = useParams();
+  const { fetching, titleInfo, error } = useGetTitles(id);
 
   return (
     <MovieLayout>
-      <Hero>{titleInfo.title}</Hero>
+      <Hero>{titleInfo.primaryTitle}</Hero>
       <TitleDetails fetching={fetching} titleInfo={titleInfo} error={error} />
     </MovieLayout>
   );

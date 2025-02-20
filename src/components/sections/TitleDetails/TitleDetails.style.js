@@ -45,7 +45,7 @@ export const Error = styled.div`
   justify-content: center;
   width: 100%;
   background-color: rgba(250, 250, 250, 0.15);
-  color: rgb(255, 132, 39);
+  color: rgb(255, 39, 39);
   font-size: 1.6rem;
   border-radius: 5px;
 `;
@@ -58,8 +58,8 @@ export const MovieCard = styled.div`
   justify-content: top;
   padding: 1.5rem 1.5rem;
   background-color: #fafafa;
-  text-align: center;
-  align-items: flex-start;
+  
+  align-items: center;
   border-radius: 3rem;
   transition: background-color 0.3s;
 
@@ -99,6 +99,9 @@ export const Info = styled.h2`
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 5px;
+`;
+export const ImdbLink = styled.a`
+color: unset;
 `;
 
 export const TrailerContainer = styled.div`

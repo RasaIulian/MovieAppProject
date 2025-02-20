@@ -34,28 +34,27 @@ export function TitlesList({
             titleInfo.length > 0 &&
             titleInfo.map((movie) => {
               const ismoviefavorite = favoriteMovies.some(
-                (favMovie) => favMovie.imdbid === movie.imdbid
+                (favMovie) => favMovie.id === movie.id
               );
 
               return (
-                <MovieCard key={movie.rank}>
+                <MovieCard key={movie.id}>
                   <Min size="40rem">
-                    <Link to={`/${movie.rank}`}>
+                    <Link to={`/${movie.id}`}>
                       {/* This Link component will navigate to the movie details page */}
 
                       <PosterWrapper>
-                        <Poster src={movie.image} />
+                        <Poster src={movie.primaryImage} />
                       </PosterWrapper>
-                      <Info>Rank: {movie.rank}</Info>
+                      <Info>Rating: {movie.averageRating}</Info>
                       <Min size="8rem">
-                        <Info>{movie.title}</Info>
+                        <Info>{movie.originalTitle}</Info>
                       </Min>
-                      <Info>Release year: {movie.year}</Info>
-                      <Info>Rating: {movie.rating}</Info>
+                      <Info>Release date: {new Date(movie.releaseDate).toLocaleDateString('en-GB').replace(/\//g, '.')}</Info>                      <Info>Runtime: {movie.runtimeMinutes}min</Info>
                       <Min size="8rem">
                         <Info>
                           Genre:{" "}
-                          {movie.genre
+                          {movie.genres
                             .map((g, index) => <span key={index}>{g}</span>)
                             .reduce((prev, curr) => [prev, ", ", curr])}
                         </Info>

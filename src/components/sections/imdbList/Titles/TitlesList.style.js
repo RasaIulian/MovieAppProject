@@ -45,7 +45,7 @@ export const Error = styled.div`
   justify-content: center;
   width: 100%;
   background-color: rgba(250, 250, 250, 0.15);
-  color: rgb(255, 132, 39);
+  color: rgb(255, 39, 39);
   font-size: 1.6rem;
   border-radius: 5px;
 `;
@@ -82,7 +82,7 @@ export const PosterWrapper = styled.div`
 
 export const Poster = styled.img`
   width: 100%;
-  height: 100%;
+  height: 36rem;
   object-fit: cover;
   border-radius: 1.8rem 1.8rem 0.5rem 0.5rem;
   display: block;

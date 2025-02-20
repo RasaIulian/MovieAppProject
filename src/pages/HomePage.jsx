@@ -71,7 +71,7 @@ export function HomePage() {
       if (searchValue) {
         const lowerCaseSearch = searchValue.toLowerCase();
         const filteredTitles = allTitles.filter((movie) =>
-          movie.title.toLowerCase().includes(lowerCaseSearch)
+          movie.originalTitle.toLowerCase().includes(lowerCaseSearch)
         );
         setFilteredTitles(filteredTitles);
         setIsSearching(false);
@@ -94,12 +94,12 @@ export function HomePage() {
 
   const handleFavoriteClick = (movie) => {
     const isAlreadyFavorite = favoriteMovies.some(
-      (favMovie) => favMovie.imdbid === movie.imdbid
+      (favMovie) => favMovie.id === movie.id
     );
 
     if (isAlreadyFavorite) {
       const updatedFavorites = favoriteMovies.filter(
-        (favMovie) => favMovie.imdbid !== movie.imdbid
+        (favMovie) => favMovie.id !== movie.id
       );
       setFavoriteMovies(updatedFavorites);
 
@@ -134,7 +134,7 @@ export function HomePage() {
 
   const filterMoviesByGenre = (movies, genre) => {
     if (!genre) return movies;
-    return movies.filter((movie) => movie.genre.includes(genre));
+    return movies.filter((movie) => movie.genres.includes(genre));
   };
 
   return (
@@ -178,13 +178,19 @@ export function HomePage() {
       ) : (
         <TitlesList
           fetching={fetching}
-          titleInfo={
-            favoritesButtonClicked && favoriteMovies.length > 0
+          titleInfo={(() => {
+            //for debugging:
+            // console.log("favoritesButtonClicked:", favoritesButtonClicked);
+            // console.log("favoriteMovies:", favoriteMovies);
+            // console.log("searchValue:", searchValue);
+            // console.log("filteredTitles:", filteredTitles);
+            // console.log("titleInfo:", titleInfo);
+            return favoritesButtonClicked && favoriteMovies.length > 0
               ? filterMoviesByGenre(favoriteMovies, selectedGenre)
               : searchValue
               ? filterMoviesByGenre(filteredTitles, selectedGenre)
-              : filterMoviesByGenre(titleInfo, selectedGenre)
-          }
+              : filterMoviesByGenre(titleInfo, selectedGenre);
+          })()}
           error={error}
           favoriteMovies={favoriteMovies}
           handleFavoriteClick={handleFavoriteClick}

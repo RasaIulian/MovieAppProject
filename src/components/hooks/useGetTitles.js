@@ -8,19 +8,13 @@ export function useGetTitles(titleId) {
   const apiKey = process.env.REACT_APP_API_KEY;
 
   const options = {
-    method: "GET",
-    url: titleId
-      ? "https://imdb-top-100-movies.p.rapidapi.com/top" +
-        /*"https://movies-api14.p.rapidapi.com/movie/"*/ titleId
-      : "https://imdb-top-100-movies.p.rapidapi.com/",
-    /*"https://movies-api14.p.rapidapi.com/movies",*/
-
-    headers: {
-      "X-RapidAPI-Key": apiKey,
-      "X-RapidAPI-Host": "imdb-top-100-movies.p.rapidapi.com",
-      /*"movies-api14.p.rapidapi.com",*/
-    },
-  };
+  method: 'GET',
+  url: titleId ? 'https://imdb236.p.rapidapi.com/imdb/'+ titleId : 'https://imdb236.p.rapidapi.com/imdb/top250-movies',
+  headers: {
+    'x-rapidapi-key': apiKey,
+    'x-rapidapi-host': 'imdb236.p.rapidapi.com'
+  }
+};
 
   async function getImdbTitleDetails(titleId) {
     try {
