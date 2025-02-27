@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Background = styled.div`
@@ -26,6 +26,15 @@ export const MoviesWrapper = styled.div`
   justify-content: center;
 `;
 
+// Define the opacity animation
+const textOpacityAnimation = keyframes`
+  0% {
+    opacity: 0.5; // 50% opacity
+  }
+  100% {
+    opacity: 1; // 100% opacity
+  }
+`;
 export const Loader = styled.div`
   display: flex;
   align-items: center;
@@ -36,6 +45,7 @@ export const Loader = styled.div`
   color: #ff8427;
   font-size: 1.6rem;
   line-height: 2.4rem;
+  span{animation: ${textOpacityAnimation} 1s infinite alternate};
 `;
 
 export const Error = styled.div`
@@ -134,4 +144,33 @@ export const SearchError = styled.div`
   background-image: linear-gradient(#1e212b, darkgrey);
   padding: 2rem 1.5rem;
   min-height: 62vh;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 0;
+`;
+
+export const StyledButton = styled.button`
+  background-image: linear-gradient(#1e212b, darkgrey);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.6rem;
+  transition: background-color 0.3s;
+
+  ${({ active }) =>
+    active &&
+    css`
+      background-image: linear-gradient(#1e212b, lightgrey);
+      font-weight: bold;
+    `}
+
+  &:hover {
+    background-image: linear-gradient(#1e212b, lightgrey);
+  }
 `;

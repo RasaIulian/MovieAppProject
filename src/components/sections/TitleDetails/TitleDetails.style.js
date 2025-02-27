@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 
 export const Background = styled.div`
   background-image: linear-gradient(#1e212b, darkgrey);
@@ -26,6 +26,16 @@ export const MoviesWrapper = styled.div`
   justify-content: center;
 `;
 
+// Define the opacity animation
+const textOpacityAnimation = keyframes`
+  0% {
+    opacity: 0.5; // 50% opacity
+  }
+  100% {
+    opacity: 1; // 100% opacity
+  }
+`;
+
 export const Loader = styled.div`
   display: flex;
   align-items: center;
@@ -36,6 +46,7 @@ export const Loader = styled.div`
   font-size: 1.6rem;
   line-height: 2.4rem;
   border-radius: 5px;
+   span{animation: ${textOpacityAnimation} 1s infinite alternate};
 `;
 
 export const Error = styled.div`

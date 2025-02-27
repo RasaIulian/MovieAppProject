@@ -3,7 +3,6 @@ import {
   Background,
   Container,
   MoviesWrapper,
-  Loader,
   Error,
   MovieCard,
   PosterWrapper,
@@ -11,6 +10,7 @@ import {
   Info,
   Min,
   FavoriteButton,
+  Loader,
 } from "./TitlesList.style";
 import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
@@ -22,27 +22,47 @@ export function TitlesList({
   error,
   handleFavoriteClick,
   favoriteMovies,
+  listType, // Add listType prop
 }) {
+  // console.log(
+  //   "TitlesList render - fetching:",
+  //   fetching,
+  //   "titleInfo length:",
+  //   titleInfo && titleInfo.length
+  // );
+
   return (
     <Background>
       <Container>
         <MoviesWrapper>
-          {fetching && <Loader>Loading movies...</Loader>}
-          {error && <Error>Error: {error}</Error>}
-          {!fetching &&
-            !error &&
-            titleInfo.length > 0 &&
+          {fetching ? (
+            <Loader>
+              <span>
+                Loading{" "}
+                {listType === "top250"
+                  ? "top 250 IMDB movies"
+                  : "most popular movies"}
+                ...
+              </span>{" "}
+            </Loader>
+          ) : error ? (
+            <Error>Error: {error}</Error>
+          ) : !titleInfo || titleInfo.length === 0 ? (
+            <Error>No movies available</Error>
+          ) : (
             titleInfo.map((movie) => {
               const ismoviefavorite = favoriteMovies.some(
                 (favMovie) => favMovie.id === movie.id
               );
 
               return (
-                <MovieCard key={movie.id}>
+                <MovieCard>
                   <Min size="40rem">
-                    <Link to={`/${movie.id}`}>
+                    <Link
+                      key={movie.id}
+                      to={`/${movie.id}?listType=${listType}`}
+                    >
                       {/* This Link component will navigate to the movie details page */}
-
                       <PosterWrapper>
                         <Poster src={movie.primaryImage} />
                       </PosterWrapper>
@@ -50,7 +70,13 @@ export function TitlesList({
                       <Min size="8rem">
                         <Info>{movie.originalTitle}</Info>
                       </Min>
-                      <Info>Release date: {new Date(movie.releaseDate).toLocaleDateString('en-GB').replace(/\//g, '.')}</Info>                      <Info>Runtime: {movie.runtimeMinutes}min</Info>
+                      <Info>
+                        Release date:{" "}
+                        {new Date(movie.releaseDate)
+                          .toLocaleDateString("en-GB")
+                          .replace(/\//g, ".")}
+                      </Info>{" "}
+                      <Info>Runtime: {movie.runtimeMinutes}min</Info>
                       <Min size="8rem">
                         <Info>
                           Genre:{" "}
@@ -72,7 +98,8 @@ export function TitlesList({
                   />
                 </MovieCard>
               );
-            })}
+            })
+          )}
         </MoviesWrapper>
       </Container>
     </Background>

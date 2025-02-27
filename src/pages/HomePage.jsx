@@ -6,13 +6,16 @@ import {
   MoviesWrapper,
   Loader,
   Error,
+  ButtonContainer,
+  StyledButton,
 } from "../components/sections/imdbList/Titles/TitlesList.style";
 import { HomePageLayout } from "../components/Layout";
 import { useGetTitles } from "../components/hooks/useGetTitles";
 import GoToTopButton from "../components/GoTopButton/GoTopButton";
 
 export function HomePage() {
-  const { fetching, titleInfo, error } = useGetTitles();
+  const [listType, setListType] = useState("top250");
+  const { fetching, titleInfo, error } = useGetTitles(null, listType);
   const [allTitles, setAllTitles] = useState([]);
   const [filteredTitles, setFilteredTitles] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -46,6 +49,7 @@ export function HomePage() {
     setAllTitles(titleInfo);
   }, [titleInfo]);
 
+  //ensure that the search function is not called on every keystroke but only after the user has stopped typing for a specified delay
   function debounce(func, wait) {
     let timeout;
 
@@ -137,6 +141,14 @@ export function HomePage() {
     return movies.filter((movie) => movie.genres.includes(genre));
   };
 
+  const handleListTypeChange = (newListType) => {
+    // Clear everything first
+    setAllTitles([]);
+    setFilteredTitles([]);
+    setListType(newListType);
+    // console.log("List type changed to:", newListType);
+  };
+
   return (
     <HomePageLayout
       searchValue={searchValue}
@@ -155,8 +167,25 @@ export function HomePage() {
       {favoritesButtonClicked && favoriteMovies.length > 0 ? (
         <Hero>FAVORITE MOVIES</Hero>
       ) : (
-        <Hero>WELCOME TO THE MOVIE DATABASE APP</Hero>
+        <Hero>
+          WELCOME TO THE MOVIE DATABASE APP
+          <ButtonContainer>
+            <StyledButton
+              onClick={() => handleListTypeChange("top250")}
+              active={listType === "top250"}
+            >
+              Top 250 Movies IMDB
+            </StyledButton>
+            <StyledButton
+              onClick={() => handleListTypeChange("mostPopular")}
+              active={listType === "mostPopular"}
+            >
+              Most Popular Movies
+            </StyledButton>
+          </ButtonContainer>
+        </Hero>
       )}
+
       {searchValue && isSearching ? (
         <Background>
           <Container>
@@ -195,6 +224,7 @@ export function HomePage() {
           favoriteMovies={favoriteMovies}
           handleFavoriteClick={handleFavoriteClick}
           searchValue={searchValue}
+          listType={listType} // Pass listType to TitlesList
         />
       )}
       <GoToTopButton />

@@ -68,7 +68,7 @@ const styles = {
     lineHeight: "3rem",
     backgroundColor: "rgba(255, 255, 255, 0.5)",
     color: "#1e212b",
-    border: "1px solid rgba(255, 255, 255, 0.5)",
+    border: "none",
     borderRadius: "50%",
     cursor: "pointer",
     transition: "all 0.3s ease",
