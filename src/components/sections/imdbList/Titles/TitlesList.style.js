@@ -153,7 +153,10 @@ export const ButtonContainer = styled.div`
 `;
 
 export const StyledButton = styled.button`
-  background-image: linear-gradient(#1e212b, darkgrey);
+  background-image: linear-gradient(90deg, #1e212b, darkgrey);
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -161,16 +164,18 @@ export const StyledButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.6rem;
-  transition: background-color 0.3s;
+  font-family: sans-serif;
+  transition: background-position 0.3s;
 
   ${({ active }) =>
     active &&
     css`
-      background-image: linear-gradient(#1e212b, lightgrey);
+      background-position: 100% 0%;
       font-weight: bold;
+      box-shadow: none;
     `}
 
   &:hover {
-    background-image: linear-gradient(#1e212b, lightgrey);
+    background-position: 100% 0%;
   }
 `;

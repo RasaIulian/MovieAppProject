@@ -37,9 +37,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                 {titleInfo.averageRating && (
                   <Info>Rating: {titleInfo.averageRating}</Info>
                 )}
-                {titleInfo.originalTitle && (
-                  <Info>Title: {titleInfo.originalTitle}</Info>
-                )}
+
                 {titleInfo.description && (
                   <Info>Description: {titleInfo.description}</Info>
                 )}
@@ -58,7 +56,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                   <Info>
                     Director:{" "}
                     {titleInfo.directors.map((director, index) => (
-                      <span key={director.id}>
+                      <span key={`director-{director.id}`}>
                         <Link
                           href={director.url}
                           target="_blank"
@@ -88,7 +86,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                   <Info>
                     Genre:{" "}
                     {titleInfo.genres.map((gen, index) => (
-                      <span key={index}>
+                      <span key={`${gen}-${index}`}>
                         {gen}
                         {index !== titleInfo.genres.length - 1 &&
                           titleInfo.genres.length > 1 &&
@@ -101,7 +99,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                   <Info>
                     Cast:{" "}
                     {titleInfo.cast.map((actor, index) => (
-                      <span key={actor.id}>
+                      <span key={`cast-${actor.id}-${index}`}>
                         <Link
                           href={actor.url}
                           target="_blank"
@@ -120,7 +118,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                   <Info>
                     Writers:{" "}
                     {titleInfo.writers.map((writer, index) => (
-                      <span key={writer.id}>
+                      <span key={`writer-${writer.id}-${index}`}>
                         <Link
                           href={writer.url}
                           target="_blank"

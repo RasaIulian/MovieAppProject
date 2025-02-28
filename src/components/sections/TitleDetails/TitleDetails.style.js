@@ -19,7 +19,7 @@ export const Title = styled.h1`
 `;
 
 export const MoviesWrapper = styled.div`
-  min-height: 80rem;
+  min-height: 60rem;
   display: flex;
   flex-wrap: wrap;
   max-width: 120rem;
@@ -66,11 +66,10 @@ export const MovieCard = styled.div`
   margin: 1rem;
   display: flex;
   flex-direction: row;
-  justify-content: top;
+  justify-content: center;
   padding: 1.5rem 1.5rem;
   background-color: #fafafa;
-  
-  align-items: center;
+  align-items: flex-start;
   border-radius: 3rem;
   transition: background-color 0.3s;
 

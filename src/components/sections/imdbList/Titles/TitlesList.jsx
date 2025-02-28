@@ -56,11 +56,10 @@ export function TitlesList({
               );
 
               return (
-                <MovieCard>
+                <MovieCard key={movie.id}>
                   <Min size="40rem">
                     <Link
-                      key={movie.id}
-                      to={`/${movie.id}?listType=${listType}`}
+                      to={`/${movie.id}?listType=${listType}?title=${movie.originalTitle}`}
                     >
                       {/* This Link component will navigate to the movie details page */}
                       <PosterWrapper>
@@ -81,7 +80,9 @@ export function TitlesList({
                         <Info>
                           Genre:{" "}
                           {movie.genres
-                            .map((g, index) => <span key={index}>{g}</span>)
+                            .map((genre, index) => (
+                              <span key={`${genre}-${index}`}>{genre}</span>
+                            ))
                             .reduce((prev, curr) => [prev, ", ", curr])}
                         </Info>
                       </Min>
