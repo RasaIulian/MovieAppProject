@@ -7,7 +7,7 @@ export function useGetTitles(titleId, listType) {
   const [fetching, setFetching] = useState(true);
   const fetchingRef = useRef(fetching); // Use ref to track fetching state
   const apiKey = process.env.REACT_APP_API_KEY;
-  const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+  const CACHE_DURATION = 24 * 60 * 60 * 1000 *7; // one week
 
   const options = {
     method: 'GET',

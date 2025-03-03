@@ -14,7 +14,9 @@ import { useGetTitles } from "../components/hooks/useGetTitles";
 import GoToTopButton from "../components/GoTopButton/GoTopButton";
 
 export function HomePage() {
-  const [listType, setListType] = useState("top250");
+  const [listType, setListType] = useState(() => {
+    return localStorage.getItem("lastListType") || "";
+  });
   const { fetching, titleInfo, error } = useGetTitles(null, listType);
   const [allTitles, setAllTitles] = useState([]);
   const [filteredTitles, setFilteredTitles] = useState([]);
@@ -146,8 +148,15 @@ export function HomePage() {
     setAllTitles([]);
     setFilteredTitles([]);
     setListType(newListType);
-    // console.log("List type changed to:", newListType);
+    localStorage.setItem("lastListType", newListType);
   };
+
+  useEffect(() => {
+    // Load initial data if listType exists in localStorage
+    if (listType) {
+      handleListTypeChange(listType);
+    }
+  }, []); // Run only on component mount
 
   return (
     <HomePageLayout
