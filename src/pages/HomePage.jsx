@@ -14,8 +14,10 @@ import { useGetTitles } from "../components/hooks/useGetTitles";
 import GoToTopButton from "../components/GoTopButton/GoTopButton";
 
 export function HomePage() {
+  const DEFAULT_LIST_TYPE = "top250";
   const [listType, setListType] = useState(() => {
-    return localStorage.getItem("lastListType") || "";
+    // Check if we're in an existing session
+    return sessionStorage.getItem("currentListType") || DEFAULT_LIST_TYPE;
   });
   const { fetching, titleInfo, error } = useGetTitles(null, listType);
   const [allTitles, setAllTitles] = useState([]);
@@ -144,19 +146,11 @@ export function HomePage() {
   };
 
   const handleListTypeChange = (newListType) => {
-    // Clear everything first
     setAllTitles([]);
     setFilteredTitles([]);
     setListType(newListType);
-    localStorage.setItem("lastListType", newListType);
+    sessionStorage.setItem("currentListType", newListType);
   };
-
-  useEffect(() => {
-    // Load initial data if listType exists in localStorage
-    if (listType) {
-      handleListTypeChange(listType);
-    }
-  }, []); // Run only on component mount
 
   return (
     <HomePageLayout
