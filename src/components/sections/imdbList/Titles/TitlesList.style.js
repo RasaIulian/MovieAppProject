@@ -184,7 +184,7 @@ export const StyledButton = styled.button`
 export const ShowMoreButton = styled.button`
   background-color: #f0f0f0;
   border: 1px solid #ccc;
-  padding: 4px 8px;
+  padding: 8px 16px 0;
   cursor: pointer;
   border-radius: 4px;
   font-size: 16px;
