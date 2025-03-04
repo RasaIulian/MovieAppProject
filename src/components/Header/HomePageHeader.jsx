@@ -10,7 +10,7 @@ import {
 import { Link as DefaultLink } from "react-router-dom";
 import { Input } from "./";
 import { Favorites } from "./UI/Favourites/Favorites";
-import logo from "../Header/UI/Logo/logo.jpg";
+import logo from "./UI/Logo/logo.jpg";
 
 export function HomePageHeader({
   searchValue,
@@ -27,7 +27,7 @@ export function HomePageHeader({
     <Header>
       <Container>
         <DefaultLink to="/" onClick={handleHomeClick}>
-          <Logo href={logo} alt="Reload Logo" title="Home" />
+          <Logo src={logo} alt="Reload Logo" title="Home" />
         </DefaultLink>
 
         <Favorites
