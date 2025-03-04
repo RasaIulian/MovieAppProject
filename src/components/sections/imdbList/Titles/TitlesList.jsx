@@ -45,7 +45,7 @@ export function TitlesList({
           ) : error ? (
             <Error>Error: {error}</Error>
           ) : !titleInfo || titleInfo.length === 0 ? (
-            <Error>No movies available</Error>
+            <Error>Please try again, no movies available.</Error>
           ) : (
             <>
               {displayedItems.map((movie) => {

@@ -56,7 +56,7 @@ export const Error = styled.div`
   justify-content: center;
   width: 100%;
   background-color: rgba(250, 250, 250, 0.15);
-  color: rgb(255, 39, 39);
+  color: rgb(255, 77, 1);
   font-size: 1.6rem;
   border-radius: 5px;
 `;

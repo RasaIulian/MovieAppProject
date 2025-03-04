@@ -161,9 +161,26 @@ export function HomePage() {
     setCurrentPage(1);
   };
 
+  favoritesButtonClicked && favoriteMovies.length > 0
+    ? filterMoviesByGenre(favoriteMovies, selectedGenre)
+    : searchValue
+    ? filterMoviesByGenre(filteredTitles, selectedGenre)
+    : filterMoviesByGenre(titleInfo, selectedGenre);
+
   const displayedItems = favoritesButtonClicked
-    ? favoriteMovies.slice(0, currentPage * itemsPerPage)
-    : titleInfo.slice(0, currentPage * itemsPerPage);
+    ? filterMoviesByGenre(favoriteMovies, selectedGenre).slice(
+        0,
+        currentPage * itemsPerPage
+      )
+    : searchValue
+    ? filterMoviesByGenre(filteredTitles, selectedGenre).slice(
+        0,
+        currentPage * itemsPerPage
+      )
+    : filterMoviesByGenre(titleInfo, selectedGenre).slice(
+        0,
+        currentPage * itemsPerPage
+      );
 
   return (
     <HomePageLayout
@@ -215,7 +232,7 @@ export function HomePage() {
           <Container>
             <MoviesWrapper>
               <Error>
-                No movies found for "{searchValue}", please try again
+                No movies found for "{searchValue}", please try again.
               </Error>
             </MoviesWrapper>
           </Container>
