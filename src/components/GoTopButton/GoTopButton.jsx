@@ -75,7 +75,7 @@ const styles = {
     transform: "rotate(-90deg)",
   },
   hover: {
-    backgroundColor: "rgba(30, 33, 43, 0.5)",
+    backgroundColor: "rgba(30, 33, 43, 0.7)",
     color: "#fff",
   },
   default: {

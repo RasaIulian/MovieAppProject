@@ -7,16 +7,22 @@ export const FavoritesStyle = styled.div`
   justify-content: center;
   align-items: center;
   color: #2b2922;
-  background-color: rgba(200, 200, 200, 0.9);
+  background-color: #f0f0f0;
   z-index: 5;
   height: 3rem;
   padding: 0.5rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
   &:active,
-  :focus {
+  &:focus {
     box-shadow: none;
+    transform: translateY(0);
   }
 
   &::after {

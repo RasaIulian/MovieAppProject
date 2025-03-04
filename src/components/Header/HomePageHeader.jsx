@@ -27,7 +27,7 @@ export function HomePageHeader({
       <Container>
         <DefaultLink to="/" onClick={handleHomeClick}>
           <Logo
-            src="https://images.pexels.com/photos/274937/pexels-photo-274937.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=100&w=100"
+            href="../Header/UI/Logo/logo.jpg"
             alt="Reload Logo"
             title="Home"
           />

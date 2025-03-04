@@ -40,7 +40,7 @@ const baseStyle = css`
   transition: box-shadow 0.3s;
 
   &:focus {
-    box-shadow: none;
+   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   }
 `;
 
@@ -51,7 +51,7 @@ export const InputElement = styled.input`
     position: absolute;
     right: 0;
     transform: translateY(-60%);
-    background-color: rgba(200, 200, 200, 0.9);
+    background-color: #f0f0f0;
     font-size: 1.7rem;
     z-index: 3;
   }

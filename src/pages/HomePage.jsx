@@ -145,12 +145,25 @@ export function HomePage() {
     return movies.filter((movie) => movie.genres.includes(genre));
   };
 
+  //Show more button function
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const handleShowMore = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
   const handleListTypeChange = (newListType) => {
     setAllTitles([]);
     setFilteredTitles([]);
     setListType(newListType);
     sessionStorage.setItem("currentListType", newListType);
+    setCurrentPage(1);
   };
+
+  const displayedItems = favoritesButtonClicked
+    ? favoriteMovies.slice(0, currentPage * itemsPerPage)
+    : titleInfo.slice(0, currentPage * itemsPerPage);
 
   return (
     <HomePageLayout
@@ -228,6 +241,8 @@ export function HomePage() {
           handleFavoriteClick={handleFavoriteClick}
           searchValue={searchValue}
           listType={listType} // Pass listType to TitlesList
+          displayedItems={displayedItems} // Pass displayedItems to TitlesList
+          handleShowMore={handleShowMore} // Pass handleShowMore to TitlesList
         />
       )}
       <GoToTopButton />

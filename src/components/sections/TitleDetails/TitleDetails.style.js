@@ -38,7 +38,7 @@ const textOpacityAnimation = keyframes`
 
 export const Loader = styled.div`
   display: flex;
-  align-items: center;
+  padding-top: 2rem;
   justify-content: center;
   width: 100%;
   background-color: rgba(250, 250, 250, 0.15);
@@ -112,6 +112,10 @@ export const Info = styled.h2`
 `;
 export const ImdbLink = styled.a`
 color: unset;
+transition: color 0.3s;
+ &:hover {
+    color: lightskyblue;
+  }
 `;
 
 export const TrailerContainer = styled.div`

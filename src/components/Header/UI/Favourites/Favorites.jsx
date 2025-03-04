@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  FavoriteButton,
+  FavoriteIcon,
   Info,
 } from "../../../sections/imdbList/Titles/TitlesList.style";
 import { FavoritesStyle } from "./Favorites.style";
@@ -23,7 +23,7 @@ export const Favorites = ({ favoriteMovies, toggleShowFavorites }) => {
           }
         >
           <Info>Fav&nbsp;</Info>
-          <FavoriteButton
+          <FavoriteIcon
             icon={ismoviefavorite === true ? fasStar : farStar}
             ismoviefavorite={ismoviefavorite ? "true" : "false"}
           />

@@ -69,16 +69,16 @@ export const MovieCard = styled.div`
   justify-content: top;
   align-items: center;
   padding: 1.5rem 1.5rem;
-  background-color: #fafafa;
+  background-color: #f0f0f0;
   text-align: center;
   border-radius: 3rem;
-  transition: background-color 0.2s ease-in-out;
-
+  transition:all 0.3s ease-in-out;
   position: relative;
 
   &:hover {
-    background-color: #eaeaea;
-  }
+    background-color: #e0e0e0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    }
 `;
 
 export const PosterWrapper = styled.div`
@@ -96,7 +96,7 @@ export const Poster = styled.img`
   object-fit: cover;
   border-radius: 1.8rem 1.8rem 0.5rem 0.5rem;
   display: block;
-  transition: transform 0.1s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 
   ${MovieCard}:hover & {
     transform: scale(1.05);
@@ -118,7 +118,7 @@ export const Min = styled.div`
   display: flex;
 `;
 
-export const FavoriteButton = styled(FontAwesomeIcon).attrs(
+export const FavoriteIcon = styled(FontAwesomeIcon).attrs(
   ({ icon, ismoviefavorite }) => ({
     icon,
     style: {
@@ -149,7 +149,7 @@ export const SearchError = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 1rem 0 0;
+  margin: 0.5rem 0 0;
 `;
 
 export const StyledButton = styled.button`
@@ -165,7 +165,7 @@ export const StyledButton = styled.button`
   cursor: pointer;
   font-size: 1.6rem;
   font-family: sans-serif;
-  transition: background-position 0.3s;
+  transition: all 0.3s;
 
   ${({ active }) =>
     active &&
@@ -177,5 +177,22 @@ export const StyledButton = styled.button`
 
   &:hover {
     background-position: 100% 0%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+`;
+export const ShowMoreButton = styled.button`
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  transition: background-color, box-shadow 0.3s;
+  
+  &:hover {
+    background-color: #e0e0e0;
+    box-shadow: none;
   }
 `;

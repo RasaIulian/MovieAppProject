@@ -137,13 +137,15 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                   <Info>Content Rating: {titleInfo.contentRating}</Info>
                 )}
                 {titleInfo.url && (
-                  <Link
-                    href={titleInfo.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Info>View on IMDb</Info>
-                  </Link>
+                  <Info>
+                    <Link
+                      href={titleInfo.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View on IMDb
+                    </Link>
+                  </Info>
                 )}
               </InfoCard>
             </MovieCard>

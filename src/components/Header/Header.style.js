@@ -12,13 +12,18 @@ export const Header = styled.div`
 
 export const Logo = styled.img`
   display: block;
+  background-color: #f0f0f0;
   z-index: 9999;
   max-height: 4rem;
   border-radius: 1rem;
   margin: 8px 1.6rem 8px 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s;
+  transition: box-shadow ease 0.3s;
+   &:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
 `;
+
 
 export const Container = styled.div`
   width: 100%;
@@ -36,8 +41,8 @@ export const Nav = styled.nav`
 `;
 
 export const Link = styled(DefaultLink)`
-  color: #fafafa;
-  background-color: #1e212b;
+  color: #1e212b;
+  background-color: #f0f0f0;
   display: block;
   font-size: 1.8rem;
   line-height: 3rem;
@@ -46,7 +51,12 @@ export const Link = styled(DefaultLink)`
   position: relative;
   border-radius: 5px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s;
+  transition: all 0.3s;
+
+   &:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
   &:focus,
   &:active {
     box-shadow: none;
@@ -71,10 +81,15 @@ export const GenreSelect = styled.select`
   color: #2b2922;
   font-size: 1.8rem;
   font-weight: bold;
-  background-color: rgba(200, 200, 200, 0.9);
+  background-color: #F0F0F0;
   border-radius: 1rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-  transition: box-shadow 0.3s;
+  transition: all 0.3s;
+   
+  &:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
   &:focus,
   &:active {
     box-shadow: none;
