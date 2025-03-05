@@ -28,6 +28,12 @@ export function TitlesList({
   displayedItems = [], // Ensure displayedItems is received as a prop
   handleShowMore,
 }) {
+  // reduce img size to improve load time
+  const getResizedImage = (imageUrl, height = 360) => {
+    if (!imageUrl) return "";
+    return imageUrl.replace(/\._V1_.*/, `._V1_UY${height}.jpg`);
+  };
+
   return (
     <Background>
       <Container>
@@ -45,45 +51,62 @@ export function TitlesList({
           ) : error ? (
             <Error>Error: {error}</Error>
           ) : !titleInfo || titleInfo.length === 0 ? (
-            <Error>Please try again, no movies available.</Error>
+            <Error>Sorry, no movies available, please try again.</Error>
           ) : (
             <>
-              {displayedItems.map((movie) => {
+              {displayedItems.map((movie, index) => {
                 const ismoviefavorite = favoriteMovies.some(
                   (favMovie) => favMovie.id === movie.id
                 );
 
                 return (
                   <MovieCard key={movie.id}>
-                    <Min size="40rem">
+                    <Min size="10rem">
+                      {/* This Link component will navigate to the movie details page */}
                       <Link
-                        to={`/${movie.id}?listType=${listType}&title=${movie.originalTitle}`}
+                        to={`/${movie.id}?listType=${listType}&rank=${
+                          index + 1
+                        }&title=${movie.originalTitle}`}
                       >
-                        {/* This Link component will navigate to the movie details page */}
-                        <PosterWrapper>
-                          <Poster src={movie.primaryImage} />
-                        </PosterWrapper>
-                        <Info>Rating: {movie.averageRating}</Info>
-                        <Min size="8rem">
-                          <Info>{movie.originalTitle}</Info>
-                        </Min>
-                        <Info>
-                          Release date:{" "}
-                          {new Date(movie.releaseDate)
-                            .toLocaleDateString("en-GB")
-                            .replace(/\//g, ".")}
-                        </Info>{" "}
-                        <Info>Runtime: {movie.runtimeMinutes}min</Info>
-                        <Min size="8rem">
+                        {movie.primaryImage && (
+                          <PosterWrapper>
+                            <Poster src={getResizedImage(movie.primaryImage)} />
+                          </PosterWrapper>
+                        )}
+
+                        {movie.originalTitle && (
+                          <Min size="6rem">
+                            <Info>
+                              {index + 1}.{movie.originalTitle}
+                            </Info>
+                          </Min>
+                        )}
+                        {movie.averageRating && (
+                          <Info>Rating: {movie.averageRating}</Info>
+                        )}
+                        {movie.releaseDate && (
                           <Info>
-                            Genre:{" "}
-                            {movie.genres
-                              .map((genre, index) => (
-                                <span key={`${genre}-${index}`}>{genre}</span>
-                              ))
-                              .reduce((prev, curr) => [prev, ", ", curr])}
+                            Release date:{" "}
+                            {new Date(movie.releaseDate)
+                              .toLocaleDateString("en-GB")
+                              .replace(/\//g, ".")}
                           </Info>
-                        </Min>
+                        )}
+                        {movie.runtimeMinutes && (
+                          <Info>Runtime: {movie.runtimeMinutes}min</Info>
+                        )}
+                        {movie.genres && movie.genres.length > 0 && (
+                          <Min size="6rem">
+                            <Info>
+                              Genre:{" "}
+                              {movie.genres
+                                .map((genre, index) => (
+                                  <span key={`${genre}-${index}`}>{genre}</span>
+                                ))
+                                .reduce((prev, curr) => [prev, ", ", curr])}
+                            </Info>
+                          </Min>
+                        )}
                       </Link>
                     </Min>
                     <FavoriteIcon

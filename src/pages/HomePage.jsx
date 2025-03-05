@@ -7,7 +7,7 @@ import {
   Loader,
   Error,
   ButtonContainer,
-  StyledButton,
+  MovieListButton,
 } from "../components/sections/imdbList/Titles/TitlesList.style";
 import { HomePageLayout } from "../components/Layout";
 import { useGetTitles } from "../components/hooks/useGetTitles";
@@ -203,18 +203,18 @@ export function HomePage() {
         <Hero>
           WELCOME TO THE MOVIE DATABASE APP
           <ButtonContainer>
-            <StyledButton
+            <MovieListButton
               onClick={() => handleListTypeChange("top250")}
               active={listType === "top250"}
             >
               Top 250 Movies IMDB
-            </StyledButton>
-            <StyledButton
+            </MovieListButton>
+            <MovieListButton
               onClick={() => handleListTypeChange("mostPopular")}
               active={listType === "mostPopular"}
             >
               Most Popular Movies
-            </StyledButton>
+            </MovieListButton>
           </ButtonContainer>
         </Hero>
       )}
@@ -232,7 +232,7 @@ export function HomePage() {
           <Container>
             <MoviesWrapper>
               <Error>
-                No movies found for "{searchValue}", please try again.
+                Sorry, no movies found for "{searchValue}", please try again.
               </Error>
             </MoviesWrapper>
           </Container>

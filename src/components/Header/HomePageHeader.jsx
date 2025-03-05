@@ -27,7 +27,7 @@ export function HomePageHeader({
     <Header>
       <Container>
         <DefaultLink to="/" onClick={handleHomeClick}>
-          <Logo src={logo} alt="Reload Logo" title="Home" />
+          <Logo src={logo} alt="Homepage Logo" title="Home Page" />
         </DefaultLink>
 
         <Favorites

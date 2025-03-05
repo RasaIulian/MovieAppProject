@@ -18,6 +18,12 @@ export function TitleDetails({ fetching, titleInfo, error }) {
   // console.log("TitleDetails - Title Info:", titleInfo);
   // console.log("TitleDetails - Error:", error);
 
+  // reduce img size to improve load time
+  const getResizedImage = (imageUrl, width = 380) => {
+    if (!imageUrl) return "";
+    return imageUrl.replace(/\._V1_.*/, `._V1_UX${width}.jpg`);
+  };
+
   return (
     <Background>
       <Container>
@@ -31,7 +37,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
           {!fetching && !error && titleInfo && (
             <MovieCard>
               {titleInfo.primaryImage && (
-                <Poster src={titleInfo.primaryImage} />
+                <Poster src={getResizedImage(titleInfo.primaryImage)} />
               )}
               <InfoCard>
                 {titleInfo.averageRating && (
@@ -56,7 +62,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                   <Info>
                     Director:{" "}
                     {titleInfo.directors.map((director, index) => (
-                      <span key={`director-{director.id}`}>
+                      <span key={`director-${director.id}`}>
                         <Link
                           href={director.url}
                           target="_blank"

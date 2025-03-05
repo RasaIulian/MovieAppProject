@@ -113,7 +113,7 @@ export const Info = styled.h2`
 
 export const Min = styled.div`
   min-height: ${({ size }) => size};
-  align-items: center;
+  align-items: top;
   justify-content: center;
   display: flex;
 `;
@@ -152,12 +152,10 @@ export const ButtonContainer = styled.div`
   margin: 0.5rem 0 0;
 `;
 
-export const StyledButton = styled.button`
-  background-image: linear-gradient(90deg, #1e212b, darkgrey);
-  background-size: 200% 100%;
-  background-position: 0% 0%;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-  color: #fff;
+export const MovieListButton = styled.button`
+  background-color: #f0f0f0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  color: #2b2922;
   border: none;
   padding: 0.5rem 1rem;
   margin: 0 0.5rem;
@@ -165,24 +163,24 @@ export const StyledButton = styled.button`
   cursor: pointer;
   font-size: 1.6rem;
   font-family: sans-serif;
-  transition: all 0.3s;
+  transition: all 0.3s ease-in-out;
 
   ${({ active }) =>
     active &&
     css`
-      background-position: 100% 0%;
       font-weight: bold;
-      box-shadow: none;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+      background-color: #e0e0e0; 
     `}
 
   &:hover {
-    background-position: 100% 0%;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #e0e0e0;   
   }
 
 `;
 export const ShowMoreButton = styled.button`
   background-color: #f0f0f0;
+  color: #2b2922;
   border: 1px solid #ccc;
   padding: 8px 16px 0;
   cursor: pointer;

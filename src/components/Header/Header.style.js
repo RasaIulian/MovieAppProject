@@ -82,6 +82,7 @@ export const GenreSelect = styled.select`
   font-size: 1.8rem;
   font-weight: bold;
   background-color: #F0F0F0;
+  border: none;
   border-radius: 1rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
@@ -90,7 +91,8 @@ export const GenreSelect = styled.select`
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   }
 
-  &:focus,
+  &:focus{
+  outline:none;}
   &:active {
     box-shadow: none;
     outline: none;

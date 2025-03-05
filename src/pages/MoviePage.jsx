@@ -10,6 +10,7 @@ export function MoviePage() {
   const location = useLocation();
   const listType =
     new URLSearchParams(location.search).get("listType") || "top250";
+  const rank = new URLSearchParams(location.search).get("rank");
   const { fetching, titleInfo, error } = useGetTitles(id, listType);
 
   // Debugging logs
@@ -19,7 +20,11 @@ export function MoviePage() {
 
   return (
     <MovieLayout>
-      <Hero>{titleInfo.primaryTitle}</Hero>
+      <Hero>
+        {titleInfo.primaryTitle && rank
+          ? `${rank}.${titleInfo.primaryTitle}`
+          : titleInfo.primaryTitle && titleInfo.primaryTitle}
+      </Hero>
       <TitleDetails fetching={fetching} titleInfo={titleInfo} error={error} />
     </MovieLayout>
   );

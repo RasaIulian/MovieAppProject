@@ -15,7 +15,7 @@ export const Title = styled.h1`
   width: 100%;
   max-width: 60rem;
   text-align: center;
-  margin: 0.5rem auto;
+  margin: 1rem auto;
   padding: 1rem;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
