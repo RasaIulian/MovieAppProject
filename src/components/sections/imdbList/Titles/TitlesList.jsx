@@ -71,14 +71,10 @@ export function TitlesList({
                         {movie.primaryImage && (
                           <PosterWrapper>
                             <Poster
-                              src={
-                                getResizedImage(movie.primaryImage) ||
-                                movie.primaryImage
-                              }
-                              // Fallback to the original image if the resized image fails to load
+                              src={getResizedImage(movie.primaryImage)}
                               onError={(e) => {
-                                e.target.onerror = null; // Prevent infinite loop
                                 e.target.src = movie.primaryImage; // Fallback to the original
+                                e.target.onerror = null; // Prevent infinite loop if the fallback also fails
                               }}
                             />
                           </PosterWrapper>
@@ -136,7 +132,11 @@ export function TitlesList({
                         e.stopPropagation(); // Prevent propagation to the parent link
                         handleFavoriteClick(movie);
                       }}
-                      title="Add/Remove Favourite"
+                      title={
+                        ismoviefavorite
+                          ? "Remove from favorites"
+                          : "Add to favorites"
+                      }
                     />
                   </MovieCard>
                 );

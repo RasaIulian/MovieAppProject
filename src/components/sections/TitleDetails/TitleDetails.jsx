@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import {
   Background,
   Container,
@@ -24,13 +25,17 @@ export function TitleDetails({ fetching, titleInfo, error }) {
     return imageUrl.replace(/\._V1_.*/, `._V1_UX${width}.jpg`);
   };
 
+  const title = new URLSearchParams(useLocation().search).get("title");
+
   return (
     <Background>
       <Container>
         <MoviesWrapper>
           {fetching && (
             <Loader>
-              <span>Loading movie details...</span>
+              <span>
+                Loading {title ? `${title} details` : "movie details"}...
+              </span>
             </Loader>
           )}
           {error && <Error>Error: {error}</Error>}
@@ -38,10 +43,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
             <MovieCard>
               {titleInfo.primaryImage && (
                 <Poster
-                  src={
-                    getResizedImage(titleInfo.primaryImage) ||
-                    titleInfo.primaryImage
-                  }
+                  src={getResizedImage(titleInfo.primaryImage)}
                   // Fallback to the original image if the resized image fails to load
                   onError={(e) => {
                     e.target.onerror = null; // Prevent infinite loop

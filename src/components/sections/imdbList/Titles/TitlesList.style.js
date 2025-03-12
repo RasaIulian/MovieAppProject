@@ -129,7 +129,7 @@ export const FavoriteIcon = styled(FontAwesomeIcon).attrs(
   ({ icon, ismoviefavorite }) => ({
     icon,
     style: {
-      color: ismoviefavorite === "true" ? "gold" : "rgba(100, 100, 100, 0.5)",
+      color: ismoviefavorite === "true" ? "rgba(255, 170, 0, 1)" : "rgba(100, 100, 100, 0.5)",
     },
   })
 )`
@@ -138,7 +138,7 @@ export const FavoriteIcon = styled(FontAwesomeIcon).attrs(
   height: 3rem;
   z-index: 4;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   &:hover {
     transform: scale(1.05);
   }
