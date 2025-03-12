@@ -29,7 +29,7 @@ export function TitlesList({
   handleShowMore,
 }) {
   // reduce img size to improve load time
-  const getResizedImage = (imageUrl, height = 360) => {
+  const getResizedImage = (imageUrl, height = 550) => {
     if (!imageUrl) return "";
     return imageUrl.replace(/\._V1_.*/, `._V1_UY${height}.jpg`);
   };
@@ -70,40 +70,60 @@ export function TitlesList({
                       >
                         {movie.primaryImage && (
                           <PosterWrapper>
-                            <Poster src={getResizedImage(movie.primaryImage)} />
+                            <Poster
+                              src={
+                                getResizedImage(movie.primaryImage) ||
+                                movie.primaryImage
+                              }
+                              // Fallback to the original image if the resized image fails to load
+                              onError={(e) => {
+                                e.target.onerror = null; // Prevent infinite loop
+                                e.target.src = movie.primaryImage; // Fallback to the original
+                              }}
+                            />
                           </PosterWrapper>
                         )}
-
                         {movie.originalTitle && (
                           <Min size="6rem">
                             <Info>
-                              {index + 1}.{movie.originalTitle}
+                              {index + 1}.{"\u2002"}
+                              {movie.originalTitle}
                             </Info>
                           </Min>
                         )}
                         {movie.averageRating && (
-                          <Info>Rating: {movie.averageRating}</Info>
+                          <Info>
+                            Rating:{"\u2002"}
+                            {movie.averageRating}
+                          </Info>
                         )}
                         {movie.releaseDate && (
                           <Info>
-                            Release date:{" "}
+                            Release date:{"\u2002"}
                             {new Date(movie.releaseDate)
                               .toLocaleDateString("en-GB")
                               .replace(/\//g, ".")}
                           </Info>
                         )}
                         {movie.runtimeMinutes && (
-                          <Info>Runtime: {movie.runtimeMinutes}min</Info>
+                          <Info>
+                            Runtime:{"\u2002"}
+                            {movie.runtimeMinutes}min
+                          </Info>
                         )}
                         {movie.genres && movie.genres.length > 0 && (
                           <Min size="6rem">
                             <Info>
-                              Genre:{" "}
+                              Genre:{"\u2002"}
                               {movie.genres
                                 .map((genre, index) => (
                                   <span key={`${genre}-${index}`}>{genre}</span>
                                 ))
-                                .reduce((prev, curr) => [prev, ", ", curr])}
+                                .reduce((prev, curr) => [
+                                  prev,
+                                  ",\u2002",
+                                  curr,
+                                ])}
                             </Info>
                           </Min>
                         )}
@@ -127,7 +147,7 @@ export function TitlesList({
         {displayedItems.length < titleInfo.length && (
           <ButtonContainer>
             <ShowMoreButton onClick={handleShowMore}>
-              Show More <br />▼
+              Show More{"\u2002"}▼
             </ShowMoreButton>
           </ButtonContainer>
         )}

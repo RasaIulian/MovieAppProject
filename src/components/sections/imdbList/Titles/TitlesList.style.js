@@ -74,11 +74,15 @@ export const MovieCard = styled.div`
   border-radius: 3rem;
   transition:all 0.3s ease-in-out;
   position: relative;
-
+ @media (max-width: 768px) {
+ max-width: 100%;
+ margin: 0 0 2rem;
+}
   &:hover {
     background-color: #e0e0e0;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     }
+
 `;
 
 export const PosterWrapper = styled.div`
@@ -88,12 +92,13 @@ export const PosterWrapper = styled.div`
   border-top-right-radius: 1.8rem;
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+  @media (max-width: 768px) {
+  width: 100%;}
 `;
 
 export const Poster = styled.img`
   width: 100%;
   height: 36rem;
-  object-fit: cover;
   border-radius: 1.8rem 1.8rem 0.5rem 0.5rem;
   display: block;
   transition: transform 0.3s ease-in-out;
@@ -101,6 +106,8 @@ export const Poster = styled.img`
   ${MovieCard}:hover & {
     transform: scale(1.05);
   }
+    @media (max-width: 768px) {
+  height: unset;}
 `;
 
 export const Info = styled.h2`
@@ -131,6 +138,7 @@ export const FavoriteIcon = styled(FontAwesomeIcon).attrs(
   height: 3rem;
   z-index: 4;
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
   &:hover {
     transform: scale(1.05);
   }
@@ -149,7 +157,7 @@ export const SearchError = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 0.5rem 0 0;
+  margin-top:1rem;
 `;
 
 export const MovieListButton = styled.button`
@@ -162,7 +170,6 @@ export const MovieListButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.6rem;
-  font-family: sans-serif;
   transition: all 0.3s ease-in-out;
 
   ${({ active }) =>
@@ -181,13 +188,13 @@ export const MovieListButton = styled.button`
 export const ShowMoreButton = styled.button`
   background-color: #f0f0f0;
   color: #2b2922;
-  border: 1px solid #ccc;
-  padding: 8px 16px 0;
+  border: none;
+  padding: 8px 16px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 16px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-  transition: background-color, box-shadow 0.3s;
+  transition: all 0.3s;
   
   &:hover {
     background-color: #e0e0e0;

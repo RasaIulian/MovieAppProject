@@ -27,11 +27,10 @@ export const FavoritesStyle = styled.div`
 
   &::after {
     content: attr(data-favorites);
-    margin-left: 0.5rem;
     font-weight: bold;
     position: absolute;
     top: 1rem;
-    left: 5.1rem;
+    right: 1rem;
     color: #2b2922;
     z-index: 6;
     font-size: 1.6rem;

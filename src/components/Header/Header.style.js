@@ -66,7 +66,7 @@ export const Link = styled(DefaultLink)`
 
 export const GenreContainer = styled.div`
   position: absolute;
-  left: 19rem;
+  left: 18rem;
   &:focus,
   &:active {
     box-shadow: none;
@@ -96,6 +96,10 @@ export const GenreSelect = styled.select`
   &:active {
     box-shadow: none;
     outline: none;
+  }
+    
+  option:checked {
+    font-weight: bold;
   }
 
   @media (max-width: 420px) {

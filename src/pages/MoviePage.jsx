@@ -22,7 +22,7 @@ export function MoviePage() {
     <MovieLayout>
       <Hero>
         {titleInfo.primaryTitle && rank
-          ? `${rank}.${titleInfo.primaryTitle}`
+          ? `${rank}. ${titleInfo.primaryTitle}`
           : titleInfo.primaryTitle && titleInfo.primaryTitle}
       </Hero>
       <TitleDetails fetching={fetching} titleInfo={titleInfo} error={error} />

@@ -37,30 +37,49 @@ export function TitleDetails({ fetching, titleInfo, error }) {
           {!fetching && !error && titleInfo && (
             <MovieCard>
               {titleInfo.primaryImage && (
-                <Poster src={getResizedImage(titleInfo.primaryImage)} />
+                <Poster
+                  src={
+                    getResizedImage(titleInfo.primaryImage) ||
+                    titleInfo.primaryImage
+                  }
+                  // Fallback to the original image if the resized image fails to load
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite loop
+                    e.target.src = titleInfo.primaryImage; // Fallback to the original
+                  }}
+                />
               )}
               <InfoCard>
                 {titleInfo.averageRating && (
-                  <Info>Rating: {titleInfo.averageRating}</Info>
+                  <Info>
+                    Rating:{"\u2002"}
+                    {titleInfo.averageRating}
+                  </Info>
                 )}
 
                 {titleInfo.description && (
-                  <Info>Description: {titleInfo.description}</Info>
+                  <Info>
+                    Plot:{"\u2002"}
+                    {titleInfo.description}
+                  </Info>
                 )}
                 {titleInfo.releaseDate && (
                   <Info>
-                    Release Date:{" "}
+                    Release Date:{"\u2002"}
                     {new Date(titleInfo.releaseDate)
                       .toLocaleDateString("en-GB")
                       .replace(/\//g, ".")}
                   </Info>
                 )}
                 {titleInfo.runtimeMinutes && (
-                  <Info>Runtime: {titleInfo.runtimeMinutes}min</Info>
+                  <Info>
+                    Runtime:{"\u2002"}
+                    {titleInfo.runtimeMinutes}min
+                  </Info>
                 )}
                 {titleInfo.directors && titleInfo.directors.length > 0 && (
                   <Info>
-                    Director:{" "}
+                    Director:{"\u2002"}
                     {titleInfo.directors.map((director, index) => (
                       <span key={`director-${director.id}`}>
                         <Link
@@ -79,18 +98,19 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                 )}
                 {titleInfo.budget && (
                   <Info>
-                    Budget: {titleInfo.budget.toLocaleString("en-US")}$
+                    Budget:{"\u2002"}
+                    {titleInfo.budget.toLocaleString("en-US")}$
                   </Info>
                 )}
                 {titleInfo.grossWorldwide && (
                   <Info>
-                    Gross Worldwide:{" "}
+                    Gross Worldwide:{"\u2002"}
                     {titleInfo.grossWorldwide.toLocaleString("en-GB")}$
                   </Info>
                 )}
                 {titleInfo.genres && titleInfo.genres.length > 0 && (
                   <Info>
-                    Genre:{" "}
+                    Genre:{"\u2002"}
                     {titleInfo.genres.map((gen, index) => (
                       <span key={`${gen}-${index}`}>
                         {gen}
@@ -103,7 +123,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                 )}
                 {titleInfo.cast && titleInfo.cast.length > 0 && (
                   <Info>
-                    Cast:{" "}
+                    Cast:{"\u2002"}
                     {titleInfo.cast.map((actor, index) => (
                       <span key={`cast-${actor.id}-${index}`}>
                         <Link
@@ -122,7 +142,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                 )}
                 {titleInfo.writers && titleInfo.writers.length > 0 && (
                   <Info>
-                    Writers:{" "}
+                    Writers:{"\u2002"}
                     {titleInfo.writers.map((writer, index) => (
                       <span key={`writer-${writer.id}-${index}`}>
                         <Link
@@ -140,7 +160,10 @@ export function TitleDetails({ fetching, titleInfo, error }) {
                   </Info>
                 )}
                 {titleInfo.contentRating && (
-                  <Info>Content Rating: {titleInfo.contentRating}</Info>
+                  <Info>
+                    Content Rating:{"\u2002"}
+                    {titleInfo.contentRating}
+                  </Info>
                 )}
                 {titleInfo.url && (
                   <Info>

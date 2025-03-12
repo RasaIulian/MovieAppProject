@@ -3,7 +3,7 @@ import styled, {keyframes} from "styled-components";
 export const Background = styled.div`
   background-image: linear-gradient(#1e212b, darkgrey);
   padding: 1rem 1.5rem;
-  min-height: 60vh;
+min-height: 76dvh;
 `;
 
 export const Container = styled.div`
@@ -118,21 +118,21 @@ transition: color 0.3s;
   }
 `;
 
-export const TrailerContainer = styled.div`
-  width: 100%;
-  min-height: 40rem;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-bottom: 1rem;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-  position: relative;
-`;
+// export const TrailerContainer = styled.div`
+//   width: 100%;
+//   min-height: 40rem;
+//   border-radius: 5px;
+//   overflow: hidden;
+//   margin-bottom: 1rem;
+//   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+//   position: relative;
+// `;
 
-export const Trailer = styled.iframe`
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  border-radius: 5px;
-`;
+// export const Trailer = styled.iframe`
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+//   height: 100%;
+//   width: 100%;
+//   border-radius: 5px;
+// `;
