@@ -19,7 +19,7 @@ export const Title = styled.h1`
 `;
 
 export const MoviesWrapper = styled.div`
-  min-height: 60rem;
+  min-height: 75rem;
   display: flex;
   flex-wrap: wrap;
   max-width: 120rem;
@@ -79,7 +79,7 @@ export const MovieCard = styled.div`
 `;
 export const Poster = styled.img`
   width: 50%;
-  max-width: 38rem;
+  max-width: 50rem;
   border-radius: 2rem;
   display: block;
   margin-right: 1rem;
@@ -92,7 +92,7 @@ export const Poster = styled.img`
   
 export const InfoCard = styled.div`
   width: 50%;
-  max-width: 38rem;
+  max-width: 50rem;
   border-radius: 2rem;
   display: block;
   margin: 0 auto;

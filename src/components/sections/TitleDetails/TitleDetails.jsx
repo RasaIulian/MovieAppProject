@@ -20,7 +20,7 @@ export function TitleDetails({ fetching, titleInfo, error }) {
   // console.log("TitleDetails - Error:", error);
 
   // reduce img size to improve load time
-  const getResizedImage = (imageUrl, width = 380) => {
+  const getResizedImage = (imageUrl, width = 440) => {
     if (!imageUrl) return "";
     return imageUrl.replace(/\._V1_.*/, `._V1_UX${width}.jpg`);
   };
