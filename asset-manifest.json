@@ -1,13 +1,13 @@
 {
   "main.css": "/MovieAppProject/static/css/main.724b9ddd.chunk.css",
-  "main.js": "/MovieAppProject/static/js/main.0363ab11.chunk.js",
-  "main.js.map": "/MovieAppProject/static/js/main.0363ab11.chunk.js.map",
+  "main.js": "/MovieAppProject/static/js/main.85226b67.chunk.js",
+  "main.js.map": "/MovieAppProject/static/js/main.85226b67.chunk.js.map",
   "runtime~main.js": "/MovieAppProject/static/js/runtime~main.605e81b7.js",
   "runtime~main.js.map": "/MovieAppProject/static/js/runtime~main.605e81b7.js.map",
   "static/js/2.6ebe4787.chunk.js": "/MovieAppProject/static/js/2.6ebe4787.chunk.js",
   "static/js/2.6ebe4787.chunk.js.map": "/MovieAppProject/static/js/2.6ebe4787.chunk.js.map",
   "index.html": "/MovieAppProject/index.html",
-  "precache-manifest.cfee8bcdb715b01deb5715ba3294dd32.js": "/MovieAppProject/precache-manifest.cfee8bcdb715b01deb5715ba3294dd32.js",
+  "precache-manifest.00a68d0b25d79061788a3d5b4fde5e44.js": "/MovieAppProject/precache-manifest.00a68d0b25d79061788a3d5b4fde5e44.js",
   "service-worker.js": "/MovieAppProject/service-worker.js",
   "static/css/main.724b9ddd.chunk.css.map": "/MovieAppProject/static/css/main.724b9ddd.chunk.css.map"
 }
