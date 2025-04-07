@@ -25,13 +25,13 @@ export function TitlesList({
   handleFavoriteClick,
   favoriteMovies,
   listType,
-  displayedItems = [], // Ensure displayedItems is received as a prop
+  displayedItems = [],
   handleShowMore,
 }) {
-  // reduce img size to improve load time
   const getResizedImage = (imageUrl, height = 550) => {
-    if (!imageUrl) return "";
-    return imageUrl.replace(/\._V1_.*/, `._V1_UY${height}.jpg`);
+    return imageUrl
+      ? imageUrl.replace(/\._V1_.*/, `._V1_UY${height}.jpg`)
+      : `https://placehold.co/350x${height}.png?text=No+Poster&font=open-sans`;
   };
 
   return (
@@ -46,7 +46,7 @@ export function TitlesList({
                   ? "top 250 IMDB movies"
                   : "most popular movies"}
                 ...
-              </span>{" "}
+              </span>
             </Loader>
           ) : error ? (
             <Error>Error: {error}</Error>
@@ -62,74 +62,69 @@ export function TitlesList({
                 return (
                   <MovieCard key={movie.id}>
                     <Min size="10rem">
-                      {/* This Link component will navigate to the movie details page */}
                       <Link
                         to={`/${movie.id}?listType=${listType}&rank=${
                           index + 1
                         }&title=${movie.originalTitle}`}
                       >
-                        {movie.primaryImage && (
-                          <PosterWrapper>
-                            <Poster
-                              src={getResizedImage(movie.primaryImage)}
-                              onError={(e) => {
-                                e.target.src = movie.primaryImage; // Fallback to the original
-                                e.target.onerror = null; // Prevent infinite loop if the fallback also fails
-                              }}
-                            />
-                          </PosterWrapper>
-                        )}
-                        {movie.originalTitle && (
-                          <Min size="6rem">
-                            <Info>
-                              {index + 1}.{"\u2002"}
-                              {movie.originalTitle}
-                            </Info>
-                          </Min>
-                        )}
-                        {movie.averageRating && (
+                        <PosterWrapper>
+                          <Poster
+                            src={getResizedImage(movie.primaryImage)}
+                            onError={(e) => {
+                              e.target.src = movie.primaryImage;
+                              e.target.onerror = null;
+                            }}
+                          />
+                        </PosterWrapper>
+                        <Min size="6rem">
                           <Info>
-                            Rating:{"\u2002"}
-                            {movie.averageRating}
+                            {index + 1}.{"\u2002"}
+                            {movie.originalTitle || "N/A"}
                           </Info>
-                        )}
-                        {movie.releaseDate && (
+                        </Min>
+                        <Info>
+                          Rating:{"\u2002"}
+                          {movie.averageRating || "N/A"}
+                        </Info>
+                        <Info>
+                          Release date:{"\u2002"}
+                          {movie.releaseDate
+                            ? new Date(movie.releaseDate)
+                                .toLocaleDateString("en-GB")
+                                .replace(/\//g, ".")
+                            : "N/A"}
+                        </Info>
+                        <Info>
+                          Runtime:{"\u2002"}
+                          {movie.runtimeMinutes
+                            ? `${movie.runtimeMinutes}min`
+                            : "N/A"}
+                        </Info>
+                        <Min size="6rem">
                           <Info>
-                            Release date:{"\u2002"}
-                            {new Date(movie.releaseDate)
-                              .toLocaleDateString("en-GB")
-                              .replace(/\//g, ".")}
+                            Genre:{"\u2002"}
+                            {movie.genres && movie.genres.length > 0
+                              ? movie.genres
+                                  .map((genre, index) => (
+                                    <span key={`${genre}-${index}`}>
+                                      {genre}
+                                    </span>
+                                  ))
+                                  .reduce((prev, curr) => [
+                                    prev,
+                                    ",\u2002",
+                                    curr,
+                                  ])
+                              : "N/A"}
                           </Info>
-                        )}
-                        {movie.runtimeMinutes && (
-                          <Info>
-                            Runtime:{"\u2002"}
-                            {movie.runtimeMinutes}min
-                          </Info>
-                        )}
-                        {movie.genres && movie.genres.length > 0 && (
-                          <Min size="6rem">
-                            <Info>
-                              Genre:{"\u2002"}
-                              {movie.genres
-                                .map((genre, index) => (
-                                  <span key={`${genre}-${index}`}>{genre}</span>
-                                ))
-                                .reduce((prev, curr) => [
-                                  prev,
-                                  ",\u2002",
-                                  curr,
-                                ])}
-                            </Info>
-                          </Min>
-                        )}
+                        </Min>
                       </Link>
                     </Min>
                     <FavoriteIcon
                       icon={ismoviefavorite === true ? fasStar : farStar}
                       ismoviefavorite={ismoviefavorite ? "true" : "false"}
                       onClick={(e) => {
-                        e.stopPropagation(); // Prevent propagation to the parent link
+                        e.stopPropagation();
                         handleFavoriteClick(movie);
                       }}
                       title={

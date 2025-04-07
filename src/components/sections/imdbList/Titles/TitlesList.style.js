@@ -123,6 +123,7 @@ export const Min = styled.div`
   align-items: top;
   justify-content: center;
   display: flex;
+   align-items: center;
 `;
 
 export const FavoriteIcon = styled(FontAwesomeIcon).attrs(
