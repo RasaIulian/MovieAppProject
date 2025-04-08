@@ -7,7 +7,7 @@ export function useGetTitles(titleId, listType) {
   const [fetching, setFetching] = useState(true);
   const fetchingRef = useRef(fetching); // Use ref to track fetching state
   const apiKey = process.env.REACT_APP_API_KEY;
-  const CACHE_DURATION = 24 * 60 * 60 * 1000 *7; // one week
+  const CACHE_DURATION = 24 * 60 * 60 * 1000 * 7; // one week
 
   const options = {
     method: 'GET',
@@ -79,11 +79,16 @@ export function useGetTitles(titleId, listType) {
 
     // console.log("Starting fetch for listType:", listType);
 
-    // Restore cache checking
-    if (titleId) {  
-      const cachedData = localStorage.getItem(`title_${titleId}`);
-      const cachedTimestamp = localStorage.getItem(`title_${titleId}_timestamp`);
-      const isCacheValid = cachedTimestamp && (Date.now() - cachedTimestamp < CACHE_DURATION);
+    const fetchData = () => {
+      let cachedData, cachedTimestamp, isCacheValid;
+      const cacheKey = titleId ? `title_${titleId}` : listType;
+      const timestampKey = titleId ? `title_${titleId}_timestamp` : `${listType}_timestamp`;
+      
+      cachedData = localStorage.getItem(cacheKey);
+      cachedTimestamp = localStorage.getItem(timestampKey);
+      
+      const duration = listType === "top250" ? CACHE_DURATION : CACHE_DURATION / 7;
+      isCacheValid = cachedTimestamp && (Date.now() - cachedTimestamp < duration);
 
       if (cachedData && isCacheValid) {
         // Add artificial delay even for cached data
@@ -95,23 +100,9 @@ export function useGetTitles(titleId, listType) {
       } else {
         getImdbTitleDetails();
       }
-    } else {
-      const cachedData = localStorage.getItem(listType);
-      const cachedTimestamp = localStorage.getItem(`${listType}_timestamp`);
-      const isCacheValid = cachedTimestamp && (Date.now() - cachedTimestamp < CACHE_DURATION);
+    };
 
-      if (cachedData && isCacheValid) {
-        // Add artificial delay even for cached data
-        setTimeout(() => {
-          setTitleInfo(JSON.parse(cachedData));
-          setFetching(false);
-          fetchingRef.current = false;
-        }, 1000);
-      } else {
-        getImdbTitleDetails();
-      }
-    }
-
+    fetchData();
   }, [titleId, listType]);
 
   return { fetching, titleInfo, error };
