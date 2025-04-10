@@ -15,7 +15,7 @@ export const Logo = styled.img`
   background-color: #f0f0f0;
   z-index: 9999;
   max-height: 4rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   margin: 8px 1.6rem 8px 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   transition: box-shadow ease 0.3s;
@@ -49,7 +49,7 @@ export const Link = styled(DefaultLink)`
   font-weight: 600;
   padding: 8px 1.6rem;
   position: relative;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
 
@@ -83,7 +83,7 @@ export const GenreSelect = styled.select`
   font-weight: bold;
   background-color: #F0F0F0;
   border: none;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
    

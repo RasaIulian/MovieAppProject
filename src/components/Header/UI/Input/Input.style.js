@@ -34,7 +34,7 @@ const baseStyle = css`
   display: block;
   max-width: 20%;
   padding: 0.7rem 1rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   margin: 5px 0;
   transition: box-shadow 0.3s;

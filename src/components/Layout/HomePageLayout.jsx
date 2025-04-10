@@ -7,7 +7,7 @@ export function HomePageLayout({
   searchValue,
   handleSearch,
   handleHomeClick,
-  favoriteMovies,
+  favoriteItems,
   toggleShowFavorites,
   favoritesButtonClicked,
   selectedGenre, // Add selectedGenre prop
@@ -19,7 +19,7 @@ export function HomePageLayout({
       <HomePageHeader
         searchValue={searchValue}
         handleSearch={handleSearch}
-        favoriteMovies={favoriteMovies}
+        favoriteItems={favoriteItems}
         toggleShowFavorites={toggleShowFavorites}
         handleHomeClick={handleHomeClick}
         favoritesButtonClicked={favoritesButtonClicked}

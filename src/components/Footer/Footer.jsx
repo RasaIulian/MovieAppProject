@@ -6,9 +6,7 @@ export function Footer() {
     <Container>
       <FooterText>
         Designed and developed by: <br></br>
-        <Contact href="mailto:ilie.rasa@gmail.com">
-          Rasa I. Front-end Developer
-        </Contact>{" "}
+        <Contact href="#">Rasa I. Front-end Developer</Contact>{" "}
       </FooterText>
     </Container>
   );

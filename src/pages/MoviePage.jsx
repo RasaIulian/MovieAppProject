@@ -11,21 +11,21 @@ export function MoviePage() {
     new URLSearchParams(useLocation().search).get("listType") || "";
   const rank = new URLSearchParams(useLocation().search).get("rank");
   const title = new URLSearchParams(useLocation().search).get("title");
-  const { fetching, titleInfo, error } = useGetTitles(id, listType);
+  const { fetching, titlesInfo, error } = useGetTitles(id, listType);
 
   // Debugging logs
   // console.log("MoviePage - Fetching:", fetching);
-  // console.log("MoviePage - Title Info:", titleInfo);
+  // console.log("MoviePage - Title Info:", titlesInfo);
   // console.log("MoviePage - Error:", error);
 
   return (
     <MovieLayout>
       <Hero>
-        {titleInfo.primaryTitle && rank
+        {titlesInfo.primaryTitle && rank
           ? `${rank}. ${title}`
-          : titleInfo.primaryTitle && titleInfo.primaryTitle}
+          : titlesInfo.primaryTitle && titlesInfo.primaryTitle}
       </Hero>
-      <TitleDetails fetching={fetching} titleInfo={titleInfo} error={error} />
+      <TitleDetails fetching={fetching} titlesInfo={titlesInfo} error={error} />
     </MovieLayout>
   );
 }

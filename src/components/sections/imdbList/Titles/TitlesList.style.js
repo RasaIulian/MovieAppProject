@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, {  keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Background = styled.div`
@@ -68,10 +68,10 @@ export const MovieCard = styled.div`
   flex-direction: column;
   justify-content: top;
   align-items: center;
-  padding: 1.5rem 1.5rem;
+  padding: 0.5rem;
   background-color: #f0f0f0;
   text-align: center;
-  border-radius: 3rem;
+  border-radius: 2rem;
   transition:all 0.3s ease-in-out;
   position: relative;
  @media (max-width: 768px) {
@@ -99,7 +99,7 @@ export const PosterWrapper = styled.div`
 export const Poster = styled.img`
   width: 100%;
   height: 36rem;
-  border-radius: 1.8rem 1.8rem 0.5rem 0.5rem;
+  border-radius: 1rem 1rem 0.5rem 0.5rem;
   display: block;
   transition: transform 0.3s ease-in-out;
 
@@ -126,12 +126,12 @@ export const Min = styled.div`
    align-items: center;
 `;
 
+const ACTIVE_FAVORITE_COLOR = "rgba(255, 170, 0, 1)";
+const INACTIVE_FAVORITE_COLOR = "rgba(100, 100, 100, 0.5)";
 export const FavoriteIcon = styled(FontAwesomeIcon).attrs(
-  ({ icon, ismoviefavorite }) => ({
+  // Keep attrs for things that aren't styles, like the 'icon' prop itself
+  ({ icon }) => ({
     icon,
-    style: {
-      color: ismoviefavorite === "true" ? "rgba(255, 170, 0, 1)" : "rgba(100, 100, 100, 0.5)",
-    },
   })
 )`
   display: inline-block;
@@ -139,12 +139,18 @@ export const FavoriteIcon = styled(FontAwesomeIcon).attrs(
   height: 3rem;
   z-index: 4;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; /* Refined transition */
+
+   color: ${({ isfavorite  }) => // Assuming prop name is updated
+    isfavorite  === "true"
+      ? ACTIVE_FAVORITE_COLOR
+      : INACTIVE_FAVORITE_COLOR};
+
   &:hover {
     transform: scale(1.05);
+    color: ${ACTIVE_FAVORITE_COLOR};
   }
 `;
-
 export const SearchError = styled.div`
   text-align: center;
   justify-content: center;
@@ -162,9 +168,10 @@ export const ButtonContainer = styled.div`
 `;
 
 export const MovieListButton = styled.button`
-  background-color: #f0f0f0;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+      background-color: #f0f0f0; 
   color: #2b2922;
+  font-weight: bold;
   border: none;
   padding: 0.5rem 1rem;
   margin: 0 0.5rem;
@@ -172,15 +179,6 @@ export const MovieListButton = styled.button`
   cursor: pointer;
   font-size: 1.6rem;
   transition: all 0.3s ease-in-out;
-
-  ${({ active }) =>
-    active &&
-    css`
-      font-weight: bold;
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-      background-color: #e0e0e0; 
-    `}
-
   &:hover {
     background-color: #e0e0e0;   
   }

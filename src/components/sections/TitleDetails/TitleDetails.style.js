@@ -66,11 +66,12 @@ export const MovieCard = styled.div`
   margin: 1rem;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   padding: 1.5rem 1.5rem;
   background-color: #fafafa;
   align-items: flex-start;
-  border-radius: 3rem;
+  border-radius: 2rem;
   transition: background-color 0.3s;
 
  @media (max-width: 768px) {
@@ -78,9 +79,9 @@ export const MovieCard = styled.div`
   align-items: center;}
 `;
 export const Poster = styled.img`
-  width: 50%;
+  width: 49%;
   max-width: 50rem;
-  border-radius: 2rem;
+  border-radius: 1rem;
   display: block;
   margin-right: 1rem;
   box-shadow: 0px 2px 3px 3px rgba(0, 0, 0, 0.2);
@@ -91,7 +92,7 @@ export const Poster = styled.img`
 `;
   
 export const InfoCard = styled.div`
-  width: 50%;
+  width: 49%;
   max-width: 50rem;
   border-radius: 2rem;
   display: block;
@@ -118,21 +119,23 @@ transition: color 0.3s;
   }
 `;
 
-// export const TrailerContainer = styled.div`
-//   width: 100%;
-//   min-height: 40rem;
-//   border-radius: 5px;
-//   overflow: hidden;
-//   margin-bottom: 1rem;
-//   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-//   position: relative;
-// `;
+export const TrailerContainer = styled.div`
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 1rem;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
 
-// export const Trailer = styled.iframe`
-//   position: absolute;
-//   left: 0;
-//   top: 0;
-//   height: 100%;
-//   width: 100%;
-//   border-radius: 5px;
-// `;
+export const Trailer = styled.iframe`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border:0;
+  border-radius: 5px;
+`;

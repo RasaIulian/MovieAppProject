@@ -15,7 +15,7 @@ import logo from "./UI/Logo/logo.jpg";
 export function HomePageHeader({
   searchValue,
   handleSearch,
-  favoriteMovies,
+  favoriteItems,
   toggleShowFavorites,
   handleHomeClick,
   favoritesButtonClicked,
@@ -31,7 +31,7 @@ export function HomePageHeader({
         </DefaultLink>
 
         <Favorites
-          favoriteMovies={favoriteMovies}
+          favoriteItems={favoriteItems}
           toggleShowFavorites={toggleShowFavorites}
         >
           Fav

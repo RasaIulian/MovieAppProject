@@ -14,16 +14,32 @@ import {
   ButtonContainer,
   ShowMoreButton,
 } from "./TitlesList.style";
-import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons";
-import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
+
+// Helper function to get a user-friendly description for the list type
+const getListDescription = (listType) => {
+  switch (listType) {
+    case "top250Movies":
+      return "top 250 IMDB movies";
+    case "mostPopularMovies":
+      return "most popular movies";
+    case "top250TV":
+      return "top 250 IMDB TV series";
+    case "mostPopularTV":
+      return "most popular TV series";
+    default:
+      return "titles"; // Fallback description
+  }
+};
 
 export function TitlesList({
   fetching,
-  titleInfo,
+  titlesInfo,
   error,
   handleFavoriteClick,
-  favoriteMovies,
+  favoriteTitles,
   listType,
   displayedItems = [],
   handleShowMore,
@@ -33,45 +49,43 @@ export function TitlesList({
       ? imageUrl.replace(/\._V1_.*/, `._V1_UY${height}.jpg`)
       : `https://placehold.co/350x${height}.png?text=No+Poster&font=open-sans`;
   };
-
+  const listDescription = getListDescription(listType); // Get description based on listType
   return (
     <Background>
       <Container>
         <MoviesWrapper>
           {fetching ? (
             <Loader>
-              <span>
-                Loading{" "}
-                {listType === "top250"
-                  ? "top 250 IMDB movies"
-                  : "most popular movies"}
-                ...
-              </span>
+              {/* Updated Loading Message */}
+              <span>Loading {listDescription}...</span>
             </Loader>
           ) : error ? (
             <Error>Error: {error}</Error>
-          ) : !titleInfo || titleInfo.length === 0 ? (
-            <Error>Sorry, no movies available, please try again.</Error>
-          ) : (
+          ) : displayedItems.length > 0 ? (
             <>
-              {displayedItems.map((movie, index) => {
-                const ismoviefavorite = favoriteMovies.some(
-                  (favMovie) => favMovie.id === movie.id
+              {displayedItems.map((item, index) => {
+                const isItemFavorite = favoriteTitles.some(
+                  (favItem) => favItem.id === item.id
                 );
+                const resizedImageUrl = getResizedImage(item.primaryImage);
 
                 return (
-                  <MovieCard key={movie.id}>
+                  <MovieCard key={item.id}>
                     <Min size="10rem">
                       <Link
-                        to={`/${movie.id}?listType=${listType}&rank=${
+                        // Pass item details in the link state if needed, or keep query params
+                        to={`/${item.id}?listType=${listType}&rank=${
                           index + 1
-                        }&title=${movie.originalTitle}`}
+                        }&title=${encodeURIComponent(
+                          item.originalTitle || ""
+                        )}`} // Ensure title is encoded
                       >
                         <PosterWrapper>
                           <Poster
-                            src={getResizedImage(movie.primaryImage)}
+                            src={resizedImageUrl}
+                            alt={`${item.originalTitle || "Title"} Poster`}
                             onError={(e) => {
-                              e.target.src = movie.primaryImage;
+                              e.target.src = item.primaryImage;
                               e.target.onerror = null;
                             }}
                           />
@@ -79,56 +93,25 @@ export function TitlesList({
                         <Min size="6rem">
                           <Info>
                             {index + 1}.{"\u2002"}
-                            {movie.originalTitle || "N/A"}
+                            {item.originalTitle || "N/A"}
                           </Info>
                         </Min>
                         <Info>
                           Rating:{"\u2002"}
-                          {movie.averageRating || "N/A"}
+                          {item.averageRating || "N/A"}
                         </Info>
-                        <Info>
-                          Release date:{"\u2002"}
-                          {movie.releaseDate
-                            ? new Date(movie.releaseDate)
-                                .toLocaleDateString("en-GB")
-                                .replace(/\//g, ".")
-                            : "N/A"}
-                        </Info>
-                        <Info>
-                          Runtime:{"\u2002"}
-                          {movie.runtimeMinutes
-                            ? `${movie.runtimeMinutes}min`
-                            : "N/A"}
-                        </Info>
-                        <Min size="6rem">
-                          <Info>
-                            Genre:{"\u2002"}
-                            {movie.genres && movie.genres.length > 0
-                              ? movie.genres
-                                  .map((genre, index) => (
-                                    <span key={`${genre}-${index}`}>
-                                      {genre}
-                                    </span>
-                                  ))
-                                  .reduce((prev, curr) => [
-                                    prev,
-                                    ",\u2002",
-                                    curr,
-                                  ])
-                              : "N/A"}
-                          </Info>
-                        </Min>
                       </Link>
                     </Min>
                     <FavoriteIcon
-                      icon={ismoviefavorite === true ? fasStar : farStar}
-                      ismoviefavorite={ismoviefavorite ? "true" : "false"}
+                      icon={isItemFavorite ? faHeartSolid : faHeartRegular}
+                      // Use boolean directly for styled-component prop if possible, otherwise string 'true'/'false'
+                      isfavorite={isItemFavorite.toString()} // Pass as string 'true' or 'false'
                       onClick={(e) => {
-                        e.stopPropagation();
-                        handleFavoriteClick(movie);
+                        e.stopPropagation(); // Keep stopPropagation
+                        handleFavoriteClick(item); // Pass the current item
                       }}
                       title={
-                        ismoviefavorite
+                        isItemFavorite
                           ? "Remove from favorites"
                           : "Add to favorites"
                       }
@@ -137,9 +120,15 @@ export function TitlesList({
                 );
               })}
             </>
+          ) : (
+            // Updated No Results Message
+            <Error>
+              Sorry, no {listDescription.includes("TV") ? "series" : "movies"}{" "}
+              available, please try again.
+            </Error>
           )}
         </MoviesWrapper>
-        {displayedItems.length < titleInfo.length && (
+        {displayedItems.length < titlesInfo.length && (
           <ButtonContainer>
             <ShowMoreButton onClick={handleShowMore}>
               Show More{"\u2002"}▼

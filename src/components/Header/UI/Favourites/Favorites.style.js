@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const FavoritesStyle = styled.div`
   display: flex;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,7 @@ export const FavoritesStyle = styled.div`
   padding: 0.5rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  transition: box-shadow 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
@@ -29,7 +29,6 @@ export const FavoritesStyle = styled.div`
     content: attr(data-favorites);
     font-weight: bold;
     position: absolute;
-    top: 1rem;
     right: 1rem;
     color: #2b2922;
     z-index: 6;

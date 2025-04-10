@@ -4,28 +4,31 @@ import {
   Info,
 } from "../../../sections/imdbList/Titles/TitlesList.style";
 import { FavoritesStyle } from "./Favorites.style";
-import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
-import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { Container, Nav } from "../../Header.style";
 
-export const Favorites = ({ favoriteMovies, toggleShowFavorites }) => {
-  const ismoviefavorite = favoriteMovies.length > 0;
+export const Favorites = ({ favoriteItems, toggleShowFavorites }) => {
+  // Ensure favoriteItems is an array before accessing length
+  const items = favoriteItems || [];
+  const hasFavorites = items.length > 0;
+
   return (
     <Container>
       <Nav>
         <FavoritesStyle
           onClick={toggleShowFavorites}
-          data-favorites={ismoviefavorite ? favoriteMovies.length : ""}
+          data-favorites={hasFavorites ? items.length : ""}
           title={
-            ismoviefavorite === true
-              ? favoriteMovies.length + " Favorites"
-              : "No favorite movies selected."
+            hasFavorites
+              ? `${items.length} Favorite${items.length !== 1 ? "s" : ""}`
+              : "No favorite titles selected."
           }
         >
           <Info>Fav&nbsp;</Info>
           <FavoriteIcon
-            icon={ismoviefavorite === true ? fasStar : farStar}
-            ismoviefavorite={ismoviefavorite ? "true" : "false"}
+            icon={hasFavorites ? faHeartSolid : faHeartRegular}
+            isfavorite={hasFavorites.toString()}
           />
         </FavoritesStyle>
       </Nav>
