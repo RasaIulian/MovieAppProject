@@ -144,7 +144,7 @@ export function useGetTitles(titleId, listType) {
 
           // Determine cache duration based on listType
           // Keep longer duration only for top 250 movies, shorter for others including TV lists
-          const duration = listType === "top250Movies" ? CACHE_DURATION_LONG : CACHE_DURATION_SHORT;
+          const duration = (listType === "top250Movies" || listType === "top250TV") ? CACHE_DURATION_LONG : CACHE_DURATION_SHORT;
           isCacheValid = cachedTimestamp && (Date.now() - parseInt(cachedTimestamp, 10) < duration); // Parse timestamp
 
           if (cachedData && isCacheValid) {
@@ -191,7 +191,7 @@ export function useGetTitles(titleId, listType) {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [titleId, listType, apiKey]); // Add apiKey to dependencies as it's used in options
+  }, [titleId, listType, apiKey]); 
 
   return { fetching, titlesInfo, error };
 }

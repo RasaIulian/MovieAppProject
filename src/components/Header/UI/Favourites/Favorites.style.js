@@ -30,9 +30,10 @@ export const FavoritesStyle = styled.div`
     font-weight: bold;
     position: absolute;
     right: 1rem;
+    top: 1rem;
     color: #2b2922;
     z-index: 6;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 2.4rem;
     width: 2rem;
     text-align: center;

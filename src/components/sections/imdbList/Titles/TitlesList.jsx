@@ -14,8 +14,8 @@ import {
   ButtonContainer,
   ShowMoreButton,
 } from "./TitlesList.style";
-import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 
 // Helper function to get a user-friendly description for the list type
@@ -56,7 +56,6 @@ export function TitlesList({
         <MoviesWrapper>
           {fetching ? (
             <Loader>
-              {/* Updated Loading Message */}
               <span>Loading {listDescription}...</span>
             </Loader>
           ) : error ? (
@@ -102,20 +101,22 @@ export function TitlesList({
                         </Info>
                       </Link>
                     </Min>
-                    <FavoriteIcon
-                      icon={isItemFavorite ? faHeartSolid : faHeartRegular}
-                      // Use boolean directly for styled-component prop if possible, otherwise string 'true'/'false'
-                      isfavorite={isItemFavorite.toString()} // Pass as string 'true' or 'false'
-                      onClick={(e) => {
-                        e.stopPropagation(); // Keep stopPropagation
-                        handleFavoriteClick(item); // Pass the current item
-                      }}
-                      title={
-                        isItemFavorite
-                          ? "Remove from favorites"
-                          : "Add to favorites"
-                      }
-                    />
+                    <Min size="5rem">
+                      <FavoriteIcon
+                        icon={isItemFavorite ? faStarSolid : faStarRegular}
+                        // Use boolean directly for styled-component prop if possible, otherwise string 'true'/'false'
+                        isfavorite={isItemFavorite.toString()} // Pass as string 'true' or 'false'
+                        onClick={(e) => {
+                          e.stopPropagation(); // Keep stopPropagation
+                          handleFavoriteClick(item); // Pass the current item
+                        }}
+                        title={
+                          isItemFavorite
+                            ? "Remove from favorites"
+                            : "Add to favorites"
+                        }
+                      />
+                    </Min>
                   </MovieCard>
                 );
               })}

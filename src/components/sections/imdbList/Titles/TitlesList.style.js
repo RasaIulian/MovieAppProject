@@ -24,6 +24,8 @@ export const MoviesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  @media (max-width: 610px) {
+  width: 100%;}
 `;
 
 // Define the opacity animation
@@ -74,15 +76,14 @@ export const MovieCard = styled.div`
   border-radius: 2rem;
   transition:all 0.3s ease-in-out;
   position: relative;
- @media (max-width: 768px) {
- max-width: 100%;
+ @media (max-width: 610px) {
+ max-width: 37rem;
  margin: 0 0 2rem;
 }
   &:hover {
     background-color: #e0e0e0;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     }
-
 `;
 
 export const PosterWrapper = styled.div`
@@ -92,7 +93,7 @@ export const PosterWrapper = styled.div`
   border-top-right-radius: 1.8rem;
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
-  @media (max-width: 768px) {
+  @media (max-width: 610px) {
   width: 100%;}
 `;
 
@@ -106,7 +107,7 @@ export const Poster = styled.img`
   ${MovieCard}:hover & {
     transform: scale(1.05);
   }
-    @media (max-width: 768px) {
+    @media (max-width: 610px) {
   height: unset;}
 `;
 
@@ -123,7 +124,9 @@ export const Min = styled.div`
   align-items: top;
   justify-content: center;
   display: flex;
-   align-items: center;
+  align-items: center;
+  width: 100%;
+  
 `;
 
 const ACTIVE_FAVORITE_COLOR = "rgba(255, 170, 0, 1)";
@@ -139,7 +142,7 @@ export const FavoriteIcon = styled(FontAwesomeIcon).attrs(
   height: 3rem;
   z-index: 4;
   cursor: pointer;
-  transition: all 0.3s ease-in-out; /* Refined transition */
+  transition: all 0.3s ease-in-out; 
 
    color: ${({ isfavorite  }) => // Assuming prop name is updated
     isfavorite  === "true"

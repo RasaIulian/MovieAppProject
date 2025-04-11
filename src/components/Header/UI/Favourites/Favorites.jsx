@@ -4,8 +4,8 @@ import {
   Info,
 } from "../../../sections/imdbList/Titles/TitlesList.style";
 import { FavoritesStyle } from "./Favorites.style";
-import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { Container, Nav } from "../../Header.style";
 
 export const Favorites = ({ favoriteItems, toggleShowFavorites }) => {
@@ -27,7 +27,7 @@ export const Favorites = ({ favoriteItems, toggleShowFavorites }) => {
         >
           <Info>Fav&nbsp;</Info>
           <FavoriteIcon
-            icon={hasFavorites ? faHeartSolid : faHeartRegular}
+            icon={hasFavorites ? faStarSolid : faStarRegular}
             isfavorite={hasFavorites.toString()}
           />
         </FavoritesStyle>
