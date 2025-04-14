@@ -21,11 +21,16 @@ export function MoviePage() {
   return (
     <MovieLayout>
       <Hero>
-        {titlesInfo.primaryTitle && rank
-          ? `${rank}. ${title}`
-          : titlesInfo.primaryTitle && titlesInfo.primaryTitle}
+        {rank && title
+          ? `${rank}. ${title} details`
+          : titlesInfo.primaryTitle && `${titlesInfo.primaryTitle} details`}
       </Hero>
-      <TitleDetails fetching={fetching} titlesInfo={titlesInfo} error={error} />
+      <TitleDetails
+        fetching={fetching}
+        titlesInfo={titlesInfo}
+        error={error}
+        listType={listType}
+      />
     </MovieLayout>
   );
 }

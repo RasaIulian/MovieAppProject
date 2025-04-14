@@ -1,4 +1,3 @@
-// g:\GItHubProjects\MovieAppProject\src\components\sections\TitleDetails\TitleDetails.jsx
 import React from "react";
 import { useLocation } from "react-router-dom";
 import {
@@ -18,6 +17,7 @@ import {
 
 // Helper function to extract YouTube Video ID and create embed URL
 const getYouTubeEmbedUrl = (watchUrl) => {
+  // ... (keep existing helper function)
   if (!watchUrl) return null;
   try {
     const url = new URL(watchUrl);
@@ -38,7 +38,7 @@ const getYouTubeEmbedUrl = (watchUrl) => {
   return null; // Return null if URL is invalid or not a recognized YouTube link
 };
 
-export function TitleDetails({ fetching, titlesInfo, error }) {
+export function TitleDetails({ fetching, titlesInfo, error, listType }) {
   // Debugging logs
   // console.log("TitleDetails - Fetching:", fetching);
   // console.log("TitleDetails - Title Info:", titlesInfo);
@@ -53,12 +53,15 @@ export function TitleDetails({ fetching, titlesInfo, error }) {
 
   const titleParam = new URLSearchParams(useLocation().search).get("title");
   const displayTitle =
-    (titlesInfo && titlesInfo.originalTitle) || titleParam || "Details"; // Use fetched title if available
+    titleParam || (titlesInfo && titlesInfo.originalTitle) || "Details"; // Use fetched title if available
 
   // Get the embed URL for the trailer
   const trailerEmbedUrl = titlesInfo
     ? getYouTubeEmbedUrl(titlesInfo.trailer)
     : null;
+
+  // Determine if the title is a series based on titleType
+  const isSeries = listType.includes("TV");
 
   return (
     <Background>
@@ -96,53 +99,91 @@ export function TitleDetails({ fetching, titlesInfo, error }) {
                 <Info>
                   Genre:{"\u2002"}
                   {titlesInfo.genres && titlesInfo.genres.length > 0
-                    ? titlesInfo.genres.join(", ") // Simpler join for genres
+                    ? titlesInfo.genres.join(", ")
                     : "N/A"}
                 </Info>
                 <Info>
                   Runtime:{"\u2002"}
                   {titlesInfo.runtimeMinutes
-                    ? `${titlesInfo.runtimeMinutes} min` // Consistent unit
+                    ? `${titlesInfo.runtimeMinutes} min`
                     : "N/A"}
                 </Info>
                 <Info>
                   Release Date:{"\u2002"}
                   {titlesInfo.releaseDate
                     ? new Date(titlesInfo.releaseDate).toLocaleDateString(
-                        "en-GB", // Or your preferred locale
-                        { year: "numeric", month: "long", day: "numeric" } // More readable format
+                        "eu",
+                        { year: "numeric", month: "numeric", day: "numeric" } // Optional formatting
                       )
-                    : titlesInfo.startYear // Fallback to start year if no specific date
-                    ? titlesInfo.startYear
                     : "N/A"}
                 </Info>
+
+                {/* Render this block only if it's a series */}
+                {isSeries && (
+                  <Info>
+                    Years Active:{"\u2002"}
+                    {/* Check if startYear exists */}
+                    {
+                      titlesInfo.startYear
+                        ? // If startYear exists, construct the string
+                          `${titlesInfo.startYear}${
+                            // Always start with the startYear
+                            titlesInfo.endYear // Check if endYear exists
+                              ? titlesInfo.startYear !== titlesInfo.endYear // If endYear exists, is it different?
+                                ? ` - ${titlesInfo.endYear}` // Yes, append " - endYear"
+                                : "" // No (they are the same), append nothing
+                              : " - Present" // endYear doesn't exist, append " - Present"
+                          }`
+                        : // If startYear doesn't exist...
+                          "N/A" // Display N/A
+                    }
+                  </Info>
+                )}
+
+                {isSeries && (
+                  <Info>
+                    Seasons:{"\u2002"}
+                    {titlesInfo.totalSeasons ? titlesInfo.totalSeasons : "N/A"}
+                  </Info>
+                )}
+                {isSeries && (
+                  <Info>
+                    Episodes:{"\u2002"}
+                    {titlesInfo.totalEpisodes
+                      ? titlesInfo.totalEpisodes.toLocaleString()
+                      : "N/A"}
+                    {/* Format large numbers */}
+                  </Info>
+                )}
                 <Info>
-                  Director:{"\u2002"}
+                  Directors:{"\u2002"}
                   {titlesInfo.directors && titlesInfo.directors.length > 0
-                    ? titlesInfo.directors.map((director, index) => (
-                        <span key={`director-${director.id || index}`}>
-                          {" "}
-                          {/* Add fallback key */}
-                          <Link
-                            href={director.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {director.fullName}
-                          </Link>
-                          {index < titlesInfo.directors.length - 1 && ", "}{" "}
-                          {/* Simpler comma logic */}
-                        </span>
-                      ))
+                    ? titlesInfo.directors
+                        .slice(0, 10)
+                        .map((director, index) => (
+                          <span key={`director-${director.id || index}`}>
+                            {" "}
+                            <Link
+                              href={director.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {director.fullName}
+                            </Link>
+                            {index < titlesInfo.directors.length - 1 && ", "}{" "}
+                          </span>
+                        ))
                     : "N/A"}
+                  {titlesInfo.directors &&
+                    titlesInfo.directors.length > 10 &&
+                    "..."}{" "}
                 </Info>
                 <Info>
                   Writers:{"\u2002"}
                   {titlesInfo.writers && titlesInfo.writers.length > 0
-                    ? titlesInfo.writers.map((writer, index) => (
+                    ? titlesInfo.writers.slice(0, 10).map((writer, index) => (
                         <span key={`writer-${writer.id || index}`}>
                           {" "}
-                          {/* Add fallback key */}
                           <Link
                             href={writer.url}
                             target="_blank"
@@ -150,47 +191,43 @@ export function TitleDetails({ fetching, titlesInfo, error }) {
                           >
                             {writer.fullName}
                           </Link>
-                          {index < titlesInfo.writers.length - 1 && ", "}{" "}
-                          {/* Simpler comma logic */}
+                          {index <
+                            Math.min(titlesInfo.writers.length, 10) - 1 &&
+                            ", "}{" "}
                         </span>
                       ))
                     : "N/A"}
+                  {titlesInfo.writers &&
+                    titlesInfo.writers.length > 10 &&
+                    "..."}{" "}
                 </Info>
                 <Info>
                   Cast:{"\u2002"}
                   {titlesInfo.cast && titlesInfo.cast.length > 0
-                    ? titlesInfo.cast.slice(0, 10).map(
-                        (
-                          actor,
-                          index // Limit cast display initially if needed
-                        ) => (
-                          <span key={`cast-${actor.id || index}`}>
-                            {" "}
-                            {/* Add fallback key */}
-                            <Link
-                              href={actor.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {actor.fullName}
-                            </Link>
-                            {index < Math.min(titlesInfo.cast.length, 10) - 1 &&
-                              ", "}{" "}
-                            {/* Comma logic for sliced array */}
-                          </span>
-                        )
-                      )
+                    ? titlesInfo.cast.slice(0, 10).map((actor, index) => (
+                        <span key={`cast-${actor.id || index}`}>
+                          {" "}
+                          <Link
+                            href={actor.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {actor.fullName}
+                          </Link>
+                          {index < Math.min(titlesInfo.cast.length, 10) - 1 &&
+                            ", "}{" "}
+                        </span>
+                      ))
                     : "N/A"}
                   {titlesInfo.cast && titlesInfo.cast.length > 10 && "..."}{" "}
-                  {/* Indicate more cast */}
                 </Info>
                 <Info>
                   Production Companies:{"\u2002"}
                   {titlesInfo.productionCompanies &&
                   titlesInfo.productionCompanies.length > 0
                     ? titlesInfo.productionCompanies
-                        .map((company) => company.name) // Extract names
-                        .join(", ") // Join names with a comma and space
+                        .map((company) => company.name)
+                        .join(", ")
                     : "N/A"}
                 </Info>
                 <Info>
@@ -210,13 +247,13 @@ export function TitleDetails({ fetching, titlesInfo, error }) {
                 <Info>
                   Budget:{"\u2002"}
                   {titlesInfo.budget
-                    ? `$${titlesInfo.budget.toLocaleString("en-US")}` // Standard currency format
+                    ? `$${titlesInfo.budget.toLocaleString("en-US")}`
                     : "N/A"}
                 </Info>
                 <Info>
                   Gross Worldwide:{"\u2002"}
                   {titlesInfo.grossWorldwide
-                    ? `$${titlesInfo.grossWorldwide.toLocaleString("en-US")}` // Standard currency format
+                    ? `$${titlesInfo.grossWorldwide.toLocaleString("en-US")}`
                     : "N/A"}
                 </Info>
                 <Info>
@@ -227,7 +264,7 @@ export function TitleDetails({ fetching, titlesInfo, error }) {
                   Filming Locations:{"\u2002"}
                   {titlesInfo.filmingLocations &&
                   titlesInfo.filmingLocations.length > 0
-                    ? titlesInfo.filmingLocations.join(", ") // Simpler join
+                    ? titlesInfo.filmingLocations.join(", ")
                     : "N/A"}
                 </Info>
 
@@ -256,7 +293,6 @@ export function TitleDetails({ fetching, titlesInfo, error }) {
               )}
             </MovieCard>
           )}
-          {/* Handle case where fetching is done, no error, but no titlesInfo */}
           {!fetching && !error && !titlesInfo && (
             <Error>Could not load title details.</Error>
           )}

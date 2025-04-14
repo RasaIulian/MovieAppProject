@@ -144,8 +144,8 @@ export function useGetTitles(titleId, listType) {
 
           // Determine cache duration based on listType
           // Keep longer duration only for top 250 movies, shorter for others including TV lists
-          const duration = (listType === "top250Movies" || listType === "top250TV") ? CACHE_DURATION_LONG : CACHE_DURATION_SHORT;
-          isCacheValid = cachedTimestamp && (Date.now() - parseInt(cachedTimestamp, 10) < duration); // Parse timestamp
+        const duration = (listType.includes("top250")) ? CACHE_DURATION_LONG : CACHE_DURATION_SHORT;          
+        isCacheValid = cachedTimestamp && (Date.now() - parseInt(cachedTimestamp, 10) < duration); // Parse timestamp
 
           if (cachedData && isCacheValid) {
             // Add artificial delay even for cached data
@@ -190,7 +190,6 @@ export function useGetTitles(titleId, listType) {
           fetchingRef.current = false;
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [titleId, listType, apiKey]); 
 
   return { fetching, titlesInfo, error };
