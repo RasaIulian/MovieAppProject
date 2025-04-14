@@ -171,8 +171,9 @@ export const ButtonContainer = styled.div`
 `;
 
 export const MovieListButton = styled.button`
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-      background-color: #f0f0f0; 
+  box-shadow: ${({ active, favoritesButtonClicked }) =>
+    active && favoritesButtonClicked ? "0px 2px 5px rgba(0, 0, 0, 0.2)" : "0px 2px 5px rgba(0, 0, 0, 0.5)"};
+  background-color: #f0f0f0; 
   color: #2b2922;
   font-weight: bold;
   border: none;
@@ -182,9 +183,13 @@ export const MovieListButton = styled.button`
   cursor: pointer;
   font-size: 1.6rem;
   transition: all 0.3s ease-in-out;
+  font-weight: bold;
+
   &:hover {
     background-color: #e0e0e0;   
   }
+     
+  
 
 `;
 export const ShowMoreButton = styled.button`

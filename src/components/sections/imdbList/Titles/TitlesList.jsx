@@ -34,6 +34,17 @@ const getListDescription = (listType) => {
   }
 };
 
+// Helper function for favorite filter message
+const getFavoriteFilterDescription = (filterType) => {
+  switch (filterType) {
+    case "Movies":
+      return "movies";
+    case "TV":
+      return "TV series";
+    default:
+      return "items"; // For "All" or unexpected types
+  }
+};
 export function TitlesList({
   fetching,
   titlesInfo,
@@ -43,6 +54,8 @@ export function TitlesList({
   listType,
   displayedItems = [],
   handleShowMore,
+  favoritesButtonClicked,
+  favoriteFilterType,
 }) {
   const getResizedImage = (imageUrl, height = 550) => {
     return imageUrl
@@ -50,6 +63,14 @@ export function TitlesList({
       : `https://placehold.co/350x${height}.png?text=No+Poster&font=open-sans`;
   };
   const listDescription = getListDescription(listType); // Get description based on listType
+  // Determine the appropriate "no content" message
+  const noContentMessage = favoritesButtonClicked
+    ? `Sorry, no favorite ${getFavoriteFilterDescription(
+        favoriteFilterType
+      )} found matching the current filter.`
+    : `Sorry, no ${
+        listDescription.includes("TV") ? "series" : "movies"
+      } available, please try again.`;
   return (
     <Background>
       <Container>
@@ -123,10 +144,7 @@ export function TitlesList({
             </>
           ) : (
             // Updated No Results Message
-            <Error>
-              Sorry, no {listDescription.includes("TV") ? "series" : "movies"}{" "}
-              available, please try again.
-            </Error>
+            <Error>{noContentMessage}</Error>
           )}
         </MoviesWrapper>
         {displayedItems.length < titlesInfo.length && (

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react"; // Added useCallback
 import { Hero, TitlesList } from "../components/sections/imdbList";
 import {
   Background,
   Container,
-  MoviesWrapper, // Keep this name for styled-component consistency
+  MoviesWrapper,
   Loader,
   Error,
   ButtonContainer,
-  MovieListButton, // We can reuse this styled component
+  MovieListButton,
 } from "../components/sections/imdbList/Titles/TitlesList.style";
 import { HomePageLayout } from "../components/Layout";
 import { useGetTitles } from "../components/hooks/useGetTitles";
@@ -17,16 +17,24 @@ import GoToTopButton from "../components/GoTopButton/GoTopButton";
 const constructListType = (contentType, rankingType) => {
   const rankingPrefix = rankingType === "Popular" ? "mostPopular" : "top250";
   const contentSuffix = contentType === "Movies" ? "Movies" : "TV";
-  return `${rankingPrefix}${contentSuffix}`; // e.g., "mostPopularMovies", "top250TV"
+  return `${rankingPrefix}${contentSuffix}`;
+};
+
+// Helper to get title type ('movie' or 'tvSeries') from listType
+const getTitleTypeFromList = (listType) => {
+  if (listType.includes("Movies")) return "movie";
+  if (listType.includes("TV")) return "tvSeries";
+  return "unknown"; // Fallback
 };
 
 export function HomePage() {
-  // --- New State Variables ---
+  // --- Content/Ranking Type State ---
   const [contentType, setContentType] = useState(() => {
-    return sessionStorage.getItem("currentContentType") || "Movies"; // Default to Movies
+    return sessionStorage.getItem("currentContentType") || "Movies";
   });
   const [rankingType, setRankingType] = useState(() => {
-    return sessionStorage.getItem("currentRankingType") || "Popular"; // Default to Popular
+    // Corrected default to 'top250' as per original code
+    return sessionStorage.getItem("currentRankingType") || "top250";
   });
 
   // --- Derive listType ---
@@ -36,21 +44,21 @@ export function HomePage() {
   const { fetching, titlesInfo, error } = useGetTitles(null, listType);
 
   // State for managing titles and filtering/searching
-  const [allTitles, setAllTitles] = useState([]); // Holds the raw data from the hook
-  const [filteredTitles, setFilteredTitles] = useState([]); // Holds search results
+  const [allTitles, setAllTitles] = useState([]);
+  const [filteredTitles, setFilteredTitles] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [selectedGenre, setSelectedGenre] = useState(""); // State for selected genre
+  const [selectedGenre, setSelectedGenre] = useState("");
 
   // State for managing favorites
   const [favoriteItems, setFavoriteItems] = useState(
-    // Renamed for clarity
-    JSON.parse(localStorage.getItem("favoriteItems")) || [] // Load favorites from local storage
+    JSON.parse(localStorage.getItem("favoriteItems")) || []
   );
   const [showFavorites, setShowFavorites] = useState(false);
   const [favoritesButtonClicked, setFavoritesButtonClicked] = useState(false);
+  // --- New State for Favorite Filtering ---
+  const [favoriteFilterType, setFavoriteFilterType] = useState("All"); // 'All', 'Movies', 'TV'
 
-  // Available genres for filtering dropdown
   const genres = [
     "Action",
     "Adventure",
@@ -72,10 +80,10 @@ export function HomePage() {
     "Thriller",
     "War",
     "Western",
-  ]; // Expanded genre list
+  ];
 
   // Reset view when clicking the "Home" or logo button
-  const handleHomeClick = () => {
+  const resetView = useCallback(() => {
     setShowFavorites(false);
     setFavoritesButtonClicked(false);
     // Optionally reset content/ranking types to default or keep current
@@ -86,9 +94,23 @@ export function HomePage() {
     setSearchValue("");
     setSelectedGenre("");
     setCurrentPage(1);
+    setFavoriteFilterType("All"); // Reset favorite filter
+    // Optionally reset content/ranking types
+    // setContentType('Movies');
+    // setRankingType('top250');
+    // sessionStorage.setItem("currentContentType", 'Movies');
+    // sessionStorage.setItem("currentRankingType", 'top250');
+  }, []); // No dependencies needed if setters are stable
+
+  const handleHomeClick = () => {
+    resetView();
+    // If you want to force reset content/ranking types on Home click:
+    // setContentType('Movies');
+    // setRankingType('top250');
+    // sessionStorage.setItem("currentContentType", 'Movies');
+    // sessionStorage.setItem("currentRankingType", 'top250');
   };
 
-  // Update allTitles when data from the hook changes
   useEffect(() => {
     setAllTitles(titlesInfo || []); // Ensure it's an array even if titlesInfo is null/undefined initially
   }, [titlesInfo]);
@@ -110,7 +132,6 @@ export function HomePage() {
     const debouncedSearch = debounce(() => {
       if (searchValue) {
         const lowerCaseSearch = searchValue.toLowerCase();
-        // Filter based on originalTitle, ensure item and originalTitle exist
         const results = (allTitles || []).filter(
           (item) =>
             item &&
@@ -134,7 +155,7 @@ export function HomePage() {
     localStorage.setItem("favoriteItems", JSON.stringify(favoriteItems));
   }, [favoriteItems]);
 
-  // Handler for adding/removing favorites
+  // --- Updated Handler for adding/removing favorites ---
   const handleFavoriteClick = (item) => {
     const isAlreadyFavorite = favoriteItems.some(
       (favItem) => favItem.id === item.id
@@ -146,15 +167,22 @@ export function HomePage() {
         (favItem) => favItem.id !== item.id
       );
     } else {
-      updatedFavorites = [...favoriteItems, item];
+      // Add the titleType when adding to favorites
+      const itemToAdd = {
+        ...item,
+        // Infer type from the *current* listType when adding
+        titleType: getTitleTypeFromList(listType),
+      };
+      updatedFavorites = [...favoriteItems, itemToAdd];
     }
 
     setFavoriteItems(updatedFavorites);
 
-    // If showing favorites and the list becomes empty, switch back to the main list view
-    if (showFavorites && updatedFavorites.length === 0) {
+    // If showing favorites and the list becomes empty after removal, switch back
+    if (showFavorites && isAlreadyFavorite && updatedFavorites.length === 0) {
       setShowFavorites(false);
       setFavoritesButtonClicked(false);
+      setFavoriteFilterType("All"); // Reset filter
     }
   };
 
@@ -162,46 +190,45 @@ export function HomePage() {
   const toggleShowFavorites = () => {
     const nextShowFavorites = !showFavorites;
     setShowFavorites(nextShowFavorites);
+    // Only set button clicked if showing favorites AND there are items
     setFavoritesButtonClicked(nextShowFavorites && favoriteItems.length > 0);
 
-    // If switching view, clear search, genre, and reset pagination
+    // Reset other filters/state when toggling view
     setSearchValue("");
     setFilteredTitles([]);
     setSelectedGenre("");
     setCurrentPage(1);
+    if (!nextShowFavorites) {
+      // Reset favorite filter only when turning favorites OFF
+      setFavoriteFilterType("All");
+    }
   };
 
-  // --- New Toggle Handlers ---
+  // --- Toggle Handlers for Content/Ranking Type ---
   const handleContentTypeToggle = () => {
     const newContentType = contentType === "Movies" ? "TV" : "Movies";
     setContentType(newContentType);
     sessionStorage.setItem("currentContentType", newContentType);
-    // Reset filters and pagination when content type changes
-    setAllTitles([]);
-    setFilteredTitles([]);
-    setSearchValue("");
-    setSelectedGenre("");
-    setCurrentPage(1);
-    setShowFavorites(false);
-    setFavoritesButtonClicked(false);
+    resetView(); // Reset filters, pagination, favorites view
+    setAllTitles([]); // Clear titles to trigger fetch/loading state
   };
 
   const handleRankingTypeToggle = () => {
-    const newRankingType = rankingType === "Popular" ? "Top250" : "Popular";
+    // Corrected logic: If current is 'top250', switch to 'Popular', else switch to 'top250'
+    const newRankingType = rankingType === "top250" ? "Popular" : "top250";
     setRankingType(newRankingType);
     sessionStorage.setItem("currentRankingType", newRankingType);
-    // Reset filters and pagination when ranking type changes
-    setAllTitles([]);
-    setFilteredTitles([]);
-    setSearchValue("");
-    setSelectedGenre("");
-    setCurrentPage(1);
-    setShowFavorites(false);
-    setFavoritesButtonClicked(false);
+    resetView(); // Reset filters, pagination, favorites view
+    setAllTitles([]); // Clear titles to trigger fetch/loading state
+  };
+
+  // --- New Handler for Favorite Filter Buttons ---
+  const handleFavoriteFilterChange = (type) => {
+    setFavoriteFilterType(type);
+    setCurrentPage(1); // Reset pagination when filter changes
   };
 
   // --- Filtering and Pagination Logic ---
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -209,90 +236,143 @@ export function HomePage() {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
-  // Helper function to filter items by genre
+  // Helper function to filter items by genre (keep as is)
   const filterItemsByGenre = (items, genre) => {
-    if (!genre) return items || []; // Return empty array if items is null/undefined
-    // Ensure item and item.genres exist before filtering
+    if (!genre) return items || [];
     return (items || []).filter(
       (item) => item && item.genres && item.genres.includes(genre)
     );
   };
 
   // Determine the source list based on current view state
-  const sourceList =
-    favoritesButtonClicked && favoriteItems.length > 0
-      ? favoriteItems
-      : searchValue
-      ? filteredTitles
-      : allTitles; // Use allTitles fetched by the hook
+  let baseSourceList;
+  if (favoritesButtonClicked && favoriteItems.length > 0) {
+    // Filter favorites by type first
+    baseSourceList = favoriteItems.filter((item) => {
+      if (favoriteFilterType === "All") return true;
+      // Use the titleType stored with the favorite item
+      if (favoriteFilterType === "Movies") return item.titleType === "movie";
+      if (favoriteFilterType === "TV") return item.titleType === "tvSeries";
+      return true; // Fallback for 'unknown' or other cases
+    });
+  } else if (searchValue) {
+    baseSourceList = filteredTitles;
+  } else {
+    baseSourceList = allTitles; // Use allTitles fetched by the hook
+  }
 
-  // Apply genre filtering to the source list
-  const genreFilteredList = filterItemsByGenre(sourceList, selectedGenre);
+  // Apply genre filtering to the (potentially favorite-filtered) base list
+  const genreFilteredList = filterItemsByGenre(baseSourceList, selectedGenre);
 
-  // Apply pagination to the genre-filtered list
+  // Apply pagination
   const displayedItems = genreFilteredList.slice(0, currentPage * itemsPerPage);
 
-  // Determine if the "Show More" button should be visible
+  // Determine "Show More" button visibility
   const showMoreButtonVisible =
     displayedItems.length < genreFilteredList.length;
 
   // --- JSX Rendering ---
-
   return (
     <HomePageLayout
       searchValue={searchValue}
       handleSearch={setSearchValue}
-      favoriteItems={favoriteItems} // Pass renamed prop
+      favoriteItems={favoriteItems}
       handleFavoriteClick={handleFavoriteClick}
-      showFavorites={showFavorites}
-      setShowFavorites={setShowFavorites} // This might not be needed if toggle is used
       toggleShowFavorites={toggleShowFavorites}
       handleHomeClick={handleHomeClick}
       favoritesButtonClicked={favoritesButtonClicked}
       selectedGenre={selectedGenre}
-      setSelectedGenre={setSelectedGenre}
+      setSelectedGenre={(genre) => {
+        // Reset page when genre changes
+        setSelectedGenre(genre);
+        setCurrentPage(1);
+      }}
       genres={genres}
     >
       {/* Hero Section */}
       <Hero>
         {favoritesButtonClicked && favoriteItems.length > 0
-          ? "FAVORITE TITLES" // More generic title
+          ? `FAVORITE ${
+              // Update Hero text based on filter
+              favoriteFilterType === "Movies"
+                ? "MOVIES"
+                : favoriteFilterType === "TV"
+                ? "TV SERIES"
+                : "MOVIES & TV SERIES" // Default for 'All'
+            }`
           : "WELCOME TO THE MOVIE & TV DATABASE APP"}
+
+        {/* Show main list type only when NOT viewing favorites */}
         {!favoritesButtonClicked && (
           <>
-            <br></br>-{" "}
-            {rankingType === "Popular" ? "Most Popular" : "Top 250 Imdb"}{" "}
+            <br></br>- {/* Corrected rankingType display logic */}
+            {rankingType === "top250" ? "Top 250 Imdb" : "Most Popular"}{" "}
             {contentType === "Movies" ? "Movies" : "TV Series"} -
           </>
         )}
-        {/* Updated Title */}
-        {/* Show list type buttons only when not viewing favorites */}
-        {!favoritesButtonClicked && (
-          <ButtonContainer>
-            {/* --- New Toggle Buttons --- */}
-            <MovieListButton
-              onClick={handleContentTypeToggle}
-              // Highlight based on current contentType
-              active={contentType === "Movies"}
-              title={`Switch to ${
-                contentType === "Movies" ? "TV Series" : "Movies"
-              }`}
-            >
-              {`Switch to ${contentType === "Movies" ? "TV Series" : "Movies"}`}
-            </MovieListButton>
-            <MovieListButton
-              onClick={handleRankingTypeToggle}
-              // Highlight based on current rankingType
-              active={rankingType === "Popular"}
-              title={`Switch to ${
-                rankingType === "Popular" ? "Top 250" : "Popular"
-              }`}
-            >
-              {`Switch to ${rankingType === "Popular" ? "Top 250" : "Popular"}`}
-            </MovieListButton>
-            {/* --- End New Toggle Buttons --- */}
-          </ButtonContainer>
-        )}
+
+        {/* Button Container Logic */}
+        <ButtonContainer>
+          {/* Show Content/Ranking toggles only when NOT viewing favorites */}
+          {!favoritesButtonClicked && (
+            <>
+              <MovieListButton
+                onClick={handleContentTypeToggle}
+                active={contentType === "Movies"} // Example active state, adjust if needed
+                title={`Switch to ${
+                  contentType === "Movies" ? "TV Series" : "Movies"
+                }`}
+              >
+                {`Switch to ${
+                  contentType === "Movies" ? "TV Series" : "Movies"
+                }`}
+              </MovieListButton>
+              <MovieListButton
+                onClick={handleRankingTypeToggle}
+                // Corrected active state logic
+                active={rankingType === "top250"}
+                title={`Switch to ${
+                  rankingType === "top250" ? "Popular" : "Top 250"
+                }`}
+              >
+                {/* Corrected button text logic */}
+                {`Switch to ${
+                  rankingType === "top250" ? "Popular" : "Top 250"
+                }`}
+              </MovieListButton>
+            </>
+          )}
+
+          {/* --- Show Favorite Filter Buttons --- */}
+          {favoritesButtonClicked && favoriteItems.length > 0 && (
+            <>
+              <MovieListButton
+                onClick={() => handleFavoriteFilterChange("All")}
+                active={favoriteFilterType === "All"}
+                title="Show All Favorites"
+                favoritesButtonClicked={favoritesButtonClicked}
+              >
+                All
+              </MovieListButton>
+              <MovieListButton
+                onClick={() => handleFavoriteFilterChange("Movies")}
+                active={favoriteFilterType === "Movies"}
+                title="Show Favorite Movies"
+                favoritesButtonClicked={favoritesButtonClicked}
+              >
+                Movies
+              </MovieListButton>
+              <MovieListButton
+                onClick={() => handleFavoriteFilterChange("TV")}
+                active={favoriteFilterType === "TV"}
+                title="Show Favorite TV Series"
+                favoritesButtonClicked={favoritesButtonClicked}
+              >
+                TV Series
+              </MovieListButton>
+            </>
+          )}
+        </ButtonContainer>
       </Hero>
 
       {/* Content Area */}
@@ -318,17 +398,20 @@ export function HomePage() {
           </Container>
         </Background>
       ) : (
-        // Display TitlesList (handles main loading/error/content)
         <TitlesList
-          fetching={fetching} // Pass main fetching state
-          titlesInfo={genreFilteredList} // Pass the full genre-filtered list for length check inside TitlesList
-          error={error} // Pass main error state
-          favoriteTitles={favoriteItems} // Pass renamed prop
+          fetching={fetching && !favoritesButtonClicked && !searchValue}
+          titlesInfo={genreFilteredList} // Pass the full list after all filtering for length check
+          error={error}
+          favoriteTitles={favoriteItems}
           handleFavoriteClick={handleFavoriteClick}
-          listType={listType} // Pass the derived listType
-          displayedItems={displayedItems} // Pass only the items to display
+          // Pass the *original* listType for context in TitlesList if needed,
+          // or adjust TitlesList if it doesn't need it when showing favorites.
+          listType={listType}
+          displayedItems={displayedItems} // Pass paginated items
           handleShowMore={handleShowMore}
-          showMoreButtonVisible={showMoreButtonVisible} // Pass visibility flag
+          showMoreButtonVisible={showMoreButtonVisible}
+          favoritesButtonClicked={favoritesButtonClicked}
+          favoriteFilterType={favoriteFilterType}
         />
       )}
       <GoToTopButton />
