@@ -103,7 +103,9 @@ export const GenreSelect = styled.select`
   }
 
   @media (max-width: 420px) {
-    display: none;
+    width: 9rem;
+    font-size: 1.2rem;
+    padding: 0.2rem;
   }
 `;
 export const Option = styled.option`
