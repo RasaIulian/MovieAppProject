@@ -244,7 +244,7 @@ export function TitleDetails({ fetching, titlesInfo, error, listType }) {
                     ? titlesInfo.spokenLanguages.join(", ")
                     : "N/A"}
                 </Info>
-                {isSeries && (
+                {!isSeries && (
                   <Info>
                     Budget:{"\u2002"}
                     {titlesInfo.budget
