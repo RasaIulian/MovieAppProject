@@ -244,18 +244,22 @@ export function TitleDetails({ fetching, titlesInfo, error, listType }) {
                     ? titlesInfo.spokenLanguages.join(", ")
                     : "N/A"}
                 </Info>
-                <Info>
-                  Budget:{"\u2002"}
-                  {titlesInfo.budget
-                    ? `$${titlesInfo.budget.toLocaleString("en-US")}`
-                    : "N/A"}
-                </Info>
-                <Info>
-                  Gross Worldwide:{"\u2002"}
-                  {titlesInfo.grossWorldwide
-                    ? `$${titlesInfo.grossWorldwide.toLocaleString("en-US")}`
-                    : "N/A"}
-                </Info>
+                {isSeries && (
+                  <Info>
+                    Budget:{"\u2002"}
+                    {titlesInfo.budget
+                      ? `$${titlesInfo.budget.toLocaleString("en-US")}`
+                      : "N/A"}
+                  </Info>
+                )}
+                {!isSeries && (
+                  <Info>
+                    Gross Worldwide:{"\u2002"}
+                    {titlesInfo.grossWorldwide
+                      ? `$${titlesInfo.grossWorldwide.toLocaleString("en-US")}`
+                      : "N/A"}
+                  </Info>
+                )}
                 <Info>
                   Content Rating:{"\u2002"}
                   {titlesInfo.contentRating || "N/A"}
@@ -267,8 +271,6 @@ export function TitleDetails({ fetching, titlesInfo, error, listType }) {
                     ? titlesInfo.filmingLocations.join(", ")
                     : "N/A"}
                 </Info>
-
-                {/* IMDb Link */}
                 {titlesInfo.url && (
                   <Info>
                     <Link

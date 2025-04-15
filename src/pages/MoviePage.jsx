@@ -23,7 +23,7 @@ export function MoviePage() {
       <Hero>
         {rank && title
           ? `${rank}. ${title} details`
-          : titlesInfo.primaryTitle && `${titlesInfo.primaryTitle} details`}
+          : titlesInfo.primaryTitle && `${titlesInfo.primaryTitle} - details`}
       </Hero>
       <TitleDetails
         fetching={fetching}
