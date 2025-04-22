@@ -1,4 +1,5 @@
 import React from "react";
+import { ScrollRestoration } from "react-router-dom"; // not working probably because of asynchronous loading
 import { HomePageHeader } from "../Header";
 import { Footer } from "../Footer";
 
@@ -29,6 +30,7 @@ export function HomePageLayout({
       />
       {children}
       <Footer />
+      <ScrollRestoration />
     </>
   );
 }

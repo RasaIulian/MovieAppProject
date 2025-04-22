@@ -1,36 +1,37 @@
+// g:\GItHubProjects\MovieAppProject\src\App.js
 import React from "react";
 import { HomePage, MoviePage } from "./pages";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// Import createBrowserRouter and RouterProvider
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const routes = [
+// Define routes using the data router format
+const routesConfig = [
   {
     path: "/",
-    component: <HomePage />,
+    element: <HomePage />,
+    // You could add errorElement: <ErrorBoundary /> here for route-specific errors
   },
   {
     path: "/:id",
-    component: <MoviePage />,
+    element: <MoviePage />,
+    // errorElement: <ErrorBoundary />
   },
+  // Add other routes here if needed
 ];
 
 // basename used for GitPages deployment page
 const basename =
-  process.env.NODE_ENV === "production" ? "/MovieAppProject" : "";
+  process.env.NODE_ENV === "production" ? "/MovieAppProject" : "/"; // Use "/" for local dev
 
+// Create the router instance
+const router = createBrowserRouter(routesConfig, {
+  basename: basename,
+});
+
+// App component now just provides the router
 function App() {
-  return (
-    <BrowserRouter basename={basename}>
-      <Routes>
-        {routes.map((route) => (
-          <Route
-            path={route.path}
-            element={route.component}
-            key={route.path}
-          />
-        ))}
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
+

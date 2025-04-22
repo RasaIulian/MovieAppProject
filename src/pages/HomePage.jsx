@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"; // Added useCallback
+import React, { useState, useEffect, useCallback } from "react";
 import { Hero, TitlesList } from "../components/sections/imdbList";
 import {
   Background,
@@ -33,7 +33,6 @@ export function HomePage() {
     return sessionStorage.getItem("currentContentType") || "Movies";
   });
   const [rankingType, setRankingType] = useState(() => {
-    // Corrected default to 'top250' as per original code
     return sessionStorage.getItem("currentRankingType") || "top250";
   });
 
@@ -56,8 +55,15 @@ export function HomePage() {
   );
   const [showFavorites, setShowFavorites] = useState(false);
   const [favoritesButtonClicked, setFavoritesButtonClicked] = useState(false);
-  // --- New State for Favorite Filtering ---
-  const [favoriteFilterType, setFavoriteFilterType] = useState("All"); // 'All', 'Movies', 'TV'
+  const [favoriteFilterType, setFavoriteFilterType] = useState("All");
+
+  // --- Filtering and Pagination Logic ---
+  const itemsPerPage = 10;
+  // 1. Initialize currentPage from sessionStorage
+  const [currentPage, setCurrentPage] = useState(() => {
+    // Use a unique key if needed, but 'currentPage' might suffice if resets handle context changes
+    return parseInt(sessionStorage.getItem("currentPage"), 10) || 1;
+  });
 
   const genres = [
     "Action",
@@ -70,12 +76,15 @@ export function HomePage() {
     "Drama",
     "Family",
     "Fantasy",
+    "Film-Noir",
     "History",
     "Horror",
     "Music",
+    "Musical",
     "Mystery",
     "Romance",
     "Sci-Fi",
+    "Short",
     "Sport",
     "Thriller",
     "War",
@@ -86,29 +95,18 @@ export function HomePage() {
   const resetView = useCallback(() => {
     setShowFavorites(false);
     setFavoritesButtonClicked(false);
-    // Optionally reset content/ranking types to default or keep current
-    // setContentType('Movies');
-    // setRankingType('Popular');
-    // sessionStorage.setItem("currentContentType", 'Movies');
-    // sessionStorage.setItem("currentRankingType", 'Popular');
     setSearchValue("");
     setSelectedGenre("");
+    // 3. Reset sessionStorage when resetting page
     setCurrentPage(1);
-    setFavoriteFilterType("All"); // Reset favorite filter
-    // Optionally reset content/ranking types
-    // setContentType('Movies');
-    // setRankingType('top250');
-    // sessionStorage.setItem("currentContentType", 'Movies');
-    // sessionStorage.setItem("currentRankingType", 'top250');
-  }, []); // No dependencies needed if setters are stable
+    sessionStorage.setItem("currentPage", "1"); // Reset persisted page
+    setFavoriteFilterType("All");
+    // Optionally reset content/ranking types if desired
+  }, []); // Dependencies remain empty
 
   const handleHomeClick = () => {
     resetView();
-    // If you want to force reset content/ranking types on Home click:
-    // setContentType('Movies');
-    // setRankingType('top250');
-    // sessionStorage.setItem("currentContentType", 'Movies');
-    // sessionStorage.setItem("currentRankingType", 'top250');
+    // Optionally force reset content/ranking types here too
   };
 
   useEffect(() => {
@@ -139,18 +137,24 @@ export function HomePage() {
             item.originalTitle.toLowerCase().includes(lowerCaseSearch)
         );
         setFilteredTitles(results);
+        // Reset pagination when search term changes
+        setCurrentPage(1);
+        sessionStorage.setItem("currentPage", "1");
       } else {
         setFilteredTitles([]); // Clear filtered results if search is empty
+        // Optionally reset pagination when search is cleared, or leave it
+        // setCurrentPage(1);
+        // sessionStorage.setItem("currentPage", "1");
       }
       setIsSearching(false);
-    }, 300); // 300ms delay
+    }, 300);
 
     debouncedSearch();
 
     return () => debouncedSearch.clear(); // Cleanup debounce on unmount or change
   }, [searchValue, allTitles]);
 
-  // Effect for saving favorites to local storage
+  // Effect for saving favorites to local storage (remains the same)
   useEffect(() => {
     localStorage.setItem("favoriteItems", JSON.stringify(favoriteItems));
   }, [favoriteItems]);
@@ -190,16 +194,16 @@ export function HomePage() {
   const toggleShowFavorites = () => {
     const nextShowFavorites = !showFavorites;
     setShowFavorites(nextShowFavorites);
-    // Only set button clicked if showing favorites AND there are items
     setFavoritesButtonClicked(nextShowFavorites && favoriteItems.length > 0);
 
     // Reset other filters/state when toggling view
     setSearchValue("");
     setFilteredTitles([]);
     setSelectedGenre("");
+    // 3. Reset sessionStorage when resetting page
     setCurrentPage(1);
+    sessionStorage.setItem("currentPage", "1"); // Reset persisted page
     if (!nextShowFavorites) {
-      // Reset favorite filter only when turning favorites OFF
       setFavoriteFilterType("All");
     }
   };
@@ -214,7 +218,6 @@ export function HomePage() {
   };
 
   const handleRankingTypeToggle = () => {
-    // Corrected logic: If current is 'top250', switch to 'Popular', else switch to 'top250'
     const newRankingType = rankingType === "top250" ? "Popular" : "top250";
     setRankingType(newRankingType);
     sessionStorage.setItem("currentRankingType", newRankingType);
@@ -225,15 +228,19 @@ export function HomePage() {
   // --- New Handler for Favorite Filter Buttons ---
   const handleFavoriteFilterChange = (type) => {
     setFavoriteFilterType(type);
+    // 3. Reset sessionStorage when resetting page
     setCurrentPage(1); // Reset pagination when filter changes
+    sessionStorage.setItem("currentPage", "1"); // Reset persisted page
   };
 
-  // --- Filtering and Pagination Logic ---
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
+  // --- Show More Handler ---
   const handleShowMore = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    // 2. Update sessionStorage when page increases
+    setCurrentPage((prevPage) => {
+      const nextPage = prevPage + 1;
+      sessionStorage.setItem("currentPage", nextPage.toString()); // Update persisted page
+      return nextPage;
+    });
   };
 
   // Helper function to filter items by genre (keep as is)
@@ -246,6 +253,7 @@ export function HomePage() {
 
   // Determine the source list based on current view state
   let baseSourceList;
+  /* ... logic to set baseSourceList ... */
   if (favoritesButtonClicked && favoriteItems.length > 0) {
     // Filter favorites by type first
     baseSourceList = favoriteItems.filter((item) => {
@@ -261,7 +269,7 @@ export function HomePage() {
     baseSourceList = allTitles; // Use allTitles fetched by the hook
   }
 
-  // Apply genre filtering to the (potentially favorite-filtered) base list
+  // Apply genre filtering
   const genreFilteredList = filterItemsByGenre(baseSourceList, selectedGenre);
 
   // Apply pagination
@@ -271,7 +279,6 @@ export function HomePage() {
   const showMoreButtonVisible =
     displayedItems.length < genreFilteredList.length;
 
-  // --- JSX Rendering ---
   return (
     <HomePageLayout
       searchValue={searchValue}
@@ -283,9 +290,10 @@ export function HomePage() {
       favoritesButtonClicked={favoritesButtonClicked}
       selectedGenre={selectedGenre}
       setSelectedGenre={(genre) => {
-        // Reset page when genre changes
         setSelectedGenre(genre);
-        setCurrentPage(1);
+        // 3. Reset sessionStorage when resetting page due to genre change
+        setCurrentPage(1); // Reset page when genre changes
+        sessionStorage.setItem("currentPage", "1"); // Reset persisted page
       }}
       genres={genres}
     >
@@ -305,8 +313,8 @@ export function HomePage() {
         {/* Show main list type only when NOT viewing favorites */}
         {!favoritesButtonClicked && (
           <>
-            <br></br>- {/* Corrected rankingType display logic */}
-            {rankingType === "top250" ? "Top 250 Imdb" : "Most Popular"}{" "}
+            <br></br>- {/* rankingType display logic */}
+            {rankingType === "top250" ? "Top 250" : "Most Popular"}{" "}
             {contentType === "Movies" ? "Movies" : "TV Series"} -
           </>
         )}
@@ -400,15 +408,16 @@ export function HomePage() {
       ) : (
         <TitlesList
           fetching={fetching && !favoritesButtonClicked && !searchValue}
-          titlesInfo={genreFilteredList} // Pass the full list after all filtering for length check
+          // Pass the full list *after* genre/favorite/search filtering for length check
+          titlesInfo={genreFilteredList}
           error={error}
           favoriteTitles={favoriteItems}
           handleFavoriteClick={handleFavoriteClick}
-          // Pass the *original* listType for context in TitlesList if needed,
-          // or adjust TitlesList if it doesn't need it when showing favorites.
           listType={listType}
-          displayedItems={displayedItems} // Pass paginated items
+          // Pass paginated items for rendering
+          displayedItems={displayedItems}
           handleShowMore={handleShowMore}
+          // Use the correct visibility flag based on the full filtered list
           showMoreButtonVisible={showMoreButtonVisible}
           favoritesButtonClicked={favoritesButtonClicked}
           favoriteFilterType={favoriteFilterType}
