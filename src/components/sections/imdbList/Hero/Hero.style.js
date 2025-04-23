@@ -19,4 +19,8 @@ export const Title = styled.h1`
   padding: 1rem;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
+
+  @media (max-width: 420px) {
+    font-size: 1.8rem;
+  }
 `;

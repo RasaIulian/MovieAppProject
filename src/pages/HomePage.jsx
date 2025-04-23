@@ -47,8 +47,10 @@ export function HomePage() {
   const [filteredTitles, setFilteredTitles] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [selectedGenre, setSelectedGenre] = useState("");
-
+  // Initialize selectedGenre from sessionStorage
+  const [selectedGenre, setSelectedGenre] = useState(() => {
+    return sessionStorage.getItem("selectedGenre") || ""; // Default to empty string
+  });
   // State for managing favorites
   const [favoriteItems, setFavoriteItems] = useState(
     JSON.parse(localStorage.getItem("favoriteItems")) || []
@@ -97,7 +99,7 @@ export function HomePage() {
     setFavoritesButtonClicked(false);
     setSearchValue("");
     setSelectedGenre("");
-    // 3. Reset sessionStorage when resetting page
+    sessionStorage.removeItem("selectedGenre"); // Clear persisted genre selection
     setCurrentPage(1);
     sessionStorage.setItem("currentPage", "1"); // Reset persisted page
     setFavoriteFilterType("All");
@@ -154,12 +156,12 @@ export function HomePage() {
     return () => debouncedSearch.clear(); // Cleanup debounce on unmount or change
   }, [searchValue, allTitles]);
 
-  // Effect for saving favorites to local storage (remains the same)
+  // Effect for saving favorites to local storage
   useEffect(() => {
     localStorage.setItem("favoriteItems", JSON.stringify(favoriteItems));
   }, [favoriteItems]);
 
-  // --- Updated Handler for adding/removing favorites ---
+  // --- Handler for adding/removing favorites ---
   const handleFavoriteClick = (item) => {
     const isAlreadyFavorite = favoriteItems.some(
       (favItem) => favItem.id === item.id
@@ -200,7 +202,7 @@ export function HomePage() {
     setSearchValue("");
     setFilteredTitles([]);
     setSelectedGenre("");
-    // 3. Reset sessionStorage when resetting page
+    sessionStorage.removeItem("selectedGenre"); // Clear persisted genre
     setCurrentPage(1);
     sessionStorage.setItem("currentPage", "1"); // Reset persisted page
     if (!nextShowFavorites) {
@@ -243,7 +245,7 @@ export function HomePage() {
     });
   };
 
-  // Helper function to filter items by genre (keep as is)
+  // Helper function to filter items by genre
   const filterItemsByGenre = (items, genre) => {
     if (!genre) return items || [];
     return (items || []).filter(
@@ -291,7 +293,8 @@ export function HomePage() {
       selectedGenre={selectedGenre}
       setSelectedGenre={(genre) => {
         setSelectedGenre(genre);
-        // 3. Reset sessionStorage when resetting page due to genre change
+        sessionStorage.setItem("selectedGenre", genre); // Store selected genre
+        // Reset pagination when genre changes
         setCurrentPage(1); // Reset page when genre changes
         sessionStorage.setItem("currentPage", "1"); // Reset persisted page
       }}

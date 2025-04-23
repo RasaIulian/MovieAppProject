@@ -189,7 +189,9 @@ export const MovieListButton = styled.button`
     background-color: #e0e0e0;   
   }
      
-  
+ @media (max-width: 420px) {
+ font-size:1.2rem;
+ }
 
 `;
 export const ShowMoreButton = styled.button`

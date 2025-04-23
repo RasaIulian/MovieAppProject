@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 // Helper function to determine the API URL based on parameters
@@ -29,7 +29,6 @@ export function useGetTitles(titleId, listType) {
   const [titlesInfo, setTitlesInfo] = useState([]);
   const [error, setError] = useState("");
   const [fetching, setFetching] = useState(true);
-  const fetchingRef = useRef(fetching); // Use ref to track fetching state
   const apiKey = process.env.REACT_APP_API_KEY;
   const CACHE_DURATION_LONG = 24 * 60 * 60 * 1000 * 7; // one week
   const CACHE_DURATION_SHORT = 24 * 60 * 60 * 1000; // one day
@@ -51,20 +50,17 @@ export function useGetTitles(titleId, listType) {
     if (!apiKey) {
         setError("API key is missing. Please check your environment configuration.");
         setFetching(false);
-        fetchingRef.current = false;
         return; // Stop execution if API key is missing
     }
     // Ensure URL is valid before making the request
     if (!options.url) {
         setError("Invalid API endpoint configuration.");
         setFetching(false);
-        fetchingRef.current = false;
         return; // Stop execution if URL is invalid
     }
 
     try {
       setFetching(true);
-      fetchingRef.current = true; // Update ref
 
       // Add minimum loading time of 1 second
       const startTime = Date.now();
@@ -84,11 +80,9 @@ export function useGetTitles(titleId, listType) {
         localStorage.setItem(cacheKey, JSON.stringify(data));
         localStorage.setItem(timestampKey, Date.now().toString()); // Store timestamp as string
         setFetching(false);
-        fetchingRef.current = false; // Update ref
       } else {
         setError(`API Error: ${status} ${statusText}`);
         setFetching(false); // Ensure fetching is set to false on API error
-        fetchingRef.current = false;
       }
     } catch (err) {
       let errorMessage = "An unexpected error occurred.";
@@ -110,15 +104,9 @@ export function useGetTitles(titleId, listType) {
         errorMessage = err.message;
       }
       setError(errorMessage);
-    } finally {
-      // Ensure fetching state is always updated, even if errors occur
-      // Check ref before setting state to avoid unnecessary re-renders if already false
-      if (fetchingRef.current) {
-          setFetching(false);
-          fetchingRef.current = false; // Update ref
-      }
+    } 
     }
-  }
+  
 
   useEffect(() => {
     // Use AbortController for cleanup
@@ -131,7 +119,6 @@ export function useGetTitles(titleId, listType) {
     setTitlesInfo([]);
     setError("");
     setFetching(true);
-    fetchingRef.current = true;
 
     const fetchData = async () => { // Make fetchData async to use await inside
       let cachedData, cachedTimestamp, isCacheValid;
@@ -144,8 +131,8 @@ export function useGetTitles(titleId, listType) {
 
           // Determine cache duration based on listType
           // Keep longer duration only for top 250 movies, shorter for others including TV lists
-        const duration = (listType.includes("top250")) ? CACHE_DURATION_LONG : CACHE_DURATION_SHORT;          
-        isCacheValid = cachedTimestamp && (Date.now() - parseInt(cachedTimestamp, 10) < duration); // Parse timestamp
+          const duration = (listType === "top250Movies" || listType === "top250TV") ? CACHE_DURATION_LONG : CACHE_DURATION_SHORT;
+          isCacheValid = cachedTimestamp && (Date.now() - parseInt(cachedTimestamp, 10) < duration); // Parse timestamp
 
           if (cachedData && isCacheValid) {
             // Add artificial delay even for cached data
@@ -157,7 +144,6 @@ export function useGetTitles(titleId, listType) {
             if (!signal.aborted) {
                 setTitlesInfo(JSON.parse(cachedData));
                 setFetching(false);
-                fetchingRef.current = false;
             }
           } else {
             // Check if the component is still mounted before fetching
@@ -185,11 +171,10 @@ export function useGetTitles(titleId, listType) {
       controller.abort();
       // console.log("Fetch aborted for:", listType || titleId); // Debugging log
       // Ensure fetching state is reset on cleanup if it was still true
-      if (fetchingRef.current) {
           setFetching(false); // Reset fetching state immediately on cleanup
-          fetchingRef.current = false;
-      }
+      
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [titleId, listType, apiKey]); 
 
   return { fetching, titlesInfo, error };
