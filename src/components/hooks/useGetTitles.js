@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Helper function to determine the API URL based on parameters
 const getApiUrl = (titleId, listType) => {
-  const baseUrl = 'https://imdb236.p.rapidapi.com/imdb';
+  const baseUrl = 'https://imdb236.p.rapidapi.com/api/imdb';
 
   if (titleId) {
     return `${baseUrl}/${titleId}`;
@@ -104,6 +104,7 @@ export function useGetTitles(titleId, listType) {
         errorMessage = err.message;
       }
       setError(errorMessage);
+      setFetching(false);
     } 
     }
   
