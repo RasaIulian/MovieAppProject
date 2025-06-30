@@ -112,7 +112,7 @@ export const Info = styled.h2`
   padding: 5px;
 `;
 export const ImdbLink = styled.a`
-color: unset;
+color: #2b2922;
 transition: color 0.3s;
  &:hover {
     color: lightskyblue;

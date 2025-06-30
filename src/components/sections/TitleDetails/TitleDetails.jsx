@@ -47,7 +47,7 @@ export function TitleDetails({ fetching, titlesInfo, error, listType }) {
   // reduce img size to improve load time
   const getResizedImage = (imageUrl, width = 485) => {
     return imageUrl
-      ? imageUrl.replace(/\._V1_.*/, `._V1_UX${width}.jpg`)
+      ? imageUrl.replace(/(\._V1_.*)?\.jpg$/, `._V1_UX${width}.jpg`)
       : `https://placehold.co/${width}x705.png?text=No+Poster&font=open-sans`;
   };
 
@@ -81,7 +81,7 @@ export function TitleDetails({ fetching, titlesInfo, error, listType }) {
                 // Fallback to the original image if the resized image fails to load
                 onError={(e) => {
                   e.target.onerror = null; // Prevent infinite loop
-                  e.target.src = titlesInfo.primaryImage; // Fallback to the original
+                  e.target.src = getResizedImage(null); // Fallback to placeholder
                 }}
               />
               <InfoCard>
@@ -161,17 +161,16 @@ export function TitleDetails({ fetching, titlesInfo, error, listType }) {
                     ? titlesInfo.directors
                         .slice(0, 10)
                         .map((director, index) => (
-                          <span key={`director-${director.id || index}`}>
-                            {" "}
-                            <Link
-                              href={director.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {director.fullName}
-                            </Link>
-                            {index < titlesInfo.directors.length - 1 && ", "}{" "}
-                          </span>
+                          <Link
+                            key={`director-${director.id || index}`}
+                            href={director.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {director.fullName}
+                            {index < titlesInfo.directors.length - 1 &&
+                              ", "}{" "}
+                          </Link>
                         ))
                     : "N/A"}
                   {titlesInfo.directors &&

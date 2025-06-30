@@ -59,7 +59,7 @@ export function TitlesList({
 }) {
   const getResizedImage = (imageUrl, height = 550) => {
     return imageUrl
-      ? imageUrl.replace(/\._V1_.*/, `._V1_UY${height}.jpg`)
+      ? imageUrl.replace(/(\._V1_.*)?\.jpg$/, `._V1_UY${height}.jpg`)
       : `https://placehold.co/350x${height}.png?text=No+Poster&font=open-sans`;
   };
   const listDescription = getListDescription(listType); // Get description based on listType
@@ -105,8 +105,8 @@ export function TitlesList({
                             src={resizedImageUrl}
                             alt={`${item.originalTitle || "Title"} Poster`}
                             onError={(e) => {
-                              e.target.src = item.primaryImage;
-                              e.target.onerror = null;
+                              e.target.onerror = null; // Prevent infinite loop
+                              e.target.src = getResizedImage(null); // Fallback to placeholder
                             }}
                           />
                         </PosterWrapper>
