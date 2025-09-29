@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Hero, TitlesList } from "../components/sections/imdbList";
 import {
   Background,
