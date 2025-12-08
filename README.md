@@ -1,4 +1,6 @@
-Previews:
+Previews:<br/>
+<img width="210" height="210" alt="QR-Code" src="https://github.com/user-attachments/assets/b9758730-7895-489f-92c2-05c3d9d2c5e0" />
+
 ![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/2f7d9383-78c7-4928-ae5d-d4378c5ed63f)
 ![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/2b244e29-5b4e-4025-ad31-82ebee1adcea)
 ![image](https://github.com/RasaIulian/MovieAppProject/assets/99275349/2743b48b-dbe9-4e27-8646-856abe7c923d)
