@@ -10,8 +10,8 @@ export const Container = styled.div`
 
 export const FooterText = styled.h3`
   color: #fafafa;
-  font-size: 1.6rem;
-  line-height: 2.4rem;
+  font-size: 1rem;
+  line-height: 1.4rem;
   font-weight: 400;
   padding: 1rem 1.5rem;
   text-align: right;
@@ -19,8 +19,8 @@ export const FooterText = styled.h3`
 
 export const Contact = styled.a`
   color: #fafafa;
-  font-size: 1.6rem;
-  line-height: 2.4rem;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
   font-weight: 400;
   transition: color 0.3s;
   &:hover {
