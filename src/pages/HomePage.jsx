@@ -340,12 +340,13 @@ export function HomePage() {
               </MovieListButton>
               <MovieListButton
                 onClick={handleRankingTypeToggle}
-                // active state logic
-                active={rankingType === "Popular"}
+                // Corrected active state logic
+                active={rankingType === "top250"}
                 title={`Switch to ${
                   rankingType === "top250" ? "Popular" : "Top 250"
                 }`}
               >
+                {/* Corrected button text logic */}
                 {`Switch to ${
                   rankingType === "top250" ? "Popular" : "Top 250"
                 }`}
