@@ -1,4 +1,4 @@
-import styled, {  keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Background = styled.div`
@@ -25,7 +25,8 @@ export const MoviesWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   @media (max-width: 610px) {
-  width: 100%;}
+    width: 100%;
+  }
 `;
 
 // Define the opacity animation
@@ -47,7 +48,9 @@ export const Loader = styled.div`
   color: #ff8427;
   font-size: 1.6rem;
   line-height: 2.4rem;
-  span{animation: ${textOpacityAnimation} 1s infinite alternate};
+  span {
+    animation: ${textOpacityAnimation} 1s infinite alternate;
+  }
 `;
 
 export const Error = styled.div`
@@ -74,16 +77,16 @@ export const MovieCard = styled.div`
   background-color: #f0f0f0;
   text-align: center;
   border-radius: 2rem;
-  transition:all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   position: relative;
- @media (max-width: 610px) {
- max-width: 37rem;
- margin: 0 0 2rem;
-}
+  @media (max-width: 610px) {
+    max-width: 37rem;
+    margin: 0 0 2rem;
+  }
   &:hover {
     background-color: #e0e0e0;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    }
+  }
 `;
 
 export const PosterWrapper = styled.div`
@@ -94,7 +97,8 @@ export const PosterWrapper = styled.div`
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   @media (max-width: 610px) {
-  width: 100%;}
+    width: 100%;
+  }
 `;
 
 export const Poster = styled.img`
@@ -107,8 +111,9 @@ export const Poster = styled.img`
   ${MovieCard}:hover & {
     transform: scale(1.05);
   }
-    @media (max-width: 610px) {
-  height: unset;}
+  @media (max-width: 610px) {
+    height: unset;
+  }
 `;
 
 export const Info = styled.h2`
@@ -121,12 +126,10 @@ export const Info = styled.h2`
 
 export const Min = styled.div`
   min-height: ${({ size }) => size};
-  align-items: top;
   justify-content: center;
   display: flex;
   align-items: center;
   width: 100%;
-  
 `;
 
 const ACTIVE_FAVORITE_COLOR = "rgba(255, 170, 0, 1)";
@@ -135,19 +138,19 @@ export const FavoriteIcon = styled(FontAwesomeIcon).attrs(
   // Keep attrs for things that aren't styles, like the 'icon' prop itself
   ({ icon }) => ({
     icon,
-  })
+  }),
 )`
   display: inline-block;
   width: 3rem;
   height: 3rem;
   z-index: 4;
   cursor: pointer;
-  transition: all 0.3s ease-in-out; 
+  transition: all 0.3s ease-in-out;
 
-   color: ${({ isfavorite  }) => // Assuming prop name is updated
-    isfavorite  === "true"
-      ? ACTIVE_FAVORITE_COLOR
-      : INACTIVE_FAVORITE_COLOR};
+  color: ${(
+    { isfavorite }, // Assuming prop name is updated
+  ) =>
+    isfavorite === "true" ? ACTIVE_FAVORITE_COLOR : INACTIVE_FAVORITE_COLOR};
 
   &:hover {
     transform: scale(1.05);
@@ -167,13 +170,15 @@ export const SearchError = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top:1rem;
+  margin-top: 1rem;
 `;
 
 export const MovieListButton = styled.button`
   box-shadow: ${({ active, favoritesButtonClicked }) =>
-    active && favoritesButtonClicked ? "0px 2px 5px rgba(0, 0, 0, 0.2)" : "0px 2px 5px rgba(0, 0, 0, 0.5)"};
-  background-color: #f0f0f0; 
+    active && favoritesButtonClicked
+      ? "0px 2px 5px rgba(0, 0, 0, 0.2)"
+      : "0px 2px 5px rgba(0, 0, 0, 0.5)"};
+  background-color: #f0f0f0;
   color: #2b2922;
   font-weight: bold;
   border: none;
@@ -186,13 +191,12 @@ export const MovieListButton = styled.button`
   font-weight: bold;
 
   &:hover {
-    background-color: #e0e0e0;   
+    background-color: #e0e0e0;
   }
-     
- @media (max-width: 420px) {
- font-size:1.2rem;
- }
 
+  @media (max-width: 420px) {
+    font-size: 1.2rem;
+  }
 `;
 export const ShowMoreButton = styled.button`
   background-color: #f0f0f0;
@@ -204,7 +208,7 @@ export const ShowMoreButton = styled.button`
   font-size: 16px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
-  
+
   &:hover {
     background-color: #e0e0e0;
     box-shadow: none;

@@ -33,7 +33,7 @@ export function HomePage() {
     return sessionStorage.getItem("currentContentType") || "Movies";
   });
   const [rankingType, setRankingType] = useState(() => {
-    return sessionStorage.getItem("currentRankingType") || "top250";
+    return sessionStorage.getItem("currentRankingType") || "Popular";
   });
 
   // --- Derive listType ---
@@ -53,7 +53,7 @@ export function HomePage() {
   });
   // State for managing favorites
   const [favoriteItems, setFavoriteItems] = useState(
-    JSON.parse(localStorage.getItem("favoriteItems")) || []
+    JSON.parse(localStorage.getItem("favoriteItems")) || [],
   );
   const [showFavorites, setShowFavorites] = useState(false);
   const [favoritesButtonClicked, setFavoritesButtonClicked] = useState(false);
@@ -136,7 +136,7 @@ export function HomePage() {
           (item) =>
             item &&
             item.originalTitle &&
-            item.originalTitle.toLowerCase().includes(lowerCaseSearch)
+            item.originalTitle.toLowerCase().includes(lowerCaseSearch),
         );
         setFilteredTitles(results);
         // Reset pagination when search term changes
@@ -164,13 +164,13 @@ export function HomePage() {
   // --- Handler for adding/removing favorites ---
   const handleFavoriteClick = (item) => {
     const isAlreadyFavorite = favoriteItems.some(
-      (favItem) => favItem.id === item.id
+      (favItem) => favItem.id === item.id,
     );
     let updatedFavorites;
 
     if (isAlreadyFavorite) {
       updatedFavorites = favoriteItems.filter(
-        (favItem) => favItem.id !== item.id
+        (favItem) => favItem.id !== item.id,
       );
     } else {
       // Add the titleType when adding to favorites
@@ -249,7 +249,7 @@ export function HomePage() {
   const filterItemsByGenre = (items, genre) => {
     if (!genre) return items || [];
     return (items || []).filter(
-      (item) => item && item.genres && item.genres.includes(genre)
+      (item) => item && item.genres && item.genres.includes(genre),
     );
   };
 
@@ -308,8 +308,8 @@ export function HomePage() {
               favoriteFilterType === "Movies"
                 ? "MOVIES"
                 : favoriteFilterType === "TV"
-                ? "TV SERIES"
-                : "MOVIES & TV SERIES" // Default for 'All'
+                  ? "TV SERIES"
+                  : "MOVIES & TV SERIES" // Default for 'All'
             }`
           : "WELCOME TO THE MOVIE & TV DATABASE APP"}
 
@@ -340,13 +340,12 @@ export function HomePage() {
               </MovieListButton>
               <MovieListButton
                 onClick={handleRankingTypeToggle}
-                // Corrected active state logic
-                active={rankingType === "top250"}
+                // active state logic
+                active={rankingType === "Popular"}
                 title={`Switch to ${
                   rankingType === "top250" ? "Popular" : "Top 250"
                 }`}
               >
-                {/* Corrected button text logic */}
                 {`Switch to ${
                   rankingType === "top250" ? "Popular" : "Top 250"
                 }`}

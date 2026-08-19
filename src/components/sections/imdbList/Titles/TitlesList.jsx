@@ -66,7 +66,7 @@ export function TitlesList({
   // Determine the appropriate "no content" message
   const noContentMessage = favoritesButtonClicked
     ? `Sorry, no favorite ${getFavoriteFilterDescription(
-        favoriteFilterType
+        favoriteFilterType,
       )} found matching the current filter.`
     : `Sorry, no ${
         listDescription.includes("TV") ? "series" : "movies"
@@ -85,7 +85,7 @@ export function TitlesList({
             <>
               {displayedItems.map((item, index) => {
                 const isItemFavorite = favoriteTitles.some(
-                  (favItem) => favItem.id === item.id
+                  (favItem) => favItem.id === item.id,
                 );
                 const resizedImageUrl = getResizedImage(item.primaryImage);
 
@@ -97,7 +97,7 @@ export function TitlesList({
                         to={`/${item.id}?listType=${listType}&rank=${
                           index + 1
                         }&title=${encodeURIComponent(
-                          item.originalTitle || ""
+                          item.originalTitle || "",
                         )}`} // Ensure title is encoded
                       >
                         <PosterWrapper>
